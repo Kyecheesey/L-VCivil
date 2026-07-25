@@ -15,25 +15,27 @@ change nav, footer, or any page copy, edit `build.py` and run:
 python3 build.py
 ```
 
+URLs are clean and extensionless, matching the live site exactly so existing
+Google rankings carry over at cutover (each page is a `<slug>/index.html`
+directory; any static host serves these natively):
+
 ```
-index.html            Home — photo hero, promises, services, why-us, process, areas, FAQ
-services.html         What We Offer — overview of all 7 hire services
-excavator-hire.html   ┐
-bobcat-hire.html      │
-tipper-hire.html      │ Dedicated service pages (same slugs as the
-combo-hire.html       │ original site, matching its nav dropdown)
-posi-track-hire.html  │
-skip-bin-hire.html    │
-water-truck-hire.html ┘
-about.html            Who We Are — story + values
-contact.html          Contact — details, trading hours, quote form
-404.html              Not-found page
-css/style.css         Design system (dark graphite + safety amber)
-js/main.js            Nav, dropdown, reveals, counters, ticker, progress bar
-build.py              Static site generator (source of truth for all pages)
-favicon.svg           L&V mark (placeholder — swap for the client's real favicon)
-robots.txt / sitemap.xml
+/                       Home — photo hero, promises, services, why-us, FAQ
+/what-we-do             Services overview (same path as the live site)
+/about  /contact        Who We Are · Contact (details, hours, quote form)
+/excavator-hire /bobcat-hire /tipper-hire /combo-hire
+/posi-track-hire /skip-bin-hire /water-truck-hire
+/earthmoving-{park-ridge,jimboomba,greenbank,yarrabilba,
+              flagstone,logan-village,browns-plains}   Suburb SEO pages
+404.html                Not-found page
+css/ js/ assets/        Design system, interactions, logo
+build.py                Static site generator (source of truth for all pages)
+robots.txt sitemap.xml favicon.svg
 ```
+
+Note: links are root-absolute, so preview locally with `python3 -m http.server`
+(not file://), and deploy at a domain root (Netlify, Cloudflare Pages, Vercel,
+cPanel — or GitHub Pages with a custom domain, not a /project subpath).
 
 ## Features
 
@@ -56,9 +58,11 @@ robots.txt / sitemap.xml
    the CDN URLs in `build.py`. Swap for the client's real site/fleet photos when
    available: download them, drop into `assets/img/`, update the `IMG` dict to local
    paths and re-run `build.py`. Same for `favicon.svg` → the client's real favicon.
-2. **Email** — enquiries go to `info@lvcivilcontracting.com.au` (set in `build.py`
+2. **Testimonials** — the section is built but hidden; paste real client
+   reviews into `TESTIMONIALS` in `build.py` and re-run. Do not fabricate.
+3. **Email** — enquiries go to `info@lvcivilcontracting.com.au` (set in `build.py`
    and `js/main.js`). Confirm this mailbox exists or update it.
-3. **Stats** — hero counters (projects delivered etc.) are representative
+4. **Stats** — hero counters (projects delivered etc.) are representative
    placeholders; set real numbers in `build_index()` and re-run `build.py`.
-4. **Form backend (optional)** — the quote form opens a pre-filled email; swap in
+5. **Form backend (optional)** — the quote form opens a pre-filled email; swap in
    Formspree/Netlify Forms for server-side handling if preferred.

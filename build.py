@@ -1019,9 +1019,9 @@ def build_404():
 
 # -------------------------------------------------------------- sitemap ----
 def build_sitemap():
-    urls = [("", "1.0"), ("services.html", "0.9"), ("about.html", "0.7"), ("contact.html", "0.8")]
-    urls += [(f"{slug}.html", "0.8") for slug, _ in SERVICES]
-    urls += [(f"earthmoving-{slug}.html", "0.7") for slug in SUBURBS]
+    urls = [("", "1.0"), ("what-we-do", "0.9"), ("about", "0.7"), ("contact", "0.8")]
+    urls += [(slug, "0.8") for slug, _ in SERVICES]
+    urls += [(f"earthmoving-{slug}", "0.7") for slug in SUBURBS]
     entries = "\n".join(
         f'''  <url>
     <loc>{SITE}/{path}</loc>
@@ -1037,20 +1037,45 @@ def build_sitemap():
 '''
 
 
+import os
+import re
+
+
+def transform(html):
+    """Rewrite template links to clean, root-absolute URLs matching the live
+    site's structure (/about, /what-we-do, /posi-track-hire, ...)."""
+    html = html.replace('href="index.html#areas"', 'href="/#areas"')
+    html = html.replace('href="index.html"', 'href="/"')
+    html = html.replace('href="services.html"', 'href="/what-we-do"')
+    html = re.sub(r'href="([a-z0-9-]+)\.html"', r'href="/\1"', html)
+    html = html.replace('href="css/style.css"', 'href="/css/style.css"')
+    html = html.replace('href="favicon.svg"', 'href="/favicon.svg"')
+    html = html.replace('src="js/main.js"', 'src="/js/main.js"')
+    html = html.replace('src="assets/logo.svg"', 'src="/assets/logo.svg"')
+    html = html.replace(f'{SITE}/services.html', f'{SITE}/what-we-do')
+    html = re.sub(re.escape(SITE) + r'/([a-z0-9-]+)\.html', SITE + r'/\1', html)
+    return html
+
+
 if __name__ == "__main__":
     pages = {
         "index.html": build_index(),
-        "services.html": build_services(),
-        "about.html": build_about(),
-        "contact.html": build_contact(),
+        "what-we-do/index.html": build_services(),
+        "about/index.html": build_about(),
+        "contact/index.html": build_contact(),
         "404.html": build_404(),
-        "sitemap.xml": build_sitemap(),
     }
     for slug, _ in SERVICES:
-        pages[f"{slug}.html"] = build_service(slug)
+        pages[f"{slug}/index.html"] = build_service(slug)
     for slug in SUBURBS:
-        pages[f"earthmoving-{slug}.html"] = build_suburb(slug)
+        pages[f"earthmoving-{slug}/index.html"] = build_suburb(slug)
     for fname, content in pages.items():
+        d = os.path.dirname(fname)
+        if d:
+            os.makedirs(d, exist_ok=True)
         with open(fname, "w") as f:
-            f.write(content)
+            f.write(transform(content))
         print(f"wrote {fname}")
+    with open("sitemap.xml", "w") as f:
+        f.write(build_sitemap())
+    print("wrote sitemap.xml")
