@@ -948,6 +948,9 @@ h1, h2, h3, h4 {
   font-size: 0.82rem;
 }
 
+.kw-credit { color: var(--steel-300); font-weight: 600; transition: color 0.2s; }
+.kw-credit:hover { color: var(--accent-500); }
+
 /* ---------- Utility ---------- */
 .scroll-progress {
   position: fixed;
