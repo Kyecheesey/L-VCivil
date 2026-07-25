@@ -31,6 +31,43 @@ SERVICES = [
     ("water-truck-hire", "Water Truck Hire"),
 ]
 
+# Real client reviews only — populate from Google/verbal testimonials supplied by
+# the client. Leave empty to hide the testimonials section entirely. Fields:
+# (quote, name, suburb/job)
+TESTIMONIALS = []
+
+# Suburb landing pages for local SEO. slug -> (display name, intro paras, highlights)
+SUBURBS = {
+    "park-ridge": ("Park Ridge", [
+        "Park Ridge is home base. Our yard is right here in 4125, which means the shortest float times, the sharpest call-out rates and machines that can be on your site quickly.",
+        "From house pads and footings to trenching, driveways and site cleanups, we handle Park Ridge's mix of established blocks and new development with gear sized to fit.",
+    ], ["Fastest response times", "House pads & footings", "Trenching & driveways"]),
+    "jimboomba": ("Jimboomba", [
+        "Acreage country. Jimboomba blocks mean long driveways, dams, shed pads and serious clearing — exactly the work our excavators, posi tracks and tippers are set up for.",
+        "We know the local soil and the long access runs, and our combo packages keep multi-day acreage jobs on one booking and one invoice.",
+    ], ["Dams & shed pads", "Long driveways", "Acreage clearing"]),
+    "greenbank": ("Greenbank", [
+        "Greenbank's semi-rural blocks call for flexible gear: land clearing, house pads, trenching for services that run a long way from the street, and tracked machines for soft paddocks.",
+        "We service the whole corridor regularly, so mobilisation is quick and quotes come back fast.",
+    ], ["Land clearing", "House pads", "Soft-ground posi tracks"]),
+    "yarrabilba": ("Yarrabilba", [
+        "One of Queensland's fastest growing communities — and tight new estate lots need machines and operators that work clean and precise next to finished homes.",
+        "We handle cut and fill, detailed excavation, backyard access jobs and final-grade levelling for builders and new homeowners across Yarrabilba.",
+    ], ["Tight-access work", "Cut & fill", "Final-grade levelling"]),
+    "flagstone": ("Flagstone", [
+        "Flagstone is building fast, and we're in the estates every week: site cuts, footings, service trenching and spoil cart-away for builders working to program.",
+        "Book a dig-and-cart combo and your excavation never waits on a truck.",
+    ], ["Site cuts & footings", "Service trenching", "Dig & cart combos"]),
+    "logan-village": ("Logan Village", [
+        "Acreage lifestyle blocks with real earthworks needs — driveways, dams, pads, clearing and trenching that suburban-sized operators struggle to cover.",
+        "Our fleet is built for exactly this mix, with wet hire operators who've worked Logan Village ground for years.",
+    ], ["Driveways & pads", "Dams", "Rural trenching"]),
+    "browns-plains": ("Browns Plains", [
+        "The commercial heart of Logan. We support Browns Plains businesses and homeowners with site preparation, tight-access digs, waste removal and water trucks for dust control.",
+        "Established suburbs mean careful work around services and neighbours — that's where experienced operators earn their keep.",
+    ], ["Commercial site prep", "Tight-access digs", "Dust control"]),
+}
+
 ICONS = {
     "phone": '<svg width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
     "arrow": '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>',
@@ -211,6 +248,29 @@ def tickline():
 '''
 
 
+def testimonials_section():
+    if not TESTIMONIALS:
+        return ""
+    cards = "\n".join(
+        f'''          <figure class="quote-card reveal">
+            <blockquote>&ldquo;{q}&rdquo;</blockquote>
+            <figcaption><strong>{n}</strong><span>{j}</span></figcaption>
+          </figure>''' for q, n, j in TESTIMONIALS
+    )
+    return f'''    <section class="section section-tint">
+      <div class="container">
+        <div class="section-head center reveal">
+          <span class="eyebrow">What clients say</span>
+          <h2>Word gets around Logan.</h2>
+        </div>
+        <div class="card-grid">
+{cards}
+        </div>
+      </div>
+    </section>
+'''
+
+
 # ---------------------------------------------------------------- index ----
 def build_index():
     ld = f'''  <script type="application/ld+json">
@@ -275,7 +335,12 @@ def build_index():
     suburbs = ["Park Ridge", "Logan Village", "Jimboomba", "Greenbank", "Browns Plains", "Crestmead",
                "Marsden", "Waterford", "Beenleigh", "Springwood", "Shailer Park", "Loganholme",
                "Loganlea", "Yarrabilba", "Flagstone", "Chambers Flat", "Munruben", "Boronia Heights"]
-    chips_area = "\n".join(f'          <span class="chip">{s}</span>' for s in suburbs)
+    page_slugs = {v[0]: k for k, v in SUBURBS.items()}
+    chips_area = "\n".join(
+        (f'          <a class="chip chip-link" href="earthmoving-{page_slugs[s]}.html">{s}</a>'
+         if s in page_slugs else f'          <span class="chip">{s}</span>')
+        for s in suburbs
+    )
 
     body = f'''{header('home')}
   <main id="main">
@@ -381,7 +446,7 @@ def build_index():
       </div>
     </section>
 
-    <section class="section">
+{testimonials_section()}    <section class="section">
       <div class="container">
         <div class="section-head center reveal">
           <span class="eyebrow">Good to know</span>
@@ -686,6 +751,97 @@ def build_service(slug):
     return head(title, d["desc"], f"{SITE}/{slug}.html", ld) + body
 
 
+# ------------------------------------------------------------ suburbs ------
+def build_suburb(slug):
+    name, paras, highlights = SUBURBS[slug]
+    page = f"earthmoving-{slug}.html"
+    intro = "\n".join(f"          <p>{p}</p>" for p in paras)
+    tags = "".join(f'<span class="tag">{t}</span>' for t in highlights)
+    others = "\n".join(
+        f'            <a href="earthmoving-{k}.html">{v[0]}</a>'
+        for k, v in SUBURBS.items() if k != slug
+    )
+    svc_links = "\n".join(
+        f'            <a href="{sslug}.html">{sname}</a>' for sslug, sname in SERVICES
+    )
+    ld = f'''  <script type="application/ld+json">
+  {{
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Earthmoving and wet hire in {name}",
+    "serviceType": "Earthmoving and plant hire",
+    "areaServed": {{"@type": "Place", "name": "{name} QLD"}},
+    "url": "{SITE}/{page}",
+    "provider": {{"@id": "{SITE}/#business"}}
+  }}
+  </script>
+  <script type="application/ld+json">
+  {{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {{"@type": "ListItem", "position": 1, "name": "Home", "item": "{SITE}/"}},
+      {{"@type": "ListItem", "position": 2, "name": "Service Areas", "item": "{SITE}/#areas"}},
+      {{"@type": "ListItem", "position": 3, "name": "{name}"}}
+    ]
+  }}
+  </script>
+'''
+    body = f'''{header('services')}
+  <main id="main">
+    <section class="page-hero" style="--hero-img: url('{IMG['hero']}')">
+      <div class="container">
+        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> <a href="index.html#areas">Service Areas</a> <span aria-hidden="true">/</span> <span aria-current="page">{name}</span></nav>
+        <p class="eyebrow-line">L&amp;V Civil Contracting</p>
+        <h1>Excavator Hire &amp; Earthmoving in {name}</h1>
+        <p>Wet hire machines with skilled operators, servicing {name} from our Park Ridge base — backed by a quality guarantee, price match promise and Zero Harm safety focus.</p>
+        <div class="hero-actions">
+          <a href="tel:{PHONE_TEL}" class="btn btn-primary">{ICONS['phone'].format(s=16)} Call now</a>
+          <a href="contact.html" class="btn btn-ghost">Request a quote</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container split">
+        <div class="service-body reveal">
+          <span class="eyebrow">Local wet hire</span>
+          <h2>Earthmoving in {name}, done by locals.</h2>
+{intro}
+          <div class="tag-row">{tags}</div>
+        </div>
+        <div class="split-media reveal">
+          <img src="{IMG['trench']}" alt="L&amp;V Civil Contracting excavator working in {name} QLD" loading="lazy" width="1200" height="896">
+          <div class="badge-float">{ICONS['pin'].format(s=24)} Servicing {name} from Park Ridge</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tint">
+      <div class="container split">
+        <div class="reveal">
+          <span class="eyebrow">What we offer in {name}</span>
+          <h2 style="font-size: var(--fs-h2); font-weight: 800;">Every machine, operator included.</h2>
+          <div class="related">
+{svc_links}
+          </div>
+        </div>
+        <div class="reveal">
+          <span class="eyebrow">Nearby areas</span>
+          <h2 style="font-size: clamp(1.3rem, 2.6vw, 1.8rem); font-weight: 800;">We also service</h2>
+          <div class="related">
+{others}
+          </div>
+        </div>
+      </div>
+    </section>
+{cta_band(f"Working on a {name} project?", "Free quotes within 24 hours. Machines with operators included.")}  </main>
+{footer()}'''
+    title = f"Excavator Hire &amp; Earthmoving {name} | L&amp;V Civil Contracting"
+    desc = f"Local wet hire earthmoving in {name} QLD — excavators, bobcats, tippers, posi tracks and water trucks with skilled operators, servicing {name} from Park Ridge. Free quotes: {PHONE_DISPLAY}."
+    return head(title, desc, f"{SITE}/{page}", ld) + body
+
+
 # ---------------------------------------------------------------- about ----
 def build_about():
     ld = f'''  <script type="application/ld+json">
@@ -865,6 +1021,7 @@ def build_404():
 def build_sitemap():
     urls = [("", "1.0"), ("services.html", "0.9"), ("about.html", "0.7"), ("contact.html", "0.8")]
     urls += [(f"{slug}.html", "0.8") for slug, _ in SERVICES]
+    urls += [(f"earthmoving-{slug}.html", "0.7") for slug in SUBURBS]
     entries = "\n".join(
         f'''  <url>
     <loc>{SITE}/{path}</loc>
@@ -891,6 +1048,8 @@ if __name__ == "__main__":
     }
     for slug, _ in SERVICES:
         pages[f"{slug}.html"] = build_service(slug)
+    for slug in SUBURBS:
+        pages[f"earthmoving-{slug}.html"] = build_suburb(slug)
     for fname, content in pages.items():
         with open(fname, "w") as f:
             f.write(content)
