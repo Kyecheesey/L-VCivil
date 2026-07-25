@@ -62,7 +62,7 @@ def head(title, desc, canonical, extra=""):
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 {extra}</head>
 <body>
@@ -81,10 +81,7 @@ def header(active=""):
   <header class="site-header">
     <div class="container nav-bar">
       <a class="brand" href="index.html" aria-label="L&amp;V Civil Contracting — home">
-        <span class="brand-mark">L&amp;V</span>
-        <span>L&amp;V <span class="brand-divider">Civil</span> Contracting
-          <span class="brand-sub">Wet Hire &amp; Civil Works</span>
-        </span>
+        <img src="assets/logo.svg" alt="L&amp;V Civil Contracting" width="98" height="54">
       </a>
       <nav class="nav-links" id="nav-links" aria-label="Main navigation">
         <a href="index.html"{cls('home')}>Home</a>
@@ -133,10 +130,7 @@ def footer():
       <div class="footer-grid">
         <div class="footer-about">
           <a class="brand" href="index.html">
-            <span class="brand-mark">L&amp;V</span>
-            <span>L&amp;V <span class="brand-divider">Civil</span> Contracting
-              <span class="brand-sub">Wet Hire &amp; Civil Works</span>
-            </span>
+            <img src="assets/logo.svg" alt="L&amp;V Civil Contracting" width="156" height="86" loading="lazy">
           </a>
           <p>Family owned and operated wet hire and civil works, delivering reliable results across Logan and South East Queensland since 2022.</p>
           <div class="trust-card">
@@ -269,6 +263,7 @@ def build_index():
     for i, (slug, name, desc, icon) in enumerate(card_data):
         delay = f' style="--delay:.{(i % 3) * 6:02d}s"' if i % 3 else ""
         cards.append(f'''          <article class="service-card reveal"{delay}>
+            <span class="card-num" aria-hidden="true">{i+1:02d}</span>
             <div class="service-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{icon}</svg></div>
             <h3>{name}</h3>
             <p>{desc}</p>
@@ -435,8 +430,9 @@ def build_services():
         "skip-bin-hire": "Bins delivered, filled and removed in the same booking as your machines.",
         "water-truck-hire": "Dust suppression, compaction watering and haul-road maintenance.",
     }
-    for slug, name in SERVICES:
+    for i, (slug, name) in enumerate(SERVICES):
         rows.append(f'''          <article class="service-card reveal">
+            <span class="card-num" aria-hidden="true">{i+1:02d}</span>
             <h3>{name}</h3>
             <p>{data[slug]}</p>
             <a class="card-link" href="{slug}.html">View {name} {ICONS['arrow'].replace('width="16" height="16"', 'width="14" height="14"')}</a>
