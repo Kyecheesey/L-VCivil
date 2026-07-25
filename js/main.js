@@ -1,12 +1,14 @@
-/* KW | Innovations — Civil Contracting: site interactions */
+/* L&V Civil Contracting: site interactions */
 (function () {
   "use strict";
 
   // Sticky header state
   const header = document.querySelector(".site-header");
-  const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 24);
-  onScroll();
-  window.addEventListener("scroll", onScroll, { passive: true });
+  if (header) {
+    const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
 
   // Mobile navigation
   const toggle = document.querySelector(".nav-toggle");
@@ -102,7 +104,7 @@
           data.get("message") || "",
         ].join("\n")
       );
-      window.location.href = `mailto:info@kwinnovations.com.au?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:info@lvcivilcontracting.com.au?subject=${subject}&body=${body}`;
     });
   }
 
@@ -110,4 +112,31 @@
   document.querySelectorAll("[data-year]").forEach((el) => {
     el.textContent = new Date().getFullYear();
   });
+})();
+
+/* Polish pass: scroll progress bar + hero parallax */
+(function () {
+  "use strict";
+
+  var bar = document.createElement("div");
+  bar.className = "scroll-progress";
+  document.body.appendChild(bar);
+  var onProg = function () {
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max ? (h.scrollTop / max) * 100 : 0) + "%";
+  };
+  window.addEventListener("scroll", onProg, { passive: true });
+  onProg();
+
+  var bp = document.querySelector(".hero-blueprint");
+  if (bp && window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+    window.addEventListener(
+      "scroll",
+      function () {
+        bp.style.transform = "translateY(" + window.scrollY * 0.14 + "px)";
+      },
+      { passive: true }
+    );
+  }
 })();

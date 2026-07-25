@@ -1,5 +1,5 @@
 /* ==========================================================================
-   KW | Innovations — Civil Contracting
+   L&V Civil Contracting — built by KW | Innovations
    Design system: dark graphite base, safety-amber accent, fluid type scale
    ========================================================================== */
 
@@ -754,4 +754,104 @@ h1, h2, h3, h4 {
   .hero-actions .btn { width: 100%; }
   .cta-band { text-align: left; }
   .brand-sub { letter-spacing: 0.22em; }
+}
+
+/* ---------- Polish pass ---------- */
+
+/* Scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, var(--amber-600), #ffd166);
+  z-index: 130;
+  pointer-events: none;
+}
+
+/* Service ticker */
+.marquee {
+  overflow: hidden;
+  background: var(--ink-900);
+  border-block: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 1.05rem 0;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+.marquee span {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.2rem;
+  padding-right: 2.2rem;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--steel-400);
+}
+.marquee .sep { font-style: normal; color: var(--amber-500); font-size: 0.6rem; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+/* Button sheen sweep */
+.btn-primary { position: relative; overflow: hidden; }
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 55%;
+  transform: translateX(-130%) skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  pointer-events: none;
+}
+.btn-primary:hover::before { animation: sheen 0.9s var(--ease-out); }
+@keyframes sheen { to { transform: translateX(320%) skewX(-20deg); } }
+
+/* Amber top accent sweeping across service cards */
+.service-card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 1.75rem; right: 70%;
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+  background: linear-gradient(90deg, var(--amber-500), transparent);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out), right 0.5s var(--ease-out);
+  pointer-events: none;
+}
+.service-card:hover::after { opacity: 1; right: 1.75rem; }
+
+/* Steps & detail rows come alive on hover */
+.step { transition: transform 0.35s var(--ease-out), border-color 0.35s, background 0.35s; }
+.step:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 180, 0, 0.35);
+  background: rgba(255, 180, 0, 0.05);
+}
+.detail-row { transition: transform 0.35s var(--ease-out), border-color 0.35s, box-shadow 0.35s; }
+.detail-row:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 180, 0, 0.35);
+  box-shadow: var(--shadow-lift);
+}
+.info-tile { transition: border-color 0.25s, transform 0.25s var(--ease-out); }
+.info-tile:hover { transform: translateY(-3px); }
+
+/* Glow on value-card icons */
+.value-card .service-icon { box-shadow: 0 6px 18px rgba(245, 158, 11, 0.18); }
+
+/* Subtle glow behind the hero headline */
+.hero h1 { text-shadow: 0 0 80px rgba(255, 180, 0, 0.18); }
+
+/* Hero blueprint drifts on scroll (JS parallax) */
+.hero-blueprint { will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .scroll-progress { display: none; }
 }
