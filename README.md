@@ -1,57 +1,64 @@
 # L&V Civil Contracting — Website
 
-Redesigned website for **L&V Civil Contracting** (Park Ridge QLD, servicing Logan &
+Redesigned website for **L&V Civil Contracting** (Park Ridge QLD 4125, servicing Logan &
 South East Queensland) — a client project by **KW | Innovations**.
 
 ## Stack
 
-Pure static site — no build step, no framework, no dependencies. Deploy the repository
-root to any static host (GitHub Pages, Netlify, Vercel, Cloudflare Pages, cPanel, S3…).
+Pure static site — no framework, no dependencies. Deploy the repository root to any
+static host (GitHub Pages, Netlify, Vercel, Cloudflare Pages, cPanel, S3…).
+
+Pages are generated from `build.py` (shared header/footer + per-page content). To
+change nav, footer, or any page copy, edit `build.py` and run:
 
 ```
-index.html      Home — hero, service ticker, services overview, why us, process,
-                service areas, CTA
-services.html   Full service detail (excavators, bobcats, tippers, water trucks,
-                trenching, gas gathering, renewables civil, combos & skip bins)
-about.html      Company story + values
-contact.html    Contact details + quote request form (opens a pre-filled email)
-404.html        Not-found page
-css/style.css   Design system (dark graphite + safety amber, fluid type, animations)
-js/main.js      Nav, scroll reveals, counters, card spotlight, ticker, progress bar,
-                parallax, form handler
-favicon.svg     L&V brand mark (placeholder — swap for the client's real favicon)
+python3 build.py
+```
+
+```
+index.html            Home — photo hero, promises, services, why-us, process, areas, FAQ
+services.html         What We Offer — overview of all 7 hire services
+excavator-hire.html   ┐
+bobcat-hire.html      │
+tipper-hire.html      │ Dedicated service pages (same slugs as the
+combo-hire.html       │ original site, matching its nav dropdown)
+posi-track-hire.html  │
+skip-bin-hire.html    │
+water-truck-hire.html ┘
+about.html            Who We Are — story + values
+contact.html          Contact — details, trading hours, quote form
+404.html              Not-found page
+css/style.css         Design system (dark graphite + safety amber)
+js/main.js            Nav, dropdown, reveals, counters, ticker, progress bar
+build.py              Static site generator (source of truth for all pages)
+favicon.svg           L&V mark (placeholder — swap for the client's real favicon)
 robots.txt / sitemap.xml
 ```
 
 ## Features
 
-- **Mobile-first responsive** — fluid `clamp()` typography, full-screen mobile nav,
-  single-column collapses, touch-friendly targets.
-- **SEO** — unique titles/descriptions per page, canonical URLs, Open Graph tags,
-  JSON-LD structured data (`LocalBusiness`, `Service` list, `AboutPage`,
-  `ContactPage`), semantic HTML, sitemap.xml and robots.txt. Canonicals point at the
-  existing `www.lvcivilcontracting.com.au` domain to retain its search equity.
-- **Performance** — no frameworks, no image downloads (all graphics are inline SVG),
-  one CSS file, one deferred JS file, font preconnect.
-- **Accessibility** — skip link, ARIA labels/expanded states, keyboard-closable menu,
-  `prefers-reduced-motion` support, semantic landmarks.
+- **Structure mirrors the live site** — top location bar, Who We Are / What We Offer
+  (dropdown) / Contact nav, 7 dedicated service pages, quality guarantee + price match
+  promise + Zero Harm messaging, trading-hours table, photo-backed footer with rounded
+  bottom bar and ABN.
+- **Photography** — hero and section imagery hosted on the KW Innovations Higgsfield
+  CDN (see `IMG` in `build.py`).
+- **SEO** — unique titles/descriptions/canonicals per page, Open Graph + og:image,
+  JSON-LD (LocalBusiness, Service, FAQPage, BreadcrumbList, ItemList), sitemap.xml.
+- **Mobile-first** — fluid type, full-screen menu with the services grid, icon-only
+  phone button on small screens; verified zero horizontal overflow at 390px.
+- **Accessibility** — skip link, ARIA states, keyboard-friendly dropdown
+  (focus-within), `prefers-reduced-motion` support.
 
 ## Things to update before go-live
 
-1. **Images & favicon** — the original site's images and favicon could not be
-   downloaded from the build environment (the domain is behind bot protection and
-   blocked by the sandbox network policy). All visuals are currently inline SVG
-   illustrations and `favicon.svg` is an L&V placeholder mark. To use the client's
-   real assets: save the photos/favicon from the live site or the client's files,
-   drop them into an `assets/img/` folder, and swap the `<svg>` blocks /
-   `<link rel="icon">` references. Compressed `.webp` with descriptive `alt` text
-   recommended.
-2. **Email** — enquiries go to `info@lvcivilcontracting.com.au` (in the four HTML
-   pages and `js/main.js`). Confirm this mailbox exists or update it — the original
-   site's public email could not be verified.
-3. **Form backend (optional)** — the quote form opens the visitor's email app
-   pre-filled (no backend needed). Swap in Formspree/Netlify Forms/etc. for
-   server-side handling if preferred.
-4. **Stats** — the animated counters on the home hero (machines, projects) are
-   representative placeholders; adjust `data-count` values in `index.html` to the
-   client's real numbers.
+1. **Images & favicon** — imagery is AI-generated placeholder photography hosted at
+   the CDN URLs in `build.py`. Swap for the client's real site/fleet photos when
+   available: download them, drop into `assets/img/`, update the `IMG` dict to local
+   paths and re-run `build.py`. Same for `favicon.svg` → the client's real favicon.
+2. **Email** — enquiries go to `info@lvcivilcontracting.com.au` (set in `build.py`
+   and `js/main.js`). Confirm this mailbox exists or update it.
+3. **Stats** — hero counters (projects delivered etc.) are representative
+   placeholders; set real numbers in `build_index()` and re-run `build.py`.
+4. **Form backend (optional)** — the quote form opens a pre-filled email; swap in
+   Formspree/Netlify Forms for server-side handling if preferred.
