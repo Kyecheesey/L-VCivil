@@ -43,8 +43,8 @@ cPanel — or GitHub Pages with a custom domain, not a /project subpath).
   (dropdown) / Contact nav, 7 dedicated service pages, quality guarantee + price match
   promise + Zero Harm messaging, trading-hours table, photo-backed footer with rounded
   bottom bar and ABN.
-- **Photography** — hero and section imagery hosted on the KW Innovations Higgsfield
-  CDN (see `IMG` in `build.py`).
+- **Photography & brand** — the client's real photos, logo and favicon from the
+  live site; social shares use their branded card via `og:image`.
 - **SEO** — unique titles/descriptions/canonicals per page, Open Graph + og:image,
   JSON-LD (LocalBusiness, Service, FAQPage, BreadcrumbList, ItemList), sitemap.xml.
 - **Mobile-first** — fluid type, full-screen menu with the services grid, icon-only
@@ -54,12 +54,15 @@ cPanel — or GitHub Pages with a custom domain, not a /project subpath).
 
 ## Things to update before go-live
 
-1. **Images & favicon** — imagery is AI-generated placeholder photography hosted at
-   the CDN URLs in `build.py`. Swap for the client's real site/fleet photos when
-   available: download them, drop into `assets/img/`, update the `IMG` dict to local
-   paths and re-run `build.py`. Same for `favicon.svg` → the client's real favicon.
-2. **Testimonials** — the section is built but hidden; paste real client
-   reviews into `TESTIMONIALS` in `build.py` and re-run. Do not fabricate.
+1. **Images** — the client's real photos from the live site are optimised to webp
+   and re-hosted on the KW Innovations CDN (`IMG` in `build.py`); the real logo
+   (`assets/logo.jpg`) and favicon (`favicon.ico`) are in the repo. To self-host
+   the photos later, download the `IMG` URLs into `assets/img/` and point the
+   dict at local paths.
+2. **Reviews** — the homepage embeds the client's Elfsight Google Reviews
+   widget (same account as the live site), so their real reviews render
+   automatically. Static quote cards can be added via `TESTIMONIALS` in
+   `build.py`; never fabricate reviews.
 3. **Email** — enquiries go to `info@lvcivilcontracting.com.au` (set in `build.py`
    and `js/main.js`). Confirm this mailbox exists or update it.
 4. **Stats** — hero counters (projects delivered etc.) are representative

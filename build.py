@@ -6,14 +6,21 @@ the shared header/footer templates and the per-page content below. Keeps all
 11 pages consistent without a framework.
 """
 
-# Hosted imagery (generated for the rebrand; swap for client photography by
-# replacing these URLs — see README).
+# Client photography from the live site, optimised to webp and re-hosted on the
+# KW Innovations CDN. Keys map to where each image sat on the original site.
 IMG = {
-    "hero":  "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/fb68d3ae-721c-4526-9ee4-37fdb38caf6b.webp",
-    "trench": "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/a07df28b-26a4-4ab5-b740-d7e8a05611de.webp",
-    "fleet": "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/e8e0d1bd-4648-4fc9-89d1-b18a2ddbd0bf.webp",
-    "water": "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/578116e1-fa0a-4b0d-a8fb-904028512463.webp",
+    "hero":      "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/f10a3951-3ce4-47b2-8eeb-8f75a4ba282c.webp",  # live homepage hero (loader)
+    "work":      "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/148aaf25-9c24-4f60-9ba8-7a43ea1f332a.webp",  # IMG_9318 — client machine photo
+    "machine":   "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/ef8c78a5-8e3b-421c-91db-c7a770162721.webp",  # IMG_9442 — client machine photo
+    "excavator": "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/46362802-7b01-45e1-bb00-3bf21efd263f.webp",  # live excavator-hire hero
+    "site1":     "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/2e013edc-6bdd-44b3-b473-7546423d722c.webp",
+    "site2":     "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/3060894c-f138-4f55-adab-d0f18d2dea69.webp",
+    "pano":      "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/b6806a97-d72a-4818-a428-99fa3df390bb.webp",  # wide tipper panorama
+    "og":        "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/0189b932-a3b3-4591-8ae9-d686d63f85a4.png",   # branded social card
 }
+IMG["trench"] = IMG["work"]
+IMG["fleet"] = IMG["machine"]
+IMG["water"] = IMG["site2"]
 
 SITE = "https://www.lvcivilcontracting.com.au"
 PHONE_DISPLAY = "0476 676 639"
@@ -93,10 +100,10 @@ def head(title, desc, canonical, extra=""):
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{desc}">
   <meta property="og:url" content="{canonical}">
-  <meta property="og:image" content="{IMG['hero']}">
+  <meta property="og:image" content="{IMG['og']}">
   <meta property="og:locale" content="en_AU">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" href="favicon.ico" sizes="16x16">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -118,7 +125,7 @@ def header(active=""):
   <header class="site-header">
     <div class="container nav-bar">
       <a class="brand" href="index.html" aria-label="L&amp;V Civil Contracting — home">
-        <img src="assets/logo.svg" alt="L&amp;V Civil Contracting" width="98" height="54">
+        <img src="assets/logo.jpg" alt="L&amp;V Civil Contracting" width="54" height="54">
       </a>
       <nav class="nav-links" id="nav-links" aria-label="Main navigation">
         <a href="index.html"{cls('home')}>Home</a>
@@ -152,7 +159,7 @@ def footer():
         f'            <li><a href="{slug}.html">{name}</a></li>' for slug, name in SERVICES
     )
     return f'''
-  <footer class="site-footer" style="--footer-img: url('{IMG['trench']}')">
+  <footer class="site-footer" style="--footer-img: url('{IMG['pano']}')">
     <div class="container">
       <div class="footer-cta">
         <h2>Powering projects with skill &amp; safety.</h2>
@@ -167,7 +174,7 @@ def footer():
       <div class="footer-grid">
         <div class="footer-about">
           <a class="brand" href="index.html">
-            <img src="assets/logo.svg" alt="L&amp;V Civil Contracting" width="156" height="86" loading="lazy">
+            <img src="assets/logo.jpg" alt="L&amp;V Civil Contracting" width="86" height="86" loading="lazy">
           </a>
           <p>Family owned and operated wet hire and civil works, delivering reliable results across Logan and South East Queensland since 2022.</p>
           <div class="trust-card">
@@ -249,8 +256,21 @@ def tickline():
 
 
 def testimonials_section():
+    # The client's Elfsight Google Reviews widget (same embed as the live site)
+    # renders their real reviews; TESTIMONIALS adds static quote cards if supplied.
+    widget = '''    <section class="section section-tint">
+      <div class="container">
+        <div class="section-head center reveal">
+          <span class="eyebrow">What clients say</span>
+          <h2>Rated by real Logan clients.</h2>
+        </div>
+        <script src="https://static.elfsight.com/platform/platform.js" async></script>
+        <div class="elfsight-app-e981435c-4cda-4718-a82a-4d8280ea8cf5" data-elfsight-app-lazy></div>
+      </div>
+    </section>
+'''
     if not TESTIMONIALS:
-        return ""
+        return widget
     cards = "\n".join(
         f'''          <figure class="quote-card reveal">
             <blockquote>&ldquo;{q}&rdquo;</blockquote>
@@ -516,7 +536,7 @@ def build_services():
 '''
     body = f'''{header('services')}
   <main id="main">
-    <section class="page-hero" style="--hero-img: url('{IMG['water']}')">
+    <section class="page-hero" style="--hero-img: url('{IMG['site1']}')">
       <div class="container">
         <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> <span aria-current="page">What We Offer</span></nav>
         <p class="eyebrow-line">L&amp;V Civil Contracting</p>
@@ -546,7 +566,7 @@ def build_services():
 # ------------------------------------------------------ service detail -----
 SERVICE_PAGES = {
     "excavator-hire": {
-        "img": "hero",
+        "img": "excavator",
         "h1": "Excavator Hire in Logan",
         "desc": "Fully operated excavator hire across Logan QLD — trenching, footings, site cuts and detailed excavation with a quality guarantee and Zero Harm safety focus. Free quotes on 0476 676 639.",
         "intro": [
@@ -562,7 +582,7 @@ SERVICE_PAGES = {
         "related": ["tipper-hire", "combo-hire", "posi-track-hire"],
     },
     "bobcat-hire": {
-        "img": "trench",
+        "img": "work",
         "h1": "Bobcat Hire in Logan",
         "desc": "Operated bobcat hire in Logan QLD for tight-access clearing, levelling, spreading and site cleanups. Family owned, fully insured, free quotes on 0476 676 639.",
         "intro": [
@@ -578,7 +598,7 @@ SERVICE_PAGES = {
         "related": ["posi-track-hire", "tipper-hire", "skip-bin-hire"],
     },
     "tipper-hire": {
-        "img": "fleet",
+        "img": "pano",
         "h1": "Tipper Hire in Logan",
         "desc": "Tipper truck hire across Logan QLD — spoil removal, material delivery and dig-and-cart packages with experienced drivers. Free quotes on 0476 676 639.",
         "intro": [
@@ -610,7 +630,7 @@ SERVICE_PAGES = {
         "related": ["excavator-hire", "tipper-hire", "water-truck-hire"],
     },
     "posi-track-hire": {
-        "img": "trench",
+        "img": "machine",
         "h1": "Posi Track Hire in Logan",
         "desc": "Fully operated posi track hire across Logan QLD — traction and control on soft, wet or sloped ground. Family owned with a Zero Harm safety focus. Free quotes on 0476 676 639.",
         "intro": [
@@ -626,7 +646,7 @@ SERVICE_PAGES = {
         "related": ["bobcat-hire", "excavator-hire", "combo-hire"],
     },
     "skip-bin-hire": {
-        "img": "fleet",
+        "img": "excavator",
         "h1": "Skip Bin Hire in Logan",
         "desc": "Skip bin hire across Logan QLD — bins delivered, filled and removed in the same booking as your earthmoving. Free quotes on 0476 676 639.",
         "intro": [
@@ -642,7 +662,7 @@ SERVICE_PAGES = {
         "related": ["tipper-hire", "bobcat-hire", "combo-hire"],
     },
     "water-truck-hire": {
-        "img": "water",
+        "img": "site2",
         "h1": "Water Truck Hire in Logan",
         "desc": "Water truck hire in Logan QLD — dust suppression, compaction watering and haul-road maintenance that keeps sites compliant. Free quotes on 0476 676 639.",
         "intro": [
@@ -850,7 +870,7 @@ def build_about():
 '''
     body = f'''{header('about')}
   <main id="main">
-    <section class="page-hero" style="--hero-img: url('{IMG['fleet']}')">
+    <section class="page-hero" style="--hero-img: url('{IMG['pano']}')">
       <div class="container">
         <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> <span aria-current="page">Who We Are</span></nav>
         <p class="eyebrow-line">L&amp;V Civil Contracting</p>
@@ -1052,6 +1072,8 @@ def transform(html):
     html = html.replace('href="favicon.svg"', 'href="/favicon.svg"')
     html = html.replace('src="js/main.js"', 'src="/js/main.js"')
     html = html.replace('src="assets/logo.svg"', 'src="/assets/logo.svg"')
+    html = html.replace('src="assets/logo.jpg"', 'src="/assets/logo.jpg"')
+    html = html.replace('href="favicon.ico"', 'href="/favicon.ico"')
     html = html.replace(f'{SITE}/services.html', f'{SITE}/what-we-do')
     html = re.sub(re.escape(SITE) + r'/([a-z0-9-]+)\.html', SITE + r'/\1', html)
     return html
