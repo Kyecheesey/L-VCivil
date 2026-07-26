@@ -366,22 +366,22 @@ def build_index():
   <main id="main">
     <section class="hero" style="--hero-img: url('{IMG['hero']}')">
       <div class="container hero-inner">
-        <p class="hero-eyebrow"><span class="dot" aria-hidden="true"></span> Logan's Trusted Civil Contractor</p>
-        <h1>Ground works, <span class="accent">done right.</span></h1>
-        <p class="hero-lede">Family owned wet hire earthmoving, trenching and site preparation across Logan and South East Queensland — modern machines with skilled operators, backed by a quality guarantee and a Zero Harm safety focus.</p>
-        <div class="hero-chips">{chips}</div>
-        <div class="hero-actions">
+        <p class="hero-eyebrow rise"><span class="dot" aria-hidden="true"></span> Logan's Trusted Civil Contractor</p>
+        <h1 class="rise" style="--delay:.08s">Ground works, <span class="accent">done right.</span></h1>
+        <p class="hero-lede rise" style="--delay:.16s">Family owned wet hire earthmoving, trenching and site preparation across Logan and South East Queensland — modern machines with skilled operators, backed by a quality guarantee and a Zero Harm safety focus.</p>
+        <div class="hero-chips rise" style="--delay:.24s">{chips}</div>
+        <div class="hero-actions rise" style="--delay:.32s">
           <a href="contact.html" class="btn btn-primary">Get a free quote {ICONS['arrow']}</a>
           <a href="tel:{PHONE_TEL}" class="btn btn-ghost">{ICONS['phone'].format(s=16)} {PHONE_DISPLAY}</a>
         </div>
-        <div class="hero-stats reveal">
+        <div class="hero-stats rise" style="--delay:.4s">
           <div><strong data-count="7">0</strong><span>Hire services</span></div>
           <div><strong data-count="250" data-suffix="+">0</strong><span>Projects delivered</span></div>
           <div><strong data-count="100" data-suffix="%">0</strong><span>Licensed &amp; insured</span></div>
           <div><strong data-count="24" data-suffix="h">0</strong><span>Quote turnaround</span></div>
         </div>
       </div>
-      <div class="hero-badge reveal">
+      <div class="hero-badge rise" style="--delay:.55s">
         <div class="hb-top"><span class="dot"></span> Our promise</div>
         <strong>Quality guarantee &amp; price match promise</strong>
         <small>Family owned · Zero Harm safety focus</small>
@@ -542,7 +542,7 @@ def build_services():
         <p class="eyebrow-line">L&amp;V Civil Contracting</p>
         <h1>Wet hire &amp; civil works, end to end.</h1>
         <p>Every machine we send out comes with an experienced, ticketed operator — backed by a quality guarantee, price match promise and Zero Harm safety focus. Hire a single unit or bundle a combo priced for your project.</p>
-        <div class="hero-actions">
+        <div class="hero-actions rise" style="--delay:.32s">
           <a href="contact.html" class="btn btn-primary">Get a free quote {ICONS['arrow']}</a>
           <a href="tel:{PHONE_TEL}" class="btn btn-ghost">{ICONS['phone'].format(s=16)} Call now</a>
         </div>
