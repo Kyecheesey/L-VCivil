@@ -54,6 +54,9 @@ cPanel — or GitHub Pages with a custom domain, not a /project subpath).
 
 ## Things to update before go-live
 
+0. **Domain** — the old provider has cancelled the `lvcivilcontracting.com.au`
+   service and issued transfer records; see `DOMAIN-TRANSFER.md` for the transfer
+   and DNS-cutover runbook (the EPP code is intentionally not in this repo).
 1. **Images** — the client's real photos from the live site are optimised to webp
    and re-hosted on the KW Innovations CDN (`IMG` in `build.py`); the real logo
    (`assets/logo.jpg`) and favicon (`favicon.ico`) are in the repo. To self-host
