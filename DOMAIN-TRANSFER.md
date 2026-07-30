@@ -36,20 +36,22 @@ cutover risk.
 
 ## Transfer steps (.au domain)
 
+> **Status (30 Jul 2026):** transfer to **GoDaddy** initiated with the EPP code.
+> The code is now spent once the transfer completes; remaining steps below.
+
 1. **Before the old service is switched off**, capture anything missing from the
    snapshot: `dig MX`, `dig TXT` (SPF/DMARC), and any subdomains in use.
-2. Confirm the registrant contact is correct — .au transfers require the registrant
-   (or authorised contact) to approve, and eligibility (ABN — it's in the site
-   footer) carries over.
-3. Initiate the transfer at our registrar using the EPP code from the email.
-   .au transfers are free at most registrars, don't change the expiry date, and
-   usually complete within hours once approved.
-4. Approve the confirmation email sent to the registrant contact.
-5. Once transferred, the domain will initially keep the AWS Route 53 name servers
-   above. **Don't touch DNS until the new site is deployed** — the old site keeps
-   working in the meantime only if the old zone stays up; if the provider tears the
-   Route 53 zone down, move to our own DNS immediately (recreate the snapshot
-   records) even before the new site is ready.
+2. Approve the confirmation email sent to the registrant contact — .au transfers
+   need registrant (or authorised contact) approval, and eligibility (ABN — it's
+   in the site footer) carries over. Watch the status under GoDaddy → Domain
+   Portfolio; .au transfers don't change the expiry date and usually complete
+   within hours of approval.
+3. Once transferred, the domain will initially keep the AWS Route 53 name servers
+   above — but that zone belongs to the old provider and can disappear at any
+   time now the service is cancelled. **Recreate the snapshot records (plus any
+   MX/TXT found in step 1) in GoDaddy DNS and switch to GoDaddy's name servers
+   promptly**, so the old site stays up under DNS we control until the new site
+   is ready. Don't point anything at the new host yet.
 
 ## DNS cutover to the new site
 
