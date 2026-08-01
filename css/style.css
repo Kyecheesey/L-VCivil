@@ -474,6 +474,8 @@ h1, h2, h3, h4 {
 .section-tight { padding: clamp(2.5rem, 6vw, 4rem) 0; }
 .section-light { background: var(--paper); color: #4a5a68; }
 .section-light h2, .section-light h3 { color: #0e1721; }
+/* Dark panels keep light headings even inside light sections */
+.section-light .service-card h3, .section-light .contact-form h3 { color: var(--white); }
 .section-tint {
   background:
     radial-gradient(60% 80% at 85% 0%, rgba(20, 80, 126, 0.1), transparent 60%),
@@ -1057,6 +1059,13 @@ h1, h2, h3, h4 {
   .nav-toggle { display: flex; }
   .nav-cta .btn-ghost { display: none; }
   .nav-cta { gap: 0.45rem; }
+  /* backdrop-filter creates a containing block that would trap the fixed
+     full-screen menu inside the pill — use a solid background on mobile */
+  .nav-bar {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: linear-gradient(rgba(12, 17, 24, 0.96), rgba(8, 12, 17, 0.96));
+  }
   .nav-links {
     position: fixed;
     inset: 0;
@@ -1082,7 +1091,7 @@ h1, h2, h3, h4 {
     position: static;
     transform: none;
     opacity: 1;
-    visibility: visible;
+    visibility: inherit; /* follow the nav's open/closed state, never paint while closed */
     background: transparent;
     border: 0;
     box-shadow: none;
@@ -1111,4 +1120,19 @@ h1, h2, h3, h4 {
   .hero-stats { gap: 1.1rem 1.7rem; }
   .footer-bottom { justify-content: center; text-align: center; border-radius: var(--radius-lg); }
   .topbar { font-size: 0.64rem; letter-spacing: 0.08em; }
+}
+
+/* ---------- Page-to-page transitions ---------- */
+/* Cross-document view transitions: same-origin navigations crossfade instead
+   of flashing white. Progressive enhancement — unsupported browsers navigate
+   normally. */
+@view-transition { navigation: auto; }
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) { animation: vt-out 0.2s ease both; }
+  ::view-transition-new(root) { animation: vt-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  @keyframes vt-out { to { opacity: 0; } }
+  @keyframes vt-in { from { opacity: 0; transform: translateY(12px); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; }
 }

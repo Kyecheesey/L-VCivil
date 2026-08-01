@@ -107,6 +107,23 @@
   document.querySelectorAll("[data-year]").forEach((el) => {
     el.textContent = new Date().getFullYear();
   });
+
+  // Hover prefetch fallback for browsers without the Speculation Rules API,
+  // so page-to-page navigation stays instant everywhere.
+  if (!HTMLScriptElement.supports || !HTMLScriptElement.supports("speculationrules")) {
+    const prefetched = new Set();
+    document.addEventListener("pointerenter", (e) => {
+      const a = e.target.closest && e.target.closest('a[href^="/"]');
+      if (!a) return;
+      const href = a.getAttribute("href");
+      if (prefetched.has(href)) return;
+      prefetched.add(href);
+      const link = document.createElement("link");
+      link.rel = "prefetch";
+      link.href = href;
+      document.head.appendChild(link);
+    }, true);
+  }
 })();
 
 /* Polish pass: scroll progress bar + hero parallax */
