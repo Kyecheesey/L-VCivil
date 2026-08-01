@@ -26,6 +26,10 @@ SITE = "https://www.lvcivilcontracting.com.au"
 PHONE_DISPLAY = "0476 676 639"
 PHONE_TEL = "+61476676639"
 EMAIL = "info@lvcivilcontracting.com.au"
+# Recipient for the homepage "Reach Out" form (per client request). NB: this is
+# a different domain to the site (lvcivilconstruction vs lvcivilcontracting) —
+# confirm the mailbox exists before go-live.
+HOME_FORM_EMAIL = "admin@lvcivilconstruction.com.au"
 ABN = "63 661 732 869"
 
 SERVICES = [
@@ -38,28 +42,29 @@ SERVICES = [
     ("water-truck-hire", "Water Truck Hire"),
 ]
 
-# Civil project services from the live site's "Our Services" section. These have
-# no dedicated pages (yet) — cards link to the contact page. (name, desc, icon)
+# Civil project services from the live site's "Our Services" section, each with
+# a dedicated content page. (slug, name, card desc, icon)
 CIVIL_SERVICES = [
-    ("Renewable Energy Subdivision Works",
+    ("renewable-energy-subdivisions", "Renewable Energy Subdivision Works",
      "Earthworks, trenching, access roads and service installation for reliable, future-ready energy subdivisions of any size.",
      '<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>'),
-    ("Site Preparation",
+    ("site-preparation", "Site Preparation",
      "We clear, level, grade and stabilise land to create safe, accessible and compliant sites for all types of construction work.",
      '<path d="m12 2 10 6-10 6L2 8z"/><path d="m2 14 10 6 10-6"/>'),
-    ("Wind Farms",
+    ("wind-farms", "Wind Farms",
      "Crane pads, internal roads and trench networks constructed to support smooth wind turbine transport and installation.",
      '<path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/>'),
-    ("Solar Farms",
+    ("solar-farms", "Solar Farms",
      "Power your solar project with precision groundwork — we shape, stabilise and trench land to support arrays, inverters and access routes that last.",
      '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>'),
-    ("Pipe & Gas Lines",
+    ("pipe-and-gas-lines", "Pipe & Gas Lines",
      "Safe trenching, backfilling and reinstatement services that keep your pipeline and gas infrastructure protected and compliant.",
      '<circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/>'),
-    ("Gas Gatherings",
+    ("gas-gathering", "Gas Gatherings",
      "We trench, grade and form access routes to support efficient, safe transport of extracted gas to processing.",
      '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>'),
 ]
+CIVIL_NAMES = {slug: name for slug, name, _, _ in CIVIL_SERVICES}
 
 # Real client reviews only — populate from Google/verbal testimonials supplied by
 # the client. Leave empty to hide the testimonials section entirely. Fields:
@@ -280,14 +285,14 @@ def tickline():
 
 def civil_section(tint="section-light"):
     cards = []
-    for i, (name, desc, icon) in enumerate(CIVIL_SERVICES):
+    for i, (slug, name, desc, icon) in enumerate(CIVIL_SERVICES):
         delay = f' style="--delay:.{(i % 3) * 6:02d}s"' if i % 3 else ""
         cards.append(f'''          <article class="service-card reveal"{delay}>
             <span class="card-num" aria-hidden="true">{i+1:02d}</span>
             <div class="service-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{icon}</svg></div>
             <h3>{name}</h3>
             <p>{desc}</p>
-            <a class="card-link" href="contact.html">Discuss your project {ICONS['arrow'].replace('width="16" height="16"', 'width="14" height="14"')}</a>
+            <a class="card-link" href="{slug}.html">Learn more {ICONS['arrow'].replace('width="16" height="16"', 'width="14" height="14"')}</a>
           </article>''')
     cards_html = "\n".join(cards)
     return f'''    <section class="section {tint}" id="civil-works">
@@ -546,6 +551,32 @@ def build_index():
         </div>
       </div>
     </section>
+
+    <section class="section section-light" id="reach-out">
+      <div class="container split">
+        <div class="reveal">
+          <span class="eyebrow">Reach out</span>
+          <h2 style="font-size: var(--fs-h2); font-weight: 800;">Tell us about your project.</h2>
+          <p style="margin-top:1rem;">Send the details and we'll come back with a clear, itemised quote — usually within 24 hours. Prefer to talk it through? Call us on <a href="tel:{PHONE_TEL}" style="color: var(--amber-500); font-weight: 600;">{PHONE_DISPLAY}</a>.</p>
+          <ul class="check-list" style="margin-top:1.5rem;">
+            <li><span class="tick">{ICONS['tick']}</span><div><strong>Free quotes</strong><span>No obligation, no call-out fee to price a job.</span></div></li>
+            <li><span class="tick">{ICONS['tick']}</span><div><strong>24-hour turnaround</strong><span>Most quotes are back the next business day.</span></div></li>
+            <li><span class="tick">{ICONS['tick']}</span><div><strong>Straight answers</strong><span>The right machine and combo for the job — not the dearest one.</span></div></li>
+          </ul>
+        </div>
+        <form class="contact-form reveal" id="home-form" data-mailto="{HOME_FORM_EMAIL}" novalidate>
+          <h3 style="margin-bottom:1.5rem;">Reach out</h3>
+          <div class="form-row">
+            <div class="field"><label for="h-name">Name</label><input id="h-name" name="name" type="text" autocomplete="name" required></div>
+            <div class="field"><label for="h-phone">Phone</label><input id="h-phone" name="phone" type="tel" autocomplete="tel" required></div>
+          </div>
+          <div class="field"><label for="h-email">Email</label><input id="h-email" name="email" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="h-message">Message</label><textarea id="h-message" name="message" placeholder="Tell us about the site, scope and timeframe…"></textarea></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Send message <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+          <p class="form-note">Submitting opens your email app with the details pre-filled — or just call us on {PHONE_DISPLAY}.</p>
+        </form>
+      </div>
+    </section>
 {cta_band("Ready to break ground?", "Free quotes. 24-hour turnaround. Operators included with every machine.")}  </main>
 {footer()}'''
     title = "Civil Construction &amp; Wet Hire in Logan QLD | L&amp;V Civil Contracting"
@@ -579,7 +610,7 @@ def build_services():
     "@type": "ItemList",
     "name": "Civil contracting services in Logan",
     "itemListElement": [
-{",".join([chr(10) + f'      {{"@type": "Service", "position": {i+1}, "name": "{name}", "areaServed": "Logan QLD", "url": "{SITE}/{slug}.html", "provider": {{"@id": "{SITE}/#business"}}}}' for i, (slug, name) in enumerate(SERVICES)] + [chr(10) + f'      {{"@type": "Service", "position": {len(SERVICES)+i+1}, "name": "{name}", "areaServed": "Logan QLD", "url": "{SITE}/contact.html", "provider": {{"@id": "{SITE}/#business"}}}}' for i, (name, _, _) in enumerate(CIVIL_SERVICES)])}
+{",".join([chr(10) + f'      {{"@type": "Service", "position": {i+1}, "name": "{name}", "areaServed": "Logan QLD", "url": "{SITE}/{slug}.html", "provider": {{"@id": "{SITE}/#business"}}}}' for i, (slug, name) in enumerate(SERVICES)] + [chr(10) + f'      {{"@type": "Service", "position": {len(SERVICES)+i+1}, "name": "{name}", "areaServed": "Logan QLD", "url": "{SITE}/{slug}.html", "provider": {{"@id": "{SITE}/#business"}}}}' for i, (slug, name, _, _) in enumerate(CIVIL_SERVICES)])}
     ]
   }}
   </script>
@@ -822,6 +853,199 @@ def build_service(slug):
     return head(title, d["desc"], f"{SITE}/{slug}.html", ld) + body
 
 
+# ------------------------------------------------------- civil projects ----
+CIVIL_PAGES = {
+    "renewable-energy-subdivisions": {
+        "img": "pano",
+        "h1": "Renewable Energy Subdivision Works",
+        "desc": "Civil works for renewable energy subdivisions across Logan and South East Queensland — earthworks, trenching, access roads and service installation. Free quotes on 0476 676 639.",
+        "intro": [
+            "Efficient infrastructure supports every renewable build. We deliver earthworks, trenching, access roads and service installation for reliable, future-ready energy subdivisions of any size.",
+            "From the first cut to the last service trench, our crew works to program alongside your engineers and project managers — with documented SWMS, maintained plant and a Zero Harm safety focus on every stage.",
+        ],
+        "includes": [
+            ("Bulk & detailed earthworks", "Cut, fill and shaping to design levels across the subdivision."),
+            ("Trenching & service installation", "Power, comms and water runs trenched, bedded and reinstated to spec."),
+            ("Access roads & hardstands", "All-weather routes built for construction traffic and ongoing operations."),
+        ],
+        "tags": ["Earthworks", "Trenching", "Access roads", "Service installation"],
+        "related": ["wind-farms", "solar-farms", "site-preparation"],
+    },
+    "site-preparation": {
+        "img": "site1",
+        "h1": "Site Preparation in Logan",
+        "desc": "Site preparation across Logan QLD — clearing, levelling, grading and stabilising for safe, accessible and compliant construction sites. Free quotes on 0476 676 639.",
+        "intro": [
+            "Getting ready to build? We clear, level, grade and stabilise land to create safe, accessible and compliant sites for all types of construction work.",
+            "Whether it's a single house pad or a staged commercial development, foundations done right start with ground done right — and our operators know Logan's soils, falls and council requirements inside out.",
+        ],
+        "includes": [
+            ("Clearing & grubbing", "Vegetation, stumps and rubbish removed and carted away."),
+            ("Levelling & grading", "Pads, batters and falls cut to the levels your build needs."),
+            ("Stabilising & compaction", "Ground conditioned and compacted for a compliant, build-ready site."),
+        ],
+        "tags": ["Clearing", "Levelling", "Grading", "Stabilising"],
+        "related": ["excavator-hire", "bobcat-hire", "water-truck-hire"],
+    },
+    "wind-farms": {
+        "img": "machine",
+        "h1": "Wind Farm Civil Works",
+        "desc": "Wind farm civil works — crane pads, internal roads and trench networks supporting smooth turbine transport and installation. L&V Civil Contracting: 0476 676 639.",
+        "intro": [
+            "Strong access and stable foundations are key. We construct crane pads, internal roads and trench networks to support smooth wind turbine transport and installation.",
+            "Turbine components don't wait for bad ground — our crews build the all-weather access and lay-down areas that keep oversize transport, cranage and cabling works moving to program.",
+        ],
+        "includes": [
+            ("Crane pads & hardstands", "Engineered pads built and compacted for heavy-lift cranage."),
+            ("Internal road networks", "Haul and access roads shaped for oversize turbine transport."),
+            ("Trench networks", "Collector and comms trenching, bedded and reinstated to spec."),
+        ],
+        "tags": ["Crane pads", "Internal roads", "Trench networks", "Turbine access"],
+        "related": ["renewable-energy-subdivisions", "solar-farms", "water-truck-hire"],
+    },
+    "solar-farms": {
+        "img": "site2",
+        "h1": "Solar Farm Civil Works",
+        "desc": "Solar farm civil works — we shape, stabilise and trench land to support arrays, inverters and access routes that last. L&V Civil Contracting: 0476 676 639.",
+        "intro": [
+            "Power your solar project with precision groundwork. We shape, stabilise, and trench land to support arrays, inverters, and access routes that last.",
+            "Solar sites live or die on drainage, levels and access. We grade array areas to tolerance, trench cable runs cleanly and build the roads that keep construction and maintenance traffic moving in any weather.",
+        ],
+        "includes": [
+            ("Array area shaping", "Ground graded and stabilised to the tolerances your racking needs."),
+            ("Cable & service trenching", "DC, AC and comms runs trenched, bedded and backfilled properly."),
+            ("Access routes & drainage", "Roads and drainage that protect the asset for the long haul."),
+        ],
+        "tags": ["Array areas", "Cable trenching", "Access routes", "Drainage"],
+        "related": ["renewable-energy-subdivisions", "wind-farms", "posi-track-hire"],
+    },
+    "pipe-and-gas-lines": {
+        "img": "work",
+        "h1": "Pipe &amp; Gas Line Works",
+        "desc": "Pipeline and gas line civil works — safe trenching, backfilling and reinstatement that keeps your infrastructure protected and compliant. Call 0476 676 639.",
+        "intro": [
+            "Installing pipelines or gas lines? We offer safe trenching, backfilling and reinstatement services to keep your infrastructure protected and compliant.",
+            "Linear works demand consistency: trench to depth, bed properly, backfill and compact in lifts, reinstate the surface. Our operators run that cycle day in, day out — safely, and to your inspection and test plan.",
+        ],
+        "includes": [
+            ("Trenching to spec", "Depth, width and bedding to your alignment drawings."),
+            ("Backfill & compaction", "Select fill placed and compacted in lifts, tested as required."),
+            ("Reinstatement", "Surfaces returned to condition — pavements, topsoil and turf."),
+        ],
+        "tags": ["Trenching", "Backfilling", "Reinstatement", "Compliance"],
+        "related": ["gas-gathering", "excavator-hire", "water-truck-hire"],
+    },
+    "gas-gathering": {
+        "img": "hero",
+        "h1": "Gas Gathering Works",
+        "desc": "Gas gathering civil works — trenching, grading and access routes supporting efficient, safe transport of extracted gas to processing. Call 0476 676 639.",
+        "intro": [
+            "Connect sites with expert gas gathering works. We trench, grade, and form access routes to support efficient, safe transport of extracted gas to processing.",
+            "From site clearing for gathering networks to trench and access programs across multiple wellsites, we bring the plant, operators and safety systems that field work demands.",
+        ],
+        "includes": [
+            ("Gathering trench networks", "Flowline and service trenching across the gathering field."),
+            ("Grading & pads", "Wellsite and facility pads cut, shaped and compacted."),
+            ("Access routes", "Formed access that stands up to field traffic year-round."),
+        ],
+        "tags": ["Trench networks", "Grading", "Well pads", "Access routes"],
+        "related": ["pipe-and-gas-lines", "renewable-energy-subdivisions", "excavator-hire"],
+    },
+}
+
+
+def build_civil(slug):
+    d = CIVIL_PAGES[slug]
+    name = CIVIL_NAMES[slug]
+    all_names = {**dict(SERVICES), **CIVIL_NAMES}
+    inc = "\n".join(
+        f'''            <li><span class="tick">{ICONS['tick']}</span><div><strong>{t}</strong><span>{s}</span></div></li>'''
+        for t, s in d["includes"]
+    )
+    tags = "".join(f'<span class="tag">{t}</span>' for t in d["tags"])
+    rel = "\n".join(
+        f'            <a href="{r}.html">{all_names[r]}</a>' for r in d["related"]
+    )
+    intro = "\n".join(f"          <p>{p}</p>" for p in d["intro"])
+    ld = f'''  <script type="application/ld+json">
+  {{
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "{name}",
+    "serviceType": "{name}",
+    "areaServed": "Logan QLD",
+    "url": "{SITE}/{slug}.html",
+    "provider": {{"@id": "{SITE}/#business"}}
+  }}
+  </script>
+  <script type="application/ld+json">
+  {{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {{"@type": "ListItem", "position": 1, "name": "Home", "item": "{SITE}/"}},
+      {{"@type": "ListItem", "position": 2, "name": "What We Offer", "item": "{SITE}/services.html"}},
+      {{"@type": "ListItem", "position": 3, "name": "{name}"}}
+    ]
+  }}
+  </script>
+'''
+    body = f'''{header('services')}
+  <main id="main">
+    <section class="page-hero" style="--hero-img: url('{IMG[d['img']]}')">
+      <div class="container">
+        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> <a href="services.html">What We Offer</a> <span aria-hidden="true">/</span> <span aria-current="page">{name}</span></nav>
+        <p class="eyebrow-line">L&amp;V Civil Contracting</p>
+        <h1>{d['h1']}</h1>
+        <p>Backed by a quality guarantee, price match promise and Zero Harm safety focus — our family owned crew delivers reliable results every time.</p>
+        <div class="hero-actions">
+          <a href="tel:{PHONE_TEL}" class="btn btn-primary">{ICONS['phone'].format(s=16)} Call now</a>
+          <a href="contact.html" class="btn btn-ghost">Request a quote</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container split">
+        <div class="service-body reveal">
+          <span class="eyebrow">Civil works</span>
+          <h2>{name}</h2>
+{intro}
+          <div class="tag-row">{tags}</div>
+        </div>
+        <div class="split-media reveal">
+          <img src="{IMG[d['img']]}" alt="{name} — L&amp;V Civil Contracting working on site" loading="lazy" width="1200" height="800">
+          <div class="badge-float">{ICONS['shield'].format(s=26)} Licensed &amp; insured</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tint">
+      <div class="container split">
+        <div class="reveal">
+          <span class="eyebrow">What we deliver</span>
+          <h2 style="font-size: var(--fs-h2); font-weight: 800;">Scoped, staged and done to spec.</h2>
+          <ul class="check-list">
+{inc}
+          </ul>
+        </div>
+        <div class="reveal">
+          <span class="eyebrow">Keep exploring</span>
+          <h2 style="font-size: clamp(1.3rem, 2.6vw, 1.8rem); font-weight: 800;">Pairs well with</h2>
+          <div class="related">
+{rel}
+            <a href="services.html">All services →</a>
+          </div>
+          <p style="margin-top:1.75rem; color: var(--steel-400); font-size: 0.95rem;">Every machine on our civil projects is wet hire — skilled, ticketed operators included. Ask about a <a href="combo-hire.html" style="color: var(--amber-500); font-weight: 600;">combo package</a> for multi-machine programs.</p>
+        </div>
+      </div>
+    </section>
+{cta_band("Ready to scope your project?", "Send the drawings or describe the job — quotes back within 24 hours.")}  </main>
+{footer()}'''
+    title = f"{d['h1']} | L&amp;V Civil Contracting"
+    return head(title, d["desc"], f"{SITE}/{slug}.html", ld) + body
+
+
 # ------------------------------------------------------------ suburbs ------
 def build_suburb(slug):
     name, paras, highlights = SUBURBS[slug]
@@ -1037,7 +1261,7 @@ def build_contact():
           </div>
         </div>
 
-        <form class="contact-form reveal" id="quote-form" novalidate>
+        <form class="contact-form reveal" id="quote-form" data-mailto="{EMAIL}" novalidate>
           <h3 style="margin-bottom:1.5rem;">Request a free quote</h3>
           <div class="form-row">
             <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
@@ -1092,6 +1316,7 @@ def build_404():
 def build_sitemap():
     urls = [("", "1.0"), ("what-we-do", "0.9"), ("about", "0.7"), ("contact", "0.8")]
     urls += [(slug, "0.8") for slug, _ in SERVICES]
+    urls += [(slug, "0.8") for slug, _, _, _ in CIVIL_SERVICES]
     urls += [(f"earthmoving-{slug}", "0.7") for slug in SUBURBS]
     entries = "\n".join(
         f'''  <url>
@@ -1140,6 +1365,8 @@ if __name__ == "__main__":
     }
     for slug, _ in SERVICES:
         pages[f"{slug}/index.html"] = build_service(slug)
+    for slug in CIVIL_PAGES:
+        pages[f"{slug}/index.html"] = build_civil(slug)
     for slug in SUBURBS:
         pages[f"earthmoving-{slug}/index.html"] = build_suburb(slug)
     for fname, content in pages.items():

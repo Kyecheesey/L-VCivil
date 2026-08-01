@@ -25,6 +25,8 @@ directory; any static host serves these natively):
 /about  /contact        Who We Are · Contact (details, hours, quote form)
 /excavator-hire /bobcat-hire /tipper-truck-hire /combo-hire
 /posi-track-hire /skip-bin-hire /water-truck-hire
+/renewable-energy-subdivisions /site-preparation /wind-farms
+/solar-farms /pipe-and-gas-lines /gas-gathering   Civil project pages
 /earthmoving-{park-ridge,jimboomba,greenbank,yarrabilba,
               flagstone,logan-village,browns-plains}   Suburb SEO pages
 404.html                Not-found page

@@ -83,30 +83,25 @@
     counters.forEach((el) => cio.observe(el));
   }
 
-  // Contact form -> pre-filled email (no backend required)
-  const form = document.getElementById("quote-form");
-  if (form) {
+  // Enquiry forms -> pre-filled email (no backend required). Each form sets
+  // its recipient via data-mailto; fields not present are skipped.
+  document.querySelectorAll("form[data-mailto]").forEach((form) => {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const data = new FormData(form);
       const subject = encodeURIComponent(
         `Quote request — ${data.get("service") || "Civil works"}`
       );
-      const body = encodeURIComponent(
-        [
-          `Name: ${data.get("name") || ""}`,
-          `Phone: ${data.get("phone") || ""}`,
-          `Email: ${data.get("email") || ""}`,
-          `Suburb: ${data.get("suburb") || ""}`,
-          `Service: ${data.get("service") || ""}`,
-          "",
-          "Project details:",
-          data.get("message") || "",
-        ].join("\n")
-      );
-      window.location.href = `mailto:info@lvcivilcontracting.com.au?subject=${subject}&body=${body}`;
+      const lines = [];
+      [["Name", "name"], ["Phone", "phone"], ["Email", "email"], ["Suburb", "suburb"], ["Service", "service"]]
+        .forEach(([label, key]) => {
+          if (data.has(key)) lines.push(`${label}: ${data.get(key) || ""}`);
+        });
+      lines.push("", "Project details:", data.get("message") || "");
+      const body = encodeURIComponent(lines.join("\n"));
+      window.location.href = `mailto:${form.dataset.mailto}?subject=${subject}&body=${body}`;
     });
-  }
+  });
 
   // Footer year
   document.querySelectorAll("[data-year]").forEach((el) => {
