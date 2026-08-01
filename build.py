@@ -38,6 +38,29 @@ SERVICES = [
     ("water-truck-hire", "Water Truck Hire"),
 ]
 
+# Civil project services from the live site's "Our Services" section. These have
+# no dedicated pages (yet) — cards link to the contact page. (name, desc, icon)
+CIVIL_SERVICES = [
+    ("Renewable Energy Subdivision Works",
+     "Earthworks, trenching, access roads and service installation for reliable, future-ready energy subdivisions of any size.",
+     '<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>'),
+    ("Site Preparation",
+     "We clear, level, grade and stabilise land to create safe, accessible and compliant sites for all types of construction work.",
+     '<path d="m12 2 10 6-10 6L2 8z"/><path d="m2 14 10 6 10-6"/>'),
+    ("Wind Farms",
+     "Crane pads, internal roads and trench networks constructed to support smooth wind turbine transport and installation.",
+     '<path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/>'),
+    ("Solar Farms",
+     "Power your solar project with precision groundwork — we shape, stabilise and trench land to support arrays, inverters and access routes that last.",
+     '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>'),
+    ("Pipe & Gas Lines",
+     "Safe trenching, backfilling and reinstatement services that keep your pipeline and gas infrastructure protected and compliant.",
+     '<circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/>'),
+    ("Gas Gatherings",
+     "We trench, grade and form access routes to support efficient, safe transport of extracted gas to processing.",
+     '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>'),
+]
+
 # Real client reviews only — populate from Google/verbal testimonials supplied by
 # the client. Leave empty to hide the testimonials section entirely. Fields:
 # (quote, name, suburb/job)
@@ -255,6 +278,34 @@ def tickline():
 '''
 
 
+def civil_section(tint="section-light"):
+    cards = []
+    for i, (name, desc, icon) in enumerate(CIVIL_SERVICES):
+        delay = f' style="--delay:.{(i % 3) * 6:02d}s"' if i % 3 else ""
+        cards.append(f'''          <article class="service-card reveal"{delay}>
+            <span class="card-num" aria-hidden="true">{i+1:02d}</span>
+            <div class="service-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{icon}</svg></div>
+            <h3>{name}</h3>
+            <p>{desc}</p>
+            <a class="card-link" href="contact.html">Discuss your project {ICONS['arrow'].replace('width="16" height="16"', 'width="14" height="14"')}</a>
+          </article>''')
+    cards_html = "\n".join(cards)
+    return f'''    <section class="section {tint}" id="civil-works">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Our services</span>
+          <h2>Civil works, from subdivisions to solar.</h2>
+          <p>Beyond wet hire, we deliver full civil project works — renewable energy subdivisions, wind and solar farms, pipelines and gas gathering infrastructure — from a homeowner's site prep to broadacre energy developments.</p>
+        </div>
+        <div class="card-grid">
+{cards_html}
+        </div>
+      </div>
+    </section>
+
+'''
+
+
 def testimonials_section():
     # The client's Elfsight Google Reviews widget (same embed as the live site)
     # renders their real reviews; TESTIMONIALS adds static quote cards if supplied.
@@ -375,10 +426,9 @@ def build_index():
           <a href="tel:{PHONE_TEL}" class="btn btn-ghost">{ICONS['phone'].format(s=16)} {PHONE_DISPLAY}</a>
         </div>
         <div class="hero-stats rise" style="--delay:.4s">
-          <div><strong data-count="7">0</strong><span>Hire services</span></div>
-          <div><strong data-count="250" data-suffix="+">0</strong><span>Projects delivered</span></div>
-          <div><strong data-count="100" data-suffix="%">0</strong><span>Licensed &amp; insured</span></div>
-          <div><strong data-count="24" data-suffix="h">0</strong><span>Quote turnaround</span></div>
+          <div><strong data-count="100" data-suffix="%">0</strong><span>Wet hire</span></div>
+          <div><strong data-count="0">0</strong><span>Harm record</span></div>
+          <div><strong data-count="100" data-suffix="%">0</strong><span>Compliant operations</span></div>
         </div>
       </div>
       <div class="hero-badge rise" style="--delay:.55s">
@@ -438,7 +488,7 @@ def build_index():
       </div>
     </section>
 
-    <section class="section">
+{civil_section()}    <section class="section">
       <div class="container">
         <div class="section-head center reveal">
           <span class="eyebrow">How it works</span>
@@ -529,7 +579,7 @@ def build_services():
     "@type": "ItemList",
     "name": "Civil contracting services in Logan",
     "itemListElement": [
-{",".join(chr(10) + f'      {{"@type": "Service", "position": {i+1}, "name": "{name}", "areaServed": "Logan QLD", "url": "{SITE}/{slug}.html", "provider": {{"@id": "{SITE}/#business"}}}}' for i, (slug, name) in enumerate(SERVICES))}
+{",".join([chr(10) + f'      {{"@type": "Service", "position": {i+1}, "name": "{name}", "areaServed": "Logan QLD", "url": "{SITE}/{slug}.html", "provider": {{"@id": "{SITE}/#business"}}}}' for i, (slug, name) in enumerate(SERVICES)] + [chr(10) + f'      {{"@type": "Service", "position": {len(SERVICES)+i+1}, "name": "{name}", "areaServed": "Logan QLD", "url": "{SITE}/contact.html", "provider": {{"@id": "{SITE}/#business"}}}}' for i, (name, _, _) in enumerate(CIVIL_SERVICES)])}
     ]
   }}
   </script>
@@ -556,10 +606,11 @@ def build_services():
         </div>
       </div>
     </section>
-{cta_band("Not sure which machine you need?", "Describe the job — we'll spec the right combo and quote it within 24 hours.")}  </main>
+
+{civil_section("section-tint")}{cta_band("Not sure which machine you need?", "Describe the job — we'll spec the right combo and quote it within 24 hours.")}  </main>
 {footer()}'''
     title = "What We Offer — Wet Hire &amp; Civil Services in Logan | L&amp;V Civil Contracting"
-    desc = "Excavator, bobcat, tipper, combo, posi track, skip bin and water truck hire across Logan QLD — every machine with a skilled operator. Quality guarantee, price match promise, Zero Harm safety."
+    desc = "Wet hire across Logan QLD — excavators, bobcats, tippers, posi tracks, skip bins and water trucks — plus civil works for renewable energy subdivisions, wind and solar farms, pipelines and gas gathering."
     return head(title, desc, f"{SITE}/services.html", ld) + body
 
 
