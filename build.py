@@ -31,7 +31,7 @@ ABN = "63 661 732 869"
 SERVICES = [
     ("excavator-hire",   "Excavator Hire"),
     ("bobcat-hire",      "Bobcat Hire"),
-    ("tipper-hire",      "Tipper Hire"),
+    ("tipper-truck-hire",      "Tipper Hire"),
     ("combo-hire",       "Combo Hire"),
     ("posi-track-hire",  "Posi Track Hire"),
     ("skip-bin-hire",    "Skip Bin Hire"),
@@ -350,7 +350,7 @@ def build_index():
     "@type": "LocalBusiness",
     "@id": "{SITE}/#business",
     "name": "L&V Civil Contracting",
-    "description": "Family owned wet hire earthmoving, trenching, site preparation and civil construction services across Logan and South East Queensland.",
+    "description": "Family owned wet hire for site preparation, landscaping, construction and civil works across Logan and South East Queensland.",
     "url": "{SITE}/",
     "telephone": "{PHONE_TEL}",
     "email": "{EMAIL}",
@@ -380,7 +380,7 @@ def build_index():
          '<path d="M3 17h13l2 3H5z"/><path d="M8 17v-5h4l3 5"/><path d="M12 12 9 5l6 2 3 6"/><circle cx="6.5" cy="20" r="1"/><circle cx="15.5" cy="20" r="1"/>'),
         ("bobcat-hire", "Bobcat Hire", "Tight-access clearing, levelling and spreading for blocks where bigger machines simply can't work.",
          '<rect x="3" y="10" width="12" height="7" rx="1.5"/><path d="M15 13h4l2 3v1h-6z"/><circle cx="7" cy="19" r="1.6"/><circle cx="17" cy="19" r="1.6"/>'),
-        ("tipper-hire", "Tipper Hire", "Fast, reliable haulage of spoil, fill, aggregate and demolition material — keeping your site moving.",
+        ("tipper-truck-hire", "Tipper Hire", "Fast, reliable haulage of spoil, fill, aggregate and demolition material — keeping your site moving.",
          '<path d="M2 15V9h11l3-4h3v10"/><path d="M2 15h20v2h-3"/><circle cx="7" cy="18.5" r="1.7"/><circle cx="15" cy="18.5" r="1.7"/>'),
         ("combo-hire", "Combo Hire", "Machines, trucks and operators bundled into one package — one booking, one invoice, one crew.",
          '<rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/>'),
@@ -419,7 +419,7 @@ def build_index():
       <div class="container hero-inner">
         <p class="hero-eyebrow rise"><span class="dot" aria-hidden="true"></span> Logan's Trusted Civil Contractor</p>
         <h1 class="rise" style="--delay:.08s">Ground works, <span class="accent">done right.</span></h1>
-        <p class="hero-lede rise" style="--delay:.16s">Family owned wet hire earthmoving, trenching and site preparation across Logan and South East Queensland — modern machines with skilled operators, backed by a quality guarantee and a Zero Harm safety focus.</p>
+        <p class="hero-lede rise" style="--delay:.16s">Family owned wet hire for site preparation, landscaping, construction and civil works across Logan and South East Queensland — modern machines with skilled operators, backed by a quality guarantee and a Zero Harm safety focus.</p>
         <div class="hero-chips rise" style="--delay:.24s">{chips}</div>
         <div class="hero-actions rise" style="--delay:.32s">
           <a href="contact.html" class="btn btn-primary">Get a free quote {ICONS['arrow']}</a>
@@ -559,7 +559,7 @@ def build_services():
     data = {
         "excavator-hire": "Footings, trenches, site cuts, dams and detailed excavation with precision operators.",
         "bobcat-hire": "Tight-access clearing, levelling, spreading and site cleanups on any block.",
-        "tipper-hire": "Spoil off site, fill on site, on time — haulage that keeps the program moving.",
+        "tipper-truck-hire": "Spoil off site, fill on site, on time — haulage that keeps the program moving.",
         "combo-hire": "Machines and trucks bundled into one package, priced for your project.",
         "posi-track-hire": "Tracked loaders with traction and control for soft, wet or sloped ground.",
         "skip-bin-hire": "Bins delivered, filled and removed in the same booking as your machines.",
@@ -630,7 +630,7 @@ SERVICE_PAGES = {
             ("Clean, to-spec finish", "Dug to depth, batters trimmed, spoil managed properly."),
         ],
         "tags": ["Trenching", "Footings", "Site cuts", "Dams", "Detailed excavation"],
-        "related": ["tipper-hire", "combo-hire", "posi-track-hire"],
+        "related": ["tipper-truck-hire", "combo-hire", "posi-track-hire"],
     },
     "bobcat-hire": {
         "img": "work",
@@ -646,9 +646,9 @@ SERVICE_PAGES = {
             ("Fast site cleanups", "Rubbish, green waste and spoil loaded out efficiently."),
         ],
         "tags": ["Tight access", "Levelling", "Spreading", "Backfilling", "Cleanups"],
-        "related": ["posi-track-hire", "tipper-hire", "skip-bin-hire"],
+        "related": ["posi-track-hire", "tipper-truck-hire", "skip-bin-hire"],
     },
-    "tipper-hire": {
+    "tipper-truck-hire": {
         "img": "pano",
         "h1": "Tipper Hire in Logan",
         "desc": "Tipper truck hire across Logan QLD — spoil removal, material delivery and dig-and-cart packages with experienced drivers. Free quotes on 0476 676 639.",
@@ -678,7 +678,7 @@ SERVICE_PAGES = {
             ("Sized to the job", "From a two-machine dig-and-cart to full site prep."),
         ],
         "tags": ["Excavator + tipper", "Loader + water truck", "Full site prep", "One invoice"],
-        "related": ["excavator-hire", "tipper-hire", "water-truck-hire"],
+        "related": ["excavator-hire", "tipper-truck-hire", "water-truck-hire"],
     },
     "posi-track-hire": {
         "img": "machine",
@@ -710,7 +710,7 @@ SERVICE_PAGES = {
             ("Right size, right spot", "Placed for your workflow, not the truck's convenience."),
         ],
         "tags": ["Green waste", "Demolition waste", "Site waste", "Bin swaps"],
-        "related": ["tipper-hire", "bobcat-hire", "combo-hire"],
+        "related": ["tipper-truck-hire", "bobcat-hire", "combo-hire"],
     },
     "water-truck-hire": {
         "img": "site2",
@@ -726,7 +726,7 @@ SERVICE_PAGES = {
             ("Haul-road maintenance", "Safer, cleaner running surfaces for your site traffic."),
         ],
         "tags": ["Dust suppression", "Compaction", "Haul roads", "Site wet-down"],
-        "related": ["combo-hire", "excavator-hire", "tipper-hire"],
+        "related": ["combo-hire", "excavator-hire", "tipper-truck-hire"],
     },
 }
 

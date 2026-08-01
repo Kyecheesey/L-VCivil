@@ -23,14 +23,14 @@ directory; any static host serves these natively):
 /                       Home — photo hero, promises, services, why-us, FAQ
 /what-we-do             Services overview (same path as the live site)
 /about  /contact        Who We Are · Contact (details, hours, quote form)
-/excavator-hire /bobcat-hire /tipper-hire /combo-hire
+/excavator-hire /bobcat-hire /tipper-truck-hire /combo-hire
 /posi-track-hire /skip-bin-hire /water-truck-hire
 /earthmoving-{park-ridge,jimboomba,greenbank,yarrabilba,
               flagstone,logan-village,browns-plains}   Suburb SEO pages
 404.html                Not-found page
 css/ js/ assets/        Design system, interactions, logo
 build.py                Static site generator (source of truth for all pages)
-robots.txt sitemap.xml favicon.svg
+robots.txt sitemap.xml favicon.ico
 ```
 
 Note: links are root-absolute, so preview locally with `python3 -m http.server`
@@ -65,7 +65,8 @@ cPanel — or GitHub Pages with a custom domain, not a /project subpath).
    `build.py`; never fabricate reviews.
 3. **Email** — enquiries go to `info@lvcivilcontracting.com.au` (set in `build.py`
    and `js/main.js`). Confirm this mailbox exists or update it.
-4. **Stats** — hero counters (projects delivered etc.) are representative
-   placeholders; set real numbers in `build_index()` and re-run `build.py`.
+4. **Stats** — hero counters use the live site's claims (100% Wet Hire,
+   0 Harm Record, 100% Compliant Operations); adjust in `build_index()` if the
+   client wants different figures.
 5. **Form backend (optional)** — the quote form opens a pre-filled email; swap in
    Formspree/Netlify Forms for server-side handling if preferred.
