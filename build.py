@@ -179,8 +179,8 @@ def header(active=""):
         <a href="contact.html" class="btn btn-primary btn-sm">Get a Quote</a>
       </nav>
       <div class="nav-cta">
-        <a href="contact.html" class="btn btn-ghost btn-sm">Contact</a>
-        <a href="tel:{PHONE_TEL}" class="btn btn-primary btn-sm nav-phone">{ICONS['phone'].format(s=15)} <span class="ph-num">{PHONE_DISPLAY}</span></a>
+        <a href="tel:{PHONE_TEL}" class="nav-phone">{ICONS['phone'].format(s=14)} <span class="ph-num">{PHONE_DISPLAY}</span></a>
+        <span class="nav-divider" aria-hidden="true"></span>
         <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
           <span></span><span></span><span></span>
         </button>
