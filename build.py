@@ -333,19 +333,30 @@ def civil_section(tint="section-light"):
 '''
 
 
+GALLERY_FILTERS = [
+    ("all",        "All work"),
+    ("earthworks", "Earthworks"),
+    ("haulage",    "Haulage & tippers"),
+    ("water",      "Water & dust"),
+]
+
 def gallery_section():
     shots = [
-        ("hero",      "L&amp;V Civil loader working at sunrise on a Logan site", "g-feature"),
-        ("work",      "Excavator trenching on a residential block", ""),
-        ("machine",   "Posi track loader on soft ground", ""),
-        ("excavator", "Excavator on site cut works", ""),
-        ("site2",     "Water truck dust suppression on a civil site", ""),
-        ("pano",      "Tipper truck panorama across a Logan worksite", "g-wide"),
+        ("hero",      "L&amp;V Civil loader working at sunrise on a Logan site", "g-feature", "earthworks"),
+        ("work",      "Excavator trenching on a residential block", "", "earthworks"),
+        ("machine",   "Posi track loader on soft ground", "", "earthworks"),
+        ("excavator", "Excavator on site cut works", "", "earthworks"),
+        ("site2",     "Water truck dust suppression on a civil site", "", "water"),
+        ("pano",      "Tipper truck panorama across a Logan worksite", "g-wide", "haulage"),
     ]
     figs = "\n".join(
-        f'''          <figure class="g-item {cls} reveal"{f' style="--delay:.{(i % 3) * 6:02d}s"' if i % 3 else ''}>
+        f'''          <figure class="g-item {cls} reveal" data-cat="{cat}"{f' style="--delay:.{(i % 3) * 6:02d}s"' if i % 3 else ''}>
             <img src="{IMG[key]}" alt="{alt}" loading="lazy" width="900" height="675">
-          </figure>''' for i, (key, alt, cls) in enumerate(shots)
+          </figure>''' for i, (key, alt, cls, cat) in enumerate(shots)
+    )
+    filters = "\n".join(
+        f'''          <button type="button" class="filter-pill{' is-active' if i == 0 else ''}" data-filter="{key}">{label}</button>'''
+        for i, (key, label) in enumerate(GALLERY_FILTERS)
     )
     return f'''    <section class="section" id="gallery">
       <div class="container">
@@ -354,12 +365,75 @@ def gallery_section():
           <h2>Real machines. Real Logan sites.</h2>
           <p>No stock photos. This is our gear and our crew at work across the Logan region.</p>
         </div>
-        <div class="gallery">
+        <div class="filter-row reveal" role="group" aria-label="Filter gallery by work type">
+{filters}
+        </div>
+        <div class="gallery" data-gallery>
 {figs}
         </div>
       </div>
     </section>
 
+'''
+
+
+def service_area_map():
+    cards = []
+    for i, (slug, (name, _, highlights)) in enumerate(SUBURBS.items()):
+        hl = "".join(f"<li>{h}</li>" for h in highlights)
+        active = " is-active" if i == 0 else ""
+        cards.append(f'''          <div class="area-card{active} reveal" style="--delay:.{(i % 4) * 5:02d}s"
+            data-suburb="{name}" data-q="{name.replace(' ', '+')}+QLD,+Australia">
+            <button type="button" class="area-card-top">
+              <strong>{name}</strong>{ICONS['pin'].format(s=16)}
+            </button>
+            <ul>{hl}<li class="area-card-cta"><a href="earthmoving-{slug}.html">View {name} page {ICONS['arrow'].replace('width="16" height="16"', 'width="12" height="12"')}</a></li></ul>
+          </div>''')
+    cards_html = "\n".join(cards)
+    first_name, _, first_hl = next(iter(SUBURBS.values()))
+    return f'''    <section class="section section-light" id="service-area">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Where we work</span>
+          <h2>Servicing Logan &amp; South East Queensland.</h2>
+          <p>Based in Park Ridge, we cover all major suburbs across the Logan region. Tap a suburb to see how we work there and centre the map, or travel further, we quote outside these areas too.</p>
+        </div>
+        <div class="area-map-wrap reveal">
+          <div class="area-cards" role="group" aria-label="Select a suburb we service">
+{cards_html}
+          </div>
+          <div class="area-map-frame">
+            <iframe data-area-map src="https://maps.google.com/maps?q=Park+Ridge+QLD+4125,+Australia&z=11&output=embed"
+              title="Map of L&amp;V Civil Contracting's Logan service area" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+'''
+
+
+def stats_section():
+    total_services = len(SERVICES) + len(CIVIL_SERVICES)
+    stats = [
+        ("2022", "", "Family owned since"),
+        (str(total_services), "", "Services under one crew"),
+        ("18", "+", "Suburbs across Logan &amp; SEQ"),
+        ("24", "hr", "Typical quote turnaround"),
+    ]
+    tiles = "\n".join(
+        f'''          <div class="stat-tile reveal" style="--delay:.{i*6:02d}s">
+            <strong data-count="{v}" data-suffix="{suf}">0</strong>
+            <span>{label}</span>
+          </div>''' for i, (v, suf, label) in enumerate(stats)
+    )
+    return f'''    <section class="section-tight stats-band">
+      <div class="container">
+        <div class="stats-grid">
+{tiles}
+        </div>
+      </div>
+    </section>
 '''
 
 
@@ -500,7 +574,7 @@ def build_index():
       </div>
     </section>
 {tickline()}
-    <section class="section-tight">
+{stats_section()}    <section class="section-tight">
       <div class="container promises">
         <div class="promise reveal">
           <div class="service-icon" aria-hidden="true">{ICONS['shield'].format(s=24)}</div>
@@ -565,12 +639,11 @@ def build_index():
       </div>
     </section>
 
-{gallery_section()}    <section class="section section-light" id="areas">
+{gallery_section()}{service_area_map()}    <section class="section" id="areas">
       <div class="container">
         <div class="section-head reveal">
-          <span class="eyebrow">Where we work</span>
-          <h2>Servicing Logan &amp; South East Queensland.</h2>
-          <p>Based in Park Ridge, we cover all major suburbs across the Logan region, and travel further for the right project.</p>
+          <span class="eyebrow">And more suburbs</span>
+          <h2>Also servicing these areas nearby.</h2>
         </div>
         <div class="chip-cloud reveal">
 {chips_area}

@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css?v=1bdbdd28">
+  <link rel="stylesheet" href="/css/style.css?v=fa5765e5">
   <script type="speculationrules">
   {"prerender": [{"where": {"href_matches": "/*"}, "eagerness": "moderate"}]}
   </script>
@@ -138,6 +138,28 @@
       </div>
     </div>
 
+    <section class="section-tight stats-band">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-tile reveal" style="--delay:.00s">
+            <strong data-count="2022" data-suffix="">0</strong>
+            <span>Family owned since</span>
+          </div>
+          <div class="stat-tile reveal" style="--delay:.06s">
+            <strong data-count="13" data-suffix="">0</strong>
+            <span>Services under one crew</span>
+          </div>
+          <div class="stat-tile reveal" style="--delay:.12s">
+            <strong data-count="18" data-suffix="+">0</strong>
+            <span>Suburbs across Logan &amp; SEQ</span>
+          </div>
+          <div class="stat-tile reveal" style="--delay:.18s">
+            <strong data-count="24" data-suffix="hr">0</strong>
+            <span>Typical quote turnaround</span>
+          </div>
+        </div>
+      </div>
+    </section>
     <section class="section-tight">
       <div class="container promises">
         <div class="promise reveal">
@@ -312,35 +334,107 @@
           <h2>Real machines. Real Logan sites.</h2>
           <p>No stock photos. This is our gear and our crew at work across the Logan region.</p>
         </div>
-        <div class="gallery">
-          <figure class="g-item g-feature reveal">
+        <div class="filter-row reveal" role="group" aria-label="Filter gallery by work type">
+          <button type="button" class="filter-pill is-active" data-filter="all">All work</button>
+          <button type="button" class="filter-pill" data-filter="earthworks">Earthworks</button>
+          <button type="button" class="filter-pill" data-filter="haulage">Haulage & tippers</button>
+          <button type="button" class="filter-pill" data-filter="water">Water & dust</button>
+        </div>
+        <div class="gallery" data-gallery>
+          <figure class="g-item g-feature reveal" data-cat="earthworks">
             <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/f10a3951-3ce4-47b2-8eeb-8f75a4ba282c.webp" alt="L&amp;V Civil loader working at sunrise on a Logan site" loading="lazy" width="900" height="675">
           </figure>
-          <figure class="g-item  reveal" style="--delay:.06s">
+          <figure class="g-item  reveal" data-cat="earthworks" style="--delay:.06s">
             <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/148aaf25-9c24-4f60-9ba8-7a43ea1f332a.webp" alt="Excavator trenching on a residential block" loading="lazy" width="900" height="675">
           </figure>
-          <figure class="g-item  reveal" style="--delay:.12s">
+          <figure class="g-item  reveal" data-cat="earthworks" style="--delay:.12s">
             <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/ef8c78a5-8e3b-421c-91db-c7a770162721.webp" alt="Posi track loader on soft ground" loading="lazy" width="900" height="675">
           </figure>
-          <figure class="g-item  reveal">
+          <figure class="g-item  reveal" data-cat="earthworks">
             <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/46362802-7b01-45e1-bb00-3bf21efd263f.webp" alt="Excavator on site cut works" loading="lazy" width="900" height="675">
           </figure>
-          <figure class="g-item  reveal" style="--delay:.06s">
+          <figure class="g-item  reveal" data-cat="water" style="--delay:.06s">
             <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/3060894c-f138-4f55-adab-d0f18d2dea69.webp" alt="Water truck dust suppression on a civil site" loading="lazy" width="900" height="675">
           </figure>
-          <figure class="g-item g-wide reveal" style="--delay:.12s">
+          <figure class="g-item g-wide reveal" data-cat="haulage" style="--delay:.12s">
             <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/b6806a97-d72a-4818-a428-99fa3df390bb.webp" alt="Tipper truck panorama across a Logan worksite" loading="lazy" width="900" height="675">
           </figure>
         </div>
       </div>
     </section>
 
-    <section class="section section-light" id="areas">
+    <section class="section section-light" id="service-area">
       <div class="container">
         <div class="section-head reveal">
           <span class="eyebrow">Where we work</span>
           <h2>Servicing Logan &amp; South East Queensland.</h2>
-          <p>Based in Park Ridge, we cover all major suburbs across the Logan region, and travel further for the right project.</p>
+          <p>Based in Park Ridge, we cover all major suburbs across the Logan region. Tap a suburb to see how we work there and centre the map, or travel further, we quote outside these areas too.</p>
+        </div>
+        <div class="area-map-wrap reveal">
+          <div class="area-cards" role="group" aria-label="Select a suburb we service">
+          <div class="area-card is-active reveal" style="--delay:.00s"
+            data-suburb="Park Ridge" data-q="Park+Ridge+QLD,+Australia">
+            <button type="button" class="area-card-top">
+              <strong>Park Ridge</strong><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </button>
+            <ul><li>Fastest response times</li><li>House pads & footings</li><li>Trenching & driveways</li><li class="area-card-cta"><a href="/earthmoving-park-ridge">View Park Ridge page <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></li></ul>
+          </div>
+          <div class="area-card reveal" style="--delay:.05s"
+            data-suburb="Jimboomba" data-q="Jimboomba+QLD,+Australia">
+            <button type="button" class="area-card-top">
+              <strong>Jimboomba</strong><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </button>
+            <ul><li>Dams & shed pads</li><li>Long driveways</li><li>Acreage clearing</li><li class="area-card-cta"><a href="/earthmoving-jimboomba">View Jimboomba page <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></li></ul>
+          </div>
+          <div class="area-card reveal" style="--delay:.10s"
+            data-suburb="Greenbank" data-q="Greenbank+QLD,+Australia">
+            <button type="button" class="area-card-top">
+              <strong>Greenbank</strong><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </button>
+            <ul><li>Land clearing</li><li>House pads</li><li>Soft-ground posi tracks</li><li class="area-card-cta"><a href="/earthmoving-greenbank">View Greenbank page <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></li></ul>
+          </div>
+          <div class="area-card reveal" style="--delay:.15s"
+            data-suburb="Yarrabilba" data-q="Yarrabilba+QLD,+Australia">
+            <button type="button" class="area-card-top">
+              <strong>Yarrabilba</strong><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </button>
+            <ul><li>Tight-access work</li><li>Cut & fill</li><li>Final-grade levelling</li><li class="area-card-cta"><a href="/earthmoving-yarrabilba">View Yarrabilba page <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></li></ul>
+          </div>
+          <div class="area-card reveal" style="--delay:.00s"
+            data-suburb="Flagstone" data-q="Flagstone+QLD,+Australia">
+            <button type="button" class="area-card-top">
+              <strong>Flagstone</strong><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </button>
+            <ul><li>Site cuts & footings</li><li>Service trenching</li><li>Dig & cart combos</li><li class="area-card-cta"><a href="/earthmoving-flagstone">View Flagstone page <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></li></ul>
+          </div>
+          <div class="area-card reveal" style="--delay:.05s"
+            data-suburb="Logan Village" data-q="Logan+Village+QLD,+Australia">
+            <button type="button" class="area-card-top">
+              <strong>Logan Village</strong><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </button>
+            <ul><li>Driveways & pads</li><li>Dams</li><li>Rural trenching</li><li class="area-card-cta"><a href="/earthmoving-logan-village">View Logan Village page <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></li></ul>
+          </div>
+          <div class="area-card reveal" style="--delay:.10s"
+            data-suburb="Browns Plains" data-q="Browns+Plains+QLD,+Australia">
+            <button type="button" class="area-card-top">
+              <strong>Browns Plains</strong><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </button>
+            <ul><li>Commercial site prep</li><li>Tight-access digs</li><li>Dust control</li><li class="area-card-cta"><a href="/earthmoving-browns-plains">View Browns Plains page <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></li></ul>
+          </div>
+          </div>
+          <div class="area-map-frame">
+            <iframe data-area-map src="https://maps.google.com/maps?q=Park+Ridge+QLD+4125,+Australia&z=11&output=embed"
+              title="Map of L&amp;V Civil Contracting's Logan service area" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="areas">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">And more suburbs</span>
+          <h2>Also servicing these areas nearby.</h2>
         </div>
         <div class="chip-cloud reveal">
           <a class="chip chip-link" href="/earthmoving-park-ridge">Park Ridge</a>
@@ -527,6 +621,6 @@
     <a href="/contact" class="btn btn-ghost">Get a quote</a>
   </div>
 
-  <script src="/js/main.js?v=1bdbdd28" defer></script>
+  <script src="/js/main.js?v=fa5765e5" defer></script>
 </body>
 </html>

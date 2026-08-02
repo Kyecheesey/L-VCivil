@@ -103,6 +103,50 @@
     });
   });
 
+  // Gallery filter pills
+  const filterRow = document.querySelector(".filter-row");
+  const gallery = document.querySelector("[data-gallery]");
+  if (filterRow && gallery) {
+    const items = gallery.querySelectorAll(".g-item");
+    filterRow.addEventListener("click", (e) => {
+      const btn = e.target.closest(".filter-pill");
+      if (!btn) return;
+      filterRow.querySelectorAll(".filter-pill").forEach((p) => p.classList.remove("is-active"));
+      btn.classList.add("is-active");
+      const filter = btn.dataset.filter;
+      items.forEach((item) => {
+        const show = filter === "all" || item.dataset.cat === filter;
+        item.classList.toggle("is-hidden", !show);
+        if (show) {
+          item.classList.remove("is-filtering");
+          void item.offsetWidth;
+          item.classList.add("is-filtering");
+        }
+      });
+    });
+  }
+
+  // Interactive service-area map: click a suburb to expand its details and
+  // re-centre the embedded map, without needing a paid Maps API key.
+  const areaCards = document.querySelectorAll(".area-card");
+  const areaMap = document.querySelector("[data-area-map]");
+  if (areaCards.length) {
+    areaCards.forEach((card) => {
+      const toggle = card.querySelector(".area-card-top");
+      if (!toggle) return;
+      toggle.addEventListener("click", () => {
+        const already = card.classList.contains("is-active");
+        areaCards.forEach((c) => c.classList.remove("is-active"));
+        if (!already) {
+          card.classList.add("is-active");
+          if (areaMap && card.dataset.q) {
+            areaMap.src = `https://maps.google.com/maps?q=${card.dataset.q}&z=13&output=embed`;
+          }
+        }
+      });
+    });
+  }
+
   // Footer year
   document.querySelectorAll("[data-year]").forEach((el) => {
     el.textContent = new Date().getFullYear();
