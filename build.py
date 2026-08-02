@@ -161,7 +161,7 @@ def header(active=""):
   <header class="site-header">
     <div class="container nav-bar">
       <a class="brand" href="index.html" aria-label="L&amp;V Civil Contracting home">
-        <img src="assets/logo.jpg" alt="L&amp;V Civil Contracting" width="54" height="54">
+        <img src="assets/logo.png" alt="L&amp;V Civil Contracting" width="54" height="54">
       </a>
       <nav class="nav-links" id="nav-links" aria-label="Main navigation">
         <a href="index.html"{cls('home')}>Home</a>
@@ -213,7 +213,7 @@ def footer():
       <div class="footer-grid">
         <div class="footer-about">
           <a class="brand" href="index.html">
-            <img src="assets/logo.jpg" alt="L&amp;V Civil Contracting" width="86" height="86" loading="lazy">
+            <img src="assets/logo.png" alt="L&amp;V Civil Contracting" width="86" height="86" loading="lazy">
           </a>
           <p>Family owned and operated wet hire and civil works, delivering reliable results across Logan and South East Queensland since 2022.</p>
           <div class="trust-card">
@@ -1422,7 +1422,7 @@ def transform(html):
     html = html.replace('href="favicon.svg"', 'href="/favicon.svg"')
     html = html.replace('src="js/main.js"', f'src="/js/main.js?v={ASSET_V}"')
     html = html.replace('src="assets/logo.svg"', 'src="/assets/logo.svg"')
-    html = html.replace('src="assets/logo.jpg"', 'src="/assets/logo.jpg"')
+    html = html.replace('src="assets/logo.png"', 'src="/assets/logo.png"')
     html = html.replace('href="favicon.ico"', 'href="/favicon.ico"')
     html = html.replace(f'{SITE}/services.html', f'{SITE}/what-we-do')
     html = re.sub(re.escape(SITE) + r'/([a-z0-9-]+)\.html', SITE + r'/\1', html)

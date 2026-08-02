@@ -146,13 +146,10 @@ h1, h2, h3, h4 {
 .brand img {
   height: 66px;
   width: auto;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-  transition: transform 0.35s var(--ease-out), box-shadow 0.35s;
+  transition: transform 0.35s var(--ease-out);
 }
 .brand:hover img {
   transform: translateY(-1px);
-  box-shadow: 0 0 0 1px rgba(69, 177, 240, 0.45), 0 10px 26px rgba(0, 0, 0, 0.55);
 }
 .site-footer .brand img { height: 84px; }
 
