@@ -1388,6 +1388,23 @@ def build_sitemap():
 
 import os
 import re
+import hashlib
+
+
+def _asset_version():
+    """Short content hash of the css/js bundle — appended as ?v= so browsers
+    always fetch fresh assets after a deploy instead of serving stale cache."""
+    h = hashlib.md5()
+    for p in ("css/style.css", "js/main.js"):
+        try:
+            with open(p, "rb") as f:
+                h.update(f.read())
+        except FileNotFoundError:
+            pass
+    return h.hexdigest()[:8]
+
+
+ASSET_V = _asset_version()
 
 
 def transform(html):
@@ -1397,9 +1414,9 @@ def transform(html):
     html = html.replace('href="index.html"', 'href="/"')
     html = html.replace('href="services.html"', 'href="/what-we-do"')
     html = re.sub(r'href="([a-z0-9-]+)\.html"', r'href="/\1"', html)
-    html = html.replace('href="css/style.css"', 'href="/css/style.css"')
+    html = html.replace('href="css/style.css"', f'href="/css/style.css?v={ASSET_V}"')
     html = html.replace('href="favicon.svg"', 'href="/favicon.svg"')
-    html = html.replace('src="js/main.js"', 'src="/js/main.js"')
+    html = html.replace('src="js/main.js"', f'src="/js/main.js?v={ASSET_V}"')
     html = html.replace('src="assets/logo.svg"', 'src="/assets/logo.svg"')
     html = html.replace('src="assets/logo.jpg"', 'src="/assets/logo.jpg"')
     html = html.replace('href="favicon.ico"', 'href="/favicon.ico"')
