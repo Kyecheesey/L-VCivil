@@ -473,7 +473,11 @@ def build_index():
     ld = f'  <link rel="preload" as="image" href="{IMG["hero"]}" fetchpriority="high">\n' + ld
     body = f'''{header('home')}
   <main id="main">
-    <section class="hero" style="--hero-img: url('{IMG['hero']}')">
+    <section class="hero">
+      <video class="hero-video" muted loop playsinline preload="metadata" poster="{IMG['hero']}" aria-hidden="true">
+        <source media="(max-width: 640px)" src="assets/hero-mobile.mp4" type="video/mp4">
+        <source src="assets/hero.mp4" type="video/mp4">
+      </video>
       <div class="container hero-inner">
         <p class="hero-eyebrow rise"><span class="dot" aria-hidden="true"></span> Logan's Trusted Civil Contractor</p>
         <h1 class="rise" style="--delay:.08s">Ground works, <span class="accent">done right.</span></h1>

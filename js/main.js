@@ -168,4 +168,11 @@
       { passive: true }
     );
   }
+
+  // Hero background video: only autoplay for users who haven't asked for
+  // reduced motion; everyone else keeps the static poster frame.
+  var heroVideo = document.querySelector(".hero-video");
+  if (heroVideo && window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+    heroVideo.play().catch(function () {});
+  }
 })();
