@@ -148,8 +148,13 @@ def head(title, desc, canonical, extra=""):
 def header(active=""):
     def cls(page):
         return ' class="is-active" aria-current="page"' if page == active else ""
-    drop_links = "\n".join(
+    drop_links = '          <span class="drop-label">Wet Hire</span>\n'
+    drop_links += "\n".join(
         f'          <a href="{slug}.html">{name}</a>' for slug, name in SERVICES
+    )
+    drop_links += '\n          <span class="drop-label">Civil Works</span>\n'
+    drop_links += "\n".join(
+        f'          <a href="{slug}.html">{name}</a>' for slug, name, _, _ in CIVIL_SERVICES
     )
     return f'''
   <div class="topbar">{ICONS['pin'].format(s=13)}Park Ridge QLD, 4125 — Servicing Logan &amp; South East Queensland</div>
@@ -189,6 +194,9 @@ def footer():
     offer_links = "\n".join(
         f'            <li><a href="{slug}.html">{name}</a></li>' for slug, name in SERVICES
     )
+    civil_links = "\n".join(
+        f'            <li><a href="{slug}.html">{name}</a></li>' for slug, name, _, _ in CIVIL_SERVICES
+    )
     return f'''
   <footer class="site-footer" style="--footer-img: url('{IMG['pano']}')">
     <div class="container">
@@ -214,9 +222,15 @@ def footer():
           </div>
         </div>
         <div>
-          <h4>What We Offer</h4>
+          <h4>Wet Hire</h4>
           <ul>
 {offer_links}
+          </ul>
+        </div>
+        <div>
+          <h4>Civil Works</h4>
+          <ul>
+{civil_links}
           </ul>
         </div>
         <div>
@@ -246,6 +260,11 @@ def footer():
       </div>
     </div>
   </footer>
+
+  <div class="mobile-cta" aria-hidden="false">
+    <a href="tel:{PHONE_TEL}" class="btn btn-primary">{ICONS['phone'].format(s=16)} Call now</a>
+    <a href="contact.html" class="btn btn-ghost">Get a quote</a>
+  </div>
 
   <script src="js/main.js" defer></script>
 </body>
@@ -307,6 +326,36 @@ def civil_section(tint="section-light"):
         </div>
         <div class="card-grid">
 {cards_html}
+        </div>
+      </div>
+    </section>
+
+'''
+
+
+def gallery_section():
+    shots = [
+        ("hero",      "L&amp;V Civil loader working at sunrise on a Logan site", "g-feature"),
+        ("work",      "Excavator trenching on a residential block", ""),
+        ("machine",   "Posi track loader on soft ground", ""),
+        ("excavator", "Excavator on site cut works", ""),
+        ("site2",     "Water truck dust suppression on a civil site", ""),
+        ("pano",      "Tipper truck panorama across a Logan worksite", "g-wide"),
+    ]
+    figs = "\n".join(
+        f'''          <figure class="g-item {cls} reveal"{f' style="--delay:.{(i % 3) * 6:02d}s"' if i % 3 else ''}>
+            <img src="{IMG[key]}" alt="{alt}" loading="lazy" width="900" height="675">
+          </figure>''' for i, (key, alt, cls) in enumerate(shots)
+    )
+    return f'''    <section class="section" id="gallery">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">On the tools</span>
+          <h2>Real machines. Real Logan sites.</h2>
+          <p>No stock photos — this is our gear and our crew at work across the Logan region.</p>
+        </div>
+        <div class="gallery">
+{figs}
         </div>
       </div>
     </section>
@@ -511,7 +560,7 @@ def build_index():
       </div>
     </section>
 
-    <section class="section section-light" id="areas">
+{gallery_section()}    <section class="section section-light" id="areas">
       <div class="container">
         <div class="section-head reveal">
           <span class="eyebrow">Where we work</span>
