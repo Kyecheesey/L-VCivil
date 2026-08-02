@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css?v=fa5765e5">
+  <link rel="stylesheet" href="/css/style.css?v=52368c9a">
   <script type="speculationrules">
   {"prerender": [{"where": {"href_matches": "/*"}, "eagerness": "moderate"}]}
   </script>
@@ -118,31 +118,61 @@
           </div>
         </div>
 
-        <form class="contact-form reveal" id="quote-form" data-mailto="info@lvcivilcontracting.com.au" novalidate>
-          <h3 style="margin-bottom:1.5rem;">Request a free quote</h3>
-          <div class="form-row">
-            <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
-            <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required></div>
+        <form class="contact-form quote-wizard reveal" id="quote-form" data-mailto="info@lvcivilcontracting.com.au" novalidate>
+          <h3 style="margin-bottom:.4rem;">Get an instant quote</h3>
+          <div class="wizard-progress" aria-hidden="true">
+            <span class="wp-step is-active" data-wp="1"><i>1</i>Service</span>
+            <span class="wp-step" data-wp="2"><i>2</i>Site</span>
+            <span class="wp-step" data-wp="3"><i>3</i>Contact</span>
           </div>
-          <div class="form-row">
+
+          <fieldset class="form-step is-active" data-step="1">
+            <legend class="step-legend">What do you need?</legend>
+            <div class="pill-radio-grid">
+            <label class="pill-radio"><input type="radio" name="service" value="Excavator Hire" required><span>Excavator Hire</span></label>
+            <label class="pill-radio"><input type="radio" name="service" value="Bobcat Hire" required><span>Bobcat Hire</span></label>
+            <label class="pill-radio"><input type="radio" name="service" value="Tipper Hire" required><span>Tipper Hire</span></label>
+            <label class="pill-radio"><input type="radio" name="service" value="Combo Hire" required><span>Combo Hire</span></label>
+            <label class="pill-radio"><input type="radio" name="service" value="Posi Track Hire" required><span>Posi Track Hire</span></label>
+            <label class="pill-radio"><input type="radio" name="service" value="Skip Bin Hire" required><span>Skip Bin Hire</span></label>
+            <label class="pill-radio"><input type="radio" name="service" value="Water Truck Hire" required><span>Water Truck Hire</span></label>
+            <label class="pill-radio"><input type="radio" name="service" value="Something else / not sure"><span>Something else / not sure</span></label>
+            </div>
+            <button type="button" class="btn btn-primary wizard-next" style="width:100%;">Next: Site details <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </fieldset>
+
+          <fieldset class="form-step" data-step="2">
+            <legend class="step-legend">Where and when?</legend>
+            <div class="field"><label for="f-suburb">Site suburb</label><input id="f-suburb" name="suburb" type="text" placeholder="e.g. Jimboomba" required></div>
+            <div class="field">
+              <label for="f-timeframe">Timeframe</label>
+              <select id="f-timeframe" name="timeframe">
+                <option>As soon as possible</option>
+                <option>Within 2 weeks</option>
+                <option>Within a month</option>
+                <option>Just getting quotes</option>
+              </select>
+            </div>
+            <div class="field"><label for="f-message">Project details</label><textarea id="f-message" name="message" placeholder="Tell us about the site, scope and timeframe…"></textarea></div>
+            <div class="wizard-nav">
+              <button type="button" class="btn btn-ghost wizard-back">Back</button>
+              <button type="button" class="btn btn-primary wizard-next">Next: Your details <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-step" data-step="3">
+            <legend class="step-legend">Your contact details</legend>
+            <div class="form-row">
+              <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+              <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required></div>
+            </div>
             <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
-            <div class="field"><label for="f-suburb">Site suburb</label><input id="f-suburb" name="suburb" type="text" placeholder="e.g. Jimboomba"></div>
-          </div>
-          <div class="field">
-            <label for="f-service">Service needed</label>
-            <select id="f-service" name="service">
-              <option>Excavator Hire</option>
-              <option>Bobcat Hire</option>
-              <option>Tipper Hire</option>
-              <option>Combo Hire</option>
-              <option>Posi Track Hire</option>
-              <option>Skip Bin Hire</option>
-              <option>Water Truck Hire</option>
-              <option>Something else</option>
-            </select>
-          </div>
-          <div class="field"><label for="f-message">Project details</label><textarea id="f-message" name="message" placeholder="Tell us about the site, scope and timeframe…"></textarea></div>
-          <button type="submit" class="btn btn-primary" style="width:100%;">Send quote request <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+            <div class="wizard-nav">
+              <button type="button" class="btn btn-ghost wizard-back">Back</button>
+              <button type="submit" class="btn btn-primary" style="flex:1;">Send quote request <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+            </div>
+          </fieldset>
+
           <p class="form-note">Submitting opens your email app with the details pre-filled, or just call us on 0476 676 639.</p>
         </form>
       </div>
@@ -228,6 +258,6 @@
     <a href="/contact" class="btn btn-ghost">Get a quote</a>
   </div>
 
-  <script src="/js/main.js?v=fa5765e5" defer></script>
+  <script src="/js/main.js?v=52368c9a" defer></script>
 </body>
 </html>

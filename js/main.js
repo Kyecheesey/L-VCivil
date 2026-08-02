@@ -83,6 +83,52 @@
     counters.forEach((el) => cio.observe(el));
   }
 
+  // Multi-step "instant quote" wizard
+  document.querySelectorAll(".quote-wizard").forEach((form) => {
+    const steps = Array.from(form.querySelectorAll(".form-step"));
+    const dots = Array.from(form.querySelectorAll(".wp-step"));
+    let current = 1;
+
+    const paint = (dir) => {
+      steps.forEach((s) => {
+        const n = Number(s.dataset.step);
+        s.classList.toggle("is-active", n === current);
+      });
+      dots.forEach((d) => {
+        const n = Number(d.dataset.wp);
+        d.classList.toggle("is-active", n === current);
+        d.classList.toggle("is-done", n < current);
+      });
+      const active = form.querySelector(`.form-step[data-step="${current}"]`);
+      if (active) {
+        active.classList.remove("step-in-l", "step-in-r");
+        void active.offsetWidth;
+        active.classList.add(dir === "back" ? "step-in-l" : "step-in-r");
+        const focusable = active.querySelector("input, select, textarea");
+        if (focusable) focusable.focus({ preventScroll: true });
+      }
+    };
+
+    form.querySelectorAll(".wizard-next").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const step = btn.closest(".form-step");
+        const invalid = step.querySelector(":invalid");
+        if (invalid) {
+          invalid.reportValidity();
+          return;
+        }
+        current = Math.min(current + 1, steps.length);
+        paint("next");
+      });
+    });
+    form.querySelectorAll(".wizard-back").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        current = Math.max(current - 1, 1);
+        paint("back");
+      });
+    });
+  });
+
   // Enquiry forms -> pre-filled email (no backend required). Each form sets
   // its recipient via data-mailto; fields not present are skipped.
   document.querySelectorAll("form[data-mailto]").forEach((form) => {
@@ -93,7 +139,7 @@
         `Quote request — ${data.get("service") || "Civil works"}`
       );
       const lines = [];
-      [["Name", "name"], ["Phone", "phone"], ["Email", "email"], ["Suburb", "suburb"], ["Service", "service"]]
+      [["Name", "name"], ["Phone", "phone"], ["Email", "email"], ["Suburb", "suburb"], ["Service", "service"], ["Timeframe", "timeframe"]]
         .forEach(([label, key]) => {
           if (data.has(key)) lines.push(`${label}: ${data.get(key) || ""}`);
         });

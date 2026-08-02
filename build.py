@@ -1348,6 +1348,10 @@ def build_contact():
   </script>
 '''
     services_opts = "\n".join(f"              <option>{n}</option>" for _, n in SERVICES)
+    service_pills = "\n".join(
+        f'''            <label class="pill-radio"><input type="radio" name="service" value="{n}" required><span>{n}</span></label>'''
+        for _, n in SERVICES
+    ) + '\n            <label class="pill-radio"><input type="radio" name="service" value="Something else / not sure"><span>Something else / not sure</span></label>'
     body = f'''{header('contact')}
   <main id="main">
     <section class="page-hero" style="--hero-img: url('{IMG['trench']}')">
@@ -1391,25 +1395,54 @@ def build_contact():
           </div>
         </div>
 
-        <form class="contact-form reveal" id="quote-form" data-mailto="{EMAIL}" novalidate>
-          <h3 style="margin-bottom:1.5rem;">Request a free quote</h3>
-          <div class="form-row">
-            <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
-            <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required></div>
+        <form class="contact-form quote-wizard reveal" id="quote-form" data-mailto="{EMAIL}" novalidate>
+          <h3 style="margin-bottom:.4rem;">Get an instant quote</h3>
+          <div class="wizard-progress" aria-hidden="true">
+            <span class="wp-step is-active" data-wp="1"><i>1</i>Service</span>
+            <span class="wp-step" data-wp="2"><i>2</i>Site</span>
+            <span class="wp-step" data-wp="3"><i>3</i>Contact</span>
           </div>
-          <div class="form-row">
+
+          <fieldset class="form-step is-active" data-step="1">
+            <legend class="step-legend">What do you need?</legend>
+            <div class="pill-radio-grid">
+{service_pills}
+            </div>
+            <button type="button" class="btn btn-primary wizard-next" style="width:100%;">Next: Site details {ICONS['arrow']}</button>
+          </fieldset>
+
+          <fieldset class="form-step" data-step="2">
+            <legend class="step-legend">Where and when?</legend>
+            <div class="field"><label for="f-suburb">Site suburb</label><input id="f-suburb" name="suburb" type="text" placeholder="e.g. Jimboomba" required></div>
+            <div class="field">
+              <label for="f-timeframe">Timeframe</label>
+              <select id="f-timeframe" name="timeframe">
+                <option>As soon as possible</option>
+                <option>Within 2 weeks</option>
+                <option>Within a month</option>
+                <option>Just getting quotes</option>
+              </select>
+            </div>
+            <div class="field"><label for="f-message">Project details</label><textarea id="f-message" name="message" placeholder="Tell us about the site, scope and timeframe…"></textarea></div>
+            <div class="wizard-nav">
+              <button type="button" class="btn btn-ghost wizard-back">Back</button>
+              <button type="button" class="btn btn-primary wizard-next">Next: Your details {ICONS['arrow']}</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-step" data-step="3">
+            <legend class="step-legend">Your contact details</legend>
+            <div class="form-row">
+              <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+              <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required></div>
+            </div>
             <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
-            <div class="field"><label for="f-suburb">Site suburb</label><input id="f-suburb" name="suburb" type="text" placeholder="e.g. Jimboomba"></div>
-          </div>
-          <div class="field">
-            <label for="f-service">Service needed</label>
-            <select id="f-service" name="service">
-{services_opts}
-              <option>Something else</option>
-            </select>
-          </div>
-          <div class="field"><label for="f-message">Project details</label><textarea id="f-message" name="message" placeholder="Tell us about the site, scope and timeframe…"></textarea></div>
-          <button type="submit" class="btn btn-primary" style="width:100%;">Send quote request <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+            <div class="wizard-nav">
+              <button type="button" class="btn btn-ghost wizard-back">Back</button>
+              <button type="submit" class="btn btn-primary" style="flex:1;">Send quote request <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+            </div>
+          </fieldset>
+
           <p class="form-note">Submitting opens your email app with the details pre-filled, or just call us on {PHONE_DISPLAY}.</p>
         </form>
       </div>
