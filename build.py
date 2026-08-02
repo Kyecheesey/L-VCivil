@@ -470,6 +470,7 @@ def build_index():
         for s in suburbs
     )
 
+    ld = f'  <link rel="preload" as="image" href="{IMG["hero"]}" fetchpriority="high">\n' + ld
     body = f'''{header('home')}
   <main id="main">
     <section class="hero" style="--hero-img: url('{IMG['hero']}')">

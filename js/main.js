@@ -141,6 +141,23 @@
   window.addEventListener("scroll", onProg, { passive: true });
   onProg();
 
+  // Smart header: tuck away on scroll down, return on scroll up
+  var hdr = document.querySelector(".site-header");
+  var lastY = window.scrollY;
+  if (hdr) {
+    window.addEventListener("scroll", function () {
+      var y = window.scrollY;
+      if (document.body.classList.contains("nav-locked")) {
+        hdr.classList.remove("nav-hidden");
+      } else if (y > 320 && y > lastY + 6) {
+        hdr.classList.add("nav-hidden");
+      } else if (y < lastY - 6 || y <= 320) {
+        hdr.classList.remove("nav-hidden");
+      }
+      lastY = y;
+    }, { passive: true });
+  }
+
   var bp = document.querySelector(".hero-blueprint");
   if (bp && window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
     window.addEventListener(
