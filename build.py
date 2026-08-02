@@ -10,8 +10,8 @@ the shared header/footer templates and the per-page content below. Keeps all
 # KW Innovations CDN. Keys map to where each image sat on the original site.
 IMG = {
     "hero":      "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/f10a3951-3ce4-47b2-8eeb-8f75a4ba282c.webp",  # live homepage hero (loader)
-    "work":      "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/148aaf25-9c24-4f60-9ba8-7a43ea1f332a.webp",  # IMG_9318 — client machine photo
-    "machine":   "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/ef8c78a5-8e3b-421c-91db-c7a770162721.webp",  # IMG_9442 — client machine photo
+    "work":      "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/148aaf25-9c24-4f60-9ba8-7a43ea1f332a.webp",  # IMG_9318, client machine photo
+    "machine":   "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/ef8c78a5-8e3b-421c-91db-c7a770162721.webp",  # IMG_9442, client machine photo
     "excavator": "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/46362802-7b01-45e1-bb00-3bf21efd263f.webp",  # live excavator-hire hero
     "site1":     "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/2e013edc-6bdd-44b3-b473-7546423d722c.webp",
     "site2":     "https://d2ol7oe51mr4n9.cloudfront.net/user_3ECT3zt6ovZZHX51H6T4wC5y40O/3060894c-f138-4f55-adab-d0f18d2dea69.webp",
@@ -27,8 +27,8 @@ PHONE_DISPLAY = "0476 676 639"
 PHONE_TEL = "+61476676639"
 EMAIL = "info@lvcivilcontracting.com.au"
 # Recipient for the homepage "Reach Out" form (per client request). NB: this is
-# a different domain to the site (lvcivilconstruction vs lvcivilcontracting) —
-# confirm the mailbox exists before go-live.
+# a different domain to the site (lvcivilconstruction vs lvcivilcontracting).
+# Confirm the mailbox exists before go-live.
 HOME_FORM_EMAIL = "admin@lvcivilconstruction.com.au"
 ABN = "63 661 732 869"
 
@@ -55,7 +55,7 @@ CIVIL_SERVICES = [
      "Crane pads, internal roads and trench networks constructed to support smooth wind turbine transport and installation.",
      '<path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/>'),
     ("solar-farms", "Solar Farms",
-     "Power your solar project with precision groundwork — we shape, stabilise and trench land to support arrays, inverters and access routes that last.",
+     "Power your solar project with precision groundwork: we shape, stabilise and trench land to support arrays, inverters and access routes that last.",
      '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>'),
     ("pipe-and-gas-lines", "Pipe & Gas Lines",
      "Safe trenching, backfilling and reinstatement services that keep your pipeline and gas infrastructure protected and compliant.",
@@ -66,7 +66,7 @@ CIVIL_SERVICES = [
 ]
 CIVIL_NAMES = {slug: name for slug, name, _, _ in CIVIL_SERVICES}
 
-# Real client reviews only — populate from Google/verbal testimonials supplied by
+# Real client reviews only, populated from Google/verbal testimonials supplied by
 # the client. Leave empty to hide the testimonials section entirely. Fields:
 # (quote, name, suburb/job)
 TESTIMONIALS = []
@@ -78,7 +78,7 @@ SUBURBS = {
         "From house pads and footings to trenching, driveways and site cleanups, we handle Park Ridge's mix of established blocks and new development with gear sized to fit.",
     ], ["Fastest response times", "House pads & footings", "Trenching & driveways"]),
     "jimboomba": ("Jimboomba", [
-        "Acreage country. Jimboomba blocks mean long driveways, dams, shed pads and serious clearing — exactly the work our excavators, posi tracks and tippers are set up for.",
+        "Acreage country. Jimboomba blocks mean long driveways, dams, shed pads and serious clearing, exactly the work our excavators, posi tracks and tippers are set up for.",
         "We know the local soil and the long access runs, and our combo packages keep multi-day acreage jobs on one booking and one invoice.",
     ], ["Dams & shed pads", "Long driveways", "Acreage clearing"]),
     "greenbank": ("Greenbank", [
@@ -86,7 +86,7 @@ SUBURBS = {
         "We service the whole corridor regularly, so mobilisation is quick and quotes come back fast.",
     ], ["Land clearing", "House pads", "Soft-ground posi tracks"]),
     "yarrabilba": ("Yarrabilba", [
-        "One of Queensland's fastest growing communities — and tight new estate lots need machines and operators that work clean and precise next to finished homes.",
+        "One of Queensland's fastest growing communities, where tight new estate lots need machines and operators that work clean and precise next to finished homes.",
         "We handle cut and fill, detailed excavation, backyard access jobs and final-grade levelling for builders and new homeowners across Yarrabilba.",
     ], ["Tight-access work", "Cut & fill", "Final-grade levelling"]),
     "flagstone": ("Flagstone", [
@@ -94,12 +94,12 @@ SUBURBS = {
         "Book a dig-and-cart combo and your excavation never waits on a truck.",
     ], ["Site cuts & footings", "Service trenching", "Dig & cart combos"]),
     "logan-village": ("Logan Village", [
-        "Acreage lifestyle blocks with real earthworks needs — driveways, dams, pads, clearing and trenching that suburban-sized operators struggle to cover.",
+        "Acreage lifestyle blocks with real earthworks needs: driveways, dams, pads, clearing and trenching that suburban-sized operators struggle to cover.",
         "Our fleet is built for exactly this mix, with wet hire operators who've worked Logan Village ground for years.",
     ], ["Driveways & pads", "Dams", "Rural trenching"]),
     "browns-plains": ("Browns Plains", [
         "The commercial heart of Logan. We support Browns Plains businesses and homeowners with site preparation, tight-access digs, waste removal and water trucks for dust control.",
-        "Established suburbs mean careful work around services and neighbours — that's where experienced operators earn their keep.",
+        "Established suburbs mean careful work around services and neighbours, and that's where experienced operators earn their keep.",
     ], ["Commercial site prep", "Tight-access digs", "Dust control"]),
 }
 
@@ -157,10 +157,10 @@ def header(active=""):
         f'          <a href="{slug}.html">{name}</a>' for slug, name, _, _ in CIVIL_SERVICES
     )
     return f'''
-  <div class="topbar">{ICONS['pin'].format(s=13)}Park Ridge QLD, 4125 — Servicing Logan &amp; South East Queensland</div>
+  <div class="topbar">{ICONS['pin'].format(s=13)}Park Ridge QLD, 4125 · Servicing Logan &amp; South East Queensland</div>
   <header class="site-header">
     <div class="container nav-bar">
-      <a class="brand" href="index.html" aria-label="L&amp;V Civil Contracting — home">
+      <a class="brand" href="index.html" aria-label="L&amp;V Civil Contracting home">
         <img src="assets/logo.jpg" alt="L&amp;V Civil Contracting" width="54" height="54">
       </a>
       <nav class="nav-links" id="nav-links" aria-label="Main navigation">
@@ -322,7 +322,7 @@ def civil_section(tint="section-light"):
         <div class="section-head reveal">
           <span class="eyebrow">Our services</span>
           <h2>Civil works, from subdivisions to solar.</h2>
-          <p>Beyond wet hire, we deliver full civil project works — renewable energy subdivisions, wind and solar farms, pipelines and gas gathering infrastructure — from a homeowner's site prep to broadacre energy developments.</p>
+          <p>Beyond wet hire, we deliver full civil project works: renewable energy subdivisions, wind and solar farms, pipelines and gas gathering infrastructure, from a homeowner's site prep to broadacre energy developments.</p>
         </div>
         <div class="card-grid">
 {cards_html}
@@ -352,7 +352,7 @@ def gallery_section():
         <div class="section-head reveal">
           <span class="eyebrow">On the tools</span>
           <h2>Real machines. Real Logan sites.</h2>
-          <p>No stock photos — this is our gear and our crew at work across the Logan region.</p>
+          <p>No stock photos. This is our gear and our crew at work across the Logan region.</p>
         </div>
         <div class="gallery">
 {figs}
@@ -423,10 +423,10 @@ def build_index():
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      {{"@type": "Question", "name": "What does wet hire mean?", "acceptedAnswer": {{"@type": "Answer", "text": "Wet hire means the machine comes with a skilled, ticketed operator included — you get production from the first hour without needing your own plant tickets."}}}},
+      {{"@type": "Question", "name": "What does wet hire mean?", "acceptedAnswer": {{"@type": "Answer", "text": "Wet hire means the machine comes with a skilled, ticketed operator included, so you get production from the first hour without needing your own plant tickets."}}}},
       {{"@type": "Question", "name": "Which areas do you service?", "acceptedAnswer": {{"@type": "Answer", "text": "We are based in Park Ridge QLD 4125 and service all major suburbs across Logan and wider South East Queensland."}}}},
-      {{"@type": "Question", "name": "How fast can I get a quote?", "acceptedAnswer": {{"@type": "Answer", "text": "Call 0476 676 639 or send your project details — we aim to have a clear, itemised quote back to you within 24 hours."}}}},
-      {{"@type": "Question", "name": "Are you licensed and insured?", "acceptedAnswer": {{"@type": "Answer", "text": "Yes — every job runs with full licensing, insurance, documented SWMS and a Zero Harm safety focus."}}}}
+      {{"@type": "Question", "name": "How fast can I get a quote?", "acceptedAnswer": {{"@type": "Answer", "text": "Call 0476 676 639 or send your project details. We aim to have a clear, itemised quote back to you within 24 hours."}}}},
+      {{"@type": "Question", "name": "Are you licensed and insured?", "acceptedAnswer": {{"@type": "Answer", "text": "Yes, every job runs with full licensing, insurance, documented SWMS and a Zero Harm safety focus."}}}}
     ]
   }}
   </script>
@@ -437,13 +437,13 @@ def build_index():
          '<path d="M3 17h13l2 3H5z"/><path d="M8 17v-5h4l3 5"/><path d="M12 12 9 5l6 2 3 6"/><circle cx="6.5" cy="20" r="1"/><circle cx="15.5" cy="20" r="1"/>'),
         ("bobcat-hire", "Bobcat Hire", "Tight-access clearing, levelling and spreading for blocks where bigger machines simply can't work.",
          '<rect x="3" y="10" width="12" height="7" rx="1.5"/><path d="M15 13h4l2 3v1h-6z"/><circle cx="7" cy="19" r="1.6"/><circle cx="17" cy="19" r="1.6"/>'),
-        ("tipper-truck-hire", "Tipper Hire", "Fast, reliable haulage of spoil, fill, aggregate and demolition material — keeping your site moving.",
+        ("tipper-truck-hire", "Tipper Hire", "Fast, reliable haulage of spoil, fill, aggregate and demolition material, keeping your site moving.",
          '<path d="M2 15V9h11l3-4h3v10"/><path d="M2 15h20v2h-3"/><circle cx="7" cy="18.5" r="1.7"/><circle cx="15" cy="18.5" r="1.7"/>'),
-        ("combo-hire", "Combo Hire", "Machines, trucks and operators bundled into one package — one booking, one invoice, one crew.",
+        ("combo-hire", "Combo Hire", "Machines, trucks and operators bundled into one package: one booking, one invoice, one crew.",
          '<rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/>'),
-        ("posi-track-hire", "Posi Track Hire", "Tracked loaders that keep working where wheels bog down — soft, wet or sloped ground sorted.",
+        ("posi-track-hire", "Posi Track Hire", "Tracked loaders that keep working where wheels bog down, with soft, wet or sloped ground sorted.",
          '<rect x="3" y="9" width="13" height="7" rx="2"/><path d="M16 12h3l2 3v1h-5z"/><path d="M4 19h16"/><circle cx="7" cy="19" r="1.4"/><circle cx="12" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/>'),
-        ("skip-bin-hire", "Skip Bin Hire", "Site waste handled in the same booking — bins delivered, filled and taken away on your schedule.",
+        ("skip-bin-hire", "Skip Bin Hire", "Site waste handled in the same booking: bins delivered, filled and taken away on your schedule.",
          '<path d="M4 8h16l-2 12H6z"/><path d="M2 8h20M9 4h6l1 4H8z"/>'),
         ("water-truck-hire", "Water Truck Hire", "Dust suppression and compaction watering that keeps your site compliant and your program on track.",
          '<path d="M12 3v3M12 3c-4 4-7 7.5-7 11a7 7 0 0 0 14 0c0-3.5-3-7-7-11z"/><path d="M9 15a3 3 0 0 0 3 3"/>'),
@@ -477,7 +477,7 @@ def build_index():
       <div class="container hero-inner">
         <p class="hero-eyebrow rise"><span class="dot" aria-hidden="true"></span> Logan's Trusted Civil Contractor</p>
         <h1 class="rise" style="--delay:.08s">Ground works, <span class="accent">done right.</span></h1>
-        <p class="hero-lede rise" style="--delay:.16s">Family owned wet hire for site preparation, landscaping, construction and civil works across Logan and South East Queensland — modern machines with skilled operators, backed by a quality guarantee and a Zero Harm safety focus.</p>
+        <p class="hero-lede rise" style="--delay:.16s">Family owned wet hire for site preparation, landscaping, construction and civil works across Logan and South East Queensland: modern machines with skilled operators, backed by a quality guarantee and a Zero Harm safety focus.</p>
         <div class="hero-chips rise" style="--delay:.24s">{chips}</div>
         <div class="hero-actions rise" style="--delay:.32s">
           <a href="contact.html" class="btn btn-primary">Get a free quote {ICONS['arrow']}</a>
@@ -500,15 +500,15 @@ def build_index():
       <div class="container promises">
         <div class="promise reveal">
           <div class="service-icon" aria-hidden="true">{ICONS['shield'].format(s=24)}</div>
-          <div><strong>Quality guarantee</strong><p>Dug to depth, compacted to spec and finished properly — we stand behind every job we deliver.</p></div>
+          <div><strong>Quality guarantee</strong><p>Dug to depth, compacted to spec and finished properly. We stand behind every job we deliver.</p></div>
         </div>
         <div class="promise reveal" style="--delay:.07s">
           <div class="service-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-          <div><strong>Price match promise</strong><p>Straight-up quotes with no hidden extras — and if you find a sharper like-for-like price, talk to us.</p></div>
+          <div><strong>Price match promise</strong><p>Straight-up quotes with no hidden extras, and if you find a sharper like-for-like price, talk to us.</p></div>
         </div>
         <div class="promise reveal" style="--delay:.14s">
           <div class="service-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <div><strong>Zero Harm safety</strong><p>SWMS, inductions and maintained plant on every site — nobody gets hurt on our watch.</p></div>
+          <div><strong>Zero Harm safety</strong><p>SWMS, inductions and maintained plant on every site. Nobody gets hurt on our watch.</p></div>
         </div>
       </div>
     </section>
@@ -518,7 +518,7 @@ def build_index():
         <div class="section-head reveal">
           <span class="eyebrow">What we offer</span>
           <h2>One crew. Every stage of your ground works.</h2>
-          <p>Every machine arrives with a skilled, safety-focused operator — that's the wet hire difference. Hire a single unit or bundle a combo package sized to your site.</p>
+          <p>Every machine arrives with a skilled, safety-focused operator, and that's the wet hire difference. Hire a single unit or bundle a combo package sized to your site.</p>
         </div>
         <div class="card-grid">
 {cards_html}
@@ -535,12 +535,12 @@ def build_index():
         <div class="reveal">
           <span class="eyebrow">Why L&amp;V Civil</span>
           <h2 style="font-size: var(--fs-h2); font-weight: 800;">The local crew that treats your site like their own.</h2>
-          <p style="margin-top:1rem;">L&amp;V Civil Contracting is family owned and operated — the kind of crew that answers the phone, shows up on time and stands behind every job, with flexible wet hire options sized to any project.</p>
+          <p style="margin-top:1rem;">L&amp;V Civil Contracting is family owned and operated: the kind of crew that answers the phone, shows up on time and stands behind every job, with flexible wet hire options sized to any project.</p>
           <ul class="check-list">
             <li><span class="tick">{ICONS['tick']}</span><div><strong>Operators included, always</strong><span>Wet hire means every machine comes with an experienced, ticketed operator.</span></div></li>
             <li><span class="tick">{ICONS['tick']}</span><div><strong>Safety without shortcuts</strong><span>Zero Harm focus with SWMS, site inductions and maintained plant on every job.</span></div></li>
             <li><span class="tick">{ICONS['tick']}</span><div><strong>Straight-up pricing</strong><span>Clear quotes, a price match promise, and combo packages that save you money.</span></div></li>
-            <li><span class="tick">{ICONS['tick']}</span><div><strong>Local knowledge</strong><span>Based in Park Ridge — we know Logan's soil, councils and site conditions inside out.</span></div></li>
+            <li><span class="tick">{ICONS['tick']}</span><div><strong>Local knowledge</strong><span>Based in Park Ridge, we know Logan's soil, councils and site conditions inside out.</span></div></li>
           </ul>
         </div>
       </div>
@@ -553,9 +553,9 @@ def build_index():
           <h2>From first call to final compaction.</h2>
         </div>
         <div class="steps">
-          <div class="step reveal"><h3>Tell us the job</h3><p>Call or send the details — site, scope, timeframe. We'll ask the right questions up front.</p></div>
+          <div class="step reveal"><h3>Tell us the job</h3><p>Call or send the details: site, scope, timeframe. We'll ask the right questions up front.</p></div>
           <div class="step reveal" style="--delay:.07s"><h3>Get a clear quote</h3><p>A straightforward price within 24 hours, with the right machines and combos for the work.</p></div>
-          <div class="step reveal" style="--delay:.14s"><h3>We do the work</h3><p>Our operators arrive on time, inducted and ready — and keep you updated as the job progresses.</p></div>
+          <div class="step reveal" style="--delay:.14s"><h3>We do the work</h3><p>Our operators arrive on time, inducted and ready, and keep you updated as the job progresses.</p></div>
           <div class="step reveal" style="--delay:.21s"><h3>Site left right</h3><p>Clean finish, spoil removed, ground reinstated. We're not done until you're happy.</p></div>
         </div>
       </div>
@@ -566,7 +566,7 @@ def build_index():
         <div class="section-head reveal">
           <span class="eyebrow">Where we work</span>
           <h2>Servicing Logan &amp; South East Queensland.</h2>
-          <p>Based in Park Ridge, we cover all major suburbs across the Logan region — and travel further for the right project.</p>
+          <p>Based in Park Ridge, we cover all major suburbs across the Logan region, and travel further for the right project.</p>
         </div>
         <div class="chip-cloud reveal">
 {chips_area}
@@ -583,15 +583,15 @@ def build_index():
         <div class="faq reveal">
           <details>
             <summary>What does wet hire actually mean?</summary>
-            <p>Wet hire means the machine comes with a skilled, ticketed operator included in the rate. You get production from the first hour — no plant tickets, no learning curve, no extra insurance headaches on your side.</p>
+            <p>Wet hire means the machine comes with a skilled, ticketed operator included in the rate. You get production from the first hour: no plant tickets, no learning curve, no extra insurance headaches on your side.</p>
           </details>
           <details>
             <summary>Which areas do you service?</summary>
-            <p>We're based in Park Ridge QLD 4125 and service all major suburbs across Logan — Jimboomba, Greenbank, Yarrabilba, Flagstone, Loganlea and beyond — plus wider South East Queensland for the right project.</p>
+            <p>We're based in Park Ridge QLD 4125 and service all major suburbs across Logan (Jimboomba, Greenbank, Yarrabilba, Flagstone, Loganlea and beyond), plus wider South East Queensland for the right project.</p>
           </details>
           <details>
             <summary>How fast can I get a quote?</summary>
-            <p>Call {PHONE_DISPLAY} or send your project details through the contact page — we aim to have a clear, itemised quote back to you within 24 hours.</p>
+            <p>Call {PHONE_DISPLAY} or send your project details through the contact page. We aim to have a clear, itemised quote back to you within 24 hours.</p>
           </details>
           <details>
             <summary>Are you licensed and insured?</summary>
@@ -599,7 +599,7 @@ def build_index():
           </details>
           <details>
             <summary>Can I bundle machines together?</summary>
-            <p>Absolutely — that's our combo hire. Excavator plus tipper, loader plus water truck, or a full site-prep crew: one booking, one invoice, machines that are used to working together.</p>
+            <p>Absolutely, that's our combo hire. Excavator plus tipper, loader plus water truck, or a full site-prep crew: one booking, one invoice, machines that are used to working together.</p>
           </details>
         </div>
       </div>
@@ -610,11 +610,11 @@ def build_index():
         <div class="reveal">
           <span class="eyebrow">Reach out</span>
           <h2 style="font-size: var(--fs-h2); font-weight: 800;">Tell us about your project.</h2>
-          <p style="margin-top:1rem;">Send the details and we'll come back with a clear, itemised quote — usually within 24 hours. Prefer to talk it through? Call us on <a href="tel:{PHONE_TEL}" style="color: var(--amber-500); font-weight: 600;">{PHONE_DISPLAY}</a>.</p>
+          <p style="margin-top:1rem;">Send the details and we'll come back with a clear, itemised quote, usually within 24 hours. Prefer to talk it through? Call us on <a href="tel:{PHONE_TEL}" style="color: var(--amber-500); font-weight: 600;">{PHONE_DISPLAY}</a>.</p>
           <ul class="check-list" style="margin-top:1.5rem;">
             <li><span class="tick">{ICONS['tick']}</span><div><strong>Free quotes</strong><span>No obligation, no call-out fee to price a job.</span></div></li>
             <li><span class="tick">{ICONS['tick']}</span><div><strong>24-hour turnaround</strong><span>Most quotes are back the next business day.</span></div></li>
-            <li><span class="tick">{ICONS['tick']}</span><div><strong>Straight answers</strong><span>The right machine and combo for the job — not the dearest one.</span></div></li>
+            <li><span class="tick">{ICONS['tick']}</span><div><strong>Straight answers</strong><span>The right machine and combo for the job, not the dearest one.</span></div></li>
           </ul>
         </div>
         <form class="contact-form reveal" id="home-form" data-mailto="{HOME_FORM_EMAIL}" novalidate>
@@ -626,14 +626,14 @@ def build_index():
           <div class="field"><label for="h-email">Email</label><input id="h-email" name="email" type="email" autocomplete="email" required></div>
           <div class="field"><label for="h-message">Message</label><textarea id="h-message" name="message" placeholder="Tell us about the site, scope and timeframe…"></textarea></div>
           <button type="submit" class="btn btn-primary" style="width:100%;">Send message <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
-          <p class="form-note">Submitting opens your email app with the details pre-filled — or just call us on {PHONE_DISPLAY}.</p>
+          <p class="form-note">Submitting opens your email app with the details pre-filled, or just call us on {PHONE_DISPLAY}.</p>
         </form>
       </div>
     </section>
 {cta_band("Ready to break ground?", "Free quotes. 24-hour turnaround. Operators included with every machine.")}  </main>
 {footer()}'''
     title = "Civil Construction &amp; Wet Hire in Logan QLD | L&amp;V Civil Contracting"
-    desc = "Family owned wet hire earthmoving in Logan QLD — excavators, bobcats, tippers, posi tracks, water trucks and skip bins with skilled operators. Quality guarantee, price match promise and Zero Harm safety. Free quotes: 0476 676 639."
+    desc = "Family owned wet hire earthmoving in Logan QLD: excavators, bobcats, tippers, posi tracks, water trucks and skip bins with skilled operators. Quality guarantee, price match promise and Zero Harm safety. Free quotes: 0476 676 639."
     return head(title, desc, f"{SITE}/", ld) + body
 
 
@@ -643,7 +643,7 @@ def build_services():
     data = {
         "excavator-hire": "Footings, trenches, site cuts, dams and detailed excavation with precision operators.",
         "bobcat-hire": "Tight-access clearing, levelling, spreading and site cleanups on any block.",
-        "tipper-truck-hire": "Spoil off site, fill on site, on time — haulage that keeps the program moving.",
+        "tipper-truck-hire": "Spoil off site, fill on site, on time: haulage that keeps the program moving.",
         "combo-hire": "Machines and trucks bundled into one package, priced for your project.",
         "posi-track-hire": "Tracked loaders with traction and control for soft, wet or sloped ground.",
         "skip-bin-hire": "Bins delivered, filled and removed in the same booking as your machines.",
@@ -675,7 +675,7 @@ def build_services():
         <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> <span aria-current="page">What We Offer</span></nav>
         <p class="eyebrow-line">L&amp;V Civil Contracting</p>
         <h1>Wet hire &amp; civil works, end to end.</h1>
-        <p>Every machine we send out comes with an experienced, ticketed operator — backed by a quality guarantee, price match promise and Zero Harm safety focus. Hire a single unit or bundle a combo priced for your project.</p>
+        <p>Every machine we send out comes with an experienced, ticketed operator, backed by a quality guarantee, price match promise and Zero Harm safety focus. Hire a single unit or bundle a combo priced for your project.</p>
         <div class="hero-actions rise" style="--delay:.32s">
           <a href="contact.html" class="btn btn-primary">Get a free quote {ICONS['arrow']}</a>
           <a href="tel:{PHONE_TEL}" class="btn btn-ghost">{ICONS['phone'].format(s=16)} Call now</a>
@@ -691,10 +691,10 @@ def build_services():
       </div>
     </section>
 
-{civil_section("section-tint")}{cta_band("Not sure which machine you need?", "Describe the job — we'll spec the right combo and quote it within 24 hours.")}  </main>
+{civil_section("section-tint")}{cta_band("Not sure which machine you need?", "Describe the job and we'll spec the right combo and quote it within 24 hours.")}  </main>
 {footer()}'''
-    title = "What We Offer — Wet Hire &amp; Civil Services in Logan | L&amp;V Civil Contracting"
-    desc = "Wet hire across Logan QLD — excavators, bobcats, tippers, posi tracks, skip bins and water trucks — plus civil works for renewable energy subdivisions, wind and solar farms, pipelines and gas gathering."
+    title = "What We Offer: Wet Hire &amp; Civil Services in Logan | L&amp;V Civil Contracting"
+    desc = "Wet hire across Logan QLD: excavators, bobcats, tippers, posi tracks, skip bins and water trucks, plus civil works for renewable energy subdivisions, wind and solar farms, pipelines and gas gathering."
     return head(title, desc, f"{SITE}/services.html", ld) + body
 
 
@@ -703,9 +703,9 @@ SERVICE_PAGES = {
     "excavator-hire": {
         "img": "excavator",
         "h1": "Excavator Hire in Logan",
-        "desc": "Fully operated excavator hire across Logan QLD — trenching, footings, site cuts and detailed excavation with a quality guarantee and Zero Harm safety focus. Free quotes on 0476 676 639.",
+        "desc": "Fully operated excavator hire across Logan QLD: trenching, footings, site cuts and detailed excavation with a quality guarantee and Zero Harm safety focus. Free quotes on 0476 676 639.",
         "intro": [
-            "From tight residential digs to bulk earthworks, our operated excavators handle footings, trenches, dams, site cuts, detailed excavation and material handling across Logan — including Park Ridge, Jimboomba, Greenbank and surrounding suburbs.",
+            "From tight residential digs to bulk earthworks, our operated excavators handle footings, trenches, dams, site cuts, detailed excavation and material handling across Logan, including Park Ridge, Jimboomba, Greenbank and surrounding suburbs.",
             "Every hire is wet hire: an experienced, ticketed operator is included with the machine, so you get production from the first hour instead of a learning curve. Backed by our quality guarantee, price match promise and Zero Harm safety focus.",
         ],
         "includes": [
@@ -722,7 +722,7 @@ SERVICE_PAGES = {
         "desc": "Operated bobcat hire in Logan QLD for tight-access clearing, levelling, spreading and site cleanups. Family owned, fully insured, free quotes on 0476 676 639.",
         "intro": [
             "When the block is tight and the tolerances are tighter, our operated bobcats deliver: clearing, levelling, spreading soil and gravel, backfilling and site cleanups across Logan's residential and commercial sites.",
-            "Skid steers shine where bigger machines can't fit — driveways, backyards, between-builds access. Pair one with a tipper for a dig-and-cart package that keeps waste moving off site as fast as it's loaded.",
+            "Skid steers shine where bigger machines can't fit: driveways, backyards, between-builds access. Pair one with a tipper for a dig-and-cart package that keeps waste moving off site as fast as it's loaded.",
         ],
         "includes": [
             ("Tight-access capability", "Compact machines sized for suburban blocks and narrow entries."),
@@ -735,9 +735,9 @@ SERVICE_PAGES = {
     "tipper-truck-hire": {
         "img": "pano",
         "h1": "Tipper Hire in Logan",
-        "desc": "Tipper truck hire across Logan QLD — spoil removal, material delivery and dig-and-cart packages with experienced drivers. Free quotes on 0476 676 639.",
+        "desc": "Tipper truck hire across Logan QLD: spoil removal, material delivery and dig-and-cart packages with experienced drivers. Free quotes on 0476 676 639.",
         "intro": [
-            "Spoil off site, fill on site, on time. Our tippers move earth, aggregate, green waste and demolition material across Logan — efficiently, legally loaded and driven by experienced operators.",
+            "Spoil off site, fill on site, on time. Our tippers move earth, aggregate, green waste and demolition material across Logan, loaded legally and driven by experienced operators.",
             "Tippers pair naturally with our excavators and loaders: book a dig-and-cart combo and the whole cycle runs as one crew, so your excavation never waits on a truck.",
         ],
         "includes": [
@@ -751,9 +751,9 @@ SERVICE_PAGES = {
     "combo-hire": {
         "img": "hero",
         "h1": "Combo Hire in Logan",
-        "desc": "Combo plant hire packages in Logan QLD — excavator and tipper, loader and water truck, or a full site-prep crew. One booking, one invoice. Free quotes on 0476 676 639.",
+        "desc": "Combo plant hire packages in Logan QLD: excavator and tipper, loader and water truck, or a full site-prep crew. One booking, one invoice. Free quotes on 0476 676 639.",
         "intro": [
-            "Most jobs need more than one machine — so we price them that way. Combo hire bundles machines, trucks and operators into a single package sized for your project: excavator plus tipper, loader plus water truck, or a full site-preparation crew.",
+            "Most jobs need more than one machine, so we price them that way. Combo hire bundles machines, trucks and operators into a single package sized for your project: excavator plus tipper, loader plus water truck, or a full site-preparation crew.",
             "One booking, one invoice, one crew that's used to working together. Combos are how our regular builders and contractors get the sharpest rates and the smoothest programs.",
         ],
         "includes": [
@@ -767,9 +767,9 @@ SERVICE_PAGES = {
     "posi-track-hire": {
         "img": "machine",
         "h1": "Posi Track Hire in Logan",
-        "desc": "Fully operated posi track hire across Logan QLD — traction and control on soft, wet or sloped ground. Family owned with a Zero Harm safety focus. Free quotes on 0476 676 639.",
+        "desc": "Fully operated posi track hire across Logan QLD: traction and control on soft, wet or sloped ground. Family owned with a Zero Harm safety focus. Free quotes on 0476 676 639.",
         "intro": [
-            "When soft ground and unstable surfaces stop wheeled machines, tracked loaders keep working. Our fully operated posi tracks deliver traction, flotation and control on wet, sandy or sloped sites across Logan — Park Ridge, Loganlea, Jimboomba and beyond.",
+            "When soft ground and unstable surfaces stop wheeled machines, tracked loaders keep working. Our fully operated posi tracks deliver traction, flotation and control on wet, sandy or sloped sites across Logan, including Park Ridge, Loganlea, Jimboomba and beyond.",
             "Lower ground pressure means less damage to lawns, driveways and finished surfaces, and more working days when the weather turns. Backed by our quality guarantee, price match promise and Zero Harm safety focus.",
         ],
         "includes": [
@@ -783,10 +783,10 @@ SERVICE_PAGES = {
     "skip-bin-hire": {
         "img": "excavator",
         "h1": "Skip Bin Hire in Logan",
-        "desc": "Skip bin hire across Logan QLD — bins delivered, filled and removed in the same booking as your earthmoving. Free quotes on 0476 676 639.",
+        "desc": "Skip bin hire across Logan QLD: bins delivered, filled and removed in the same booking as your earthmoving. Free quotes on 0476 676 639.",
         "intro": [
-            "Site waste shouldn't need a second phone call. Our skip bins are delivered, swapped and removed on your schedule — and because they're booked alongside our machines, waste handling becomes part of the same job, not an extra one.",
-            "Green waste, demolition material, general site waste — sized to the job and placed where your crew actually needs them.",
+            "Site waste shouldn't need a second phone call. Our skip bins are delivered, swapped and removed on your schedule, and because they're booked alongside our machines, waste handling becomes part of the same job, not an extra one.",
+            "Green waste, demolition material, general site waste: sized to the job and placed where your crew actually needs them.",
         ],
         "includes": [
             ("Delivered & removed on time", "Bins arrive when the job starts and leave when it's done."),
@@ -799,10 +799,10 @@ SERVICE_PAGES = {
     "water-truck-hire": {
         "img": "site2",
         "h1": "Water Truck Hire in Logan",
-        "desc": "Water truck hire in Logan QLD — dust suppression, compaction watering and haul-road maintenance that keeps sites compliant. Free quotes on 0476 676 639.",
+        "desc": "Water truck hire in Logan QLD: dust suppression, compaction watering and haul-road maintenance that keeps sites compliant. Free quotes on 0476 676 639.",
         "intro": [
             "Keep dust down and compaction up. Our water trucks handle dust suppression, compaction watering, haul-road maintenance and general site wet-down across Logan's civil and construction sites.",
-            "Dust management isn't just neighbourly — it's a compliance condition on most sites. A scheduled water truck keeps you covered without slowing the program, and pairs naturally with our rollers-and-earthworks combos.",
+            "Dust management isn't just neighbourly, it's a compliance condition on most sites. A scheduled water truck keeps you covered without slowing the program, and pairs naturally with our rollers-and-earthworks combos.",
         ],
         "includes": [
             ("Dust suppression runs", "Scheduled or on-call wet-downs that keep you compliant."),
@@ -857,7 +857,7 @@ def build_service(slug):
         <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> <a href="services.html">What We Offer</a> <span aria-hidden="true">/</span> <span aria-current="page">{name}</span></nav>
         <p class="eyebrow-line">L&amp;V Civil Contracting</p>
         <h1>{d['h1']}</h1>
-        <p>Backed by a quality guarantee, price match promise and Zero Harm safety focus — our family owned crew delivers reliable results every time.</p>
+        <p>Backed by a quality guarantee, price match promise and Zero Harm safety focus, our family owned crew delivers reliable results every time.</p>
         <div class="hero-actions">
           <a href="tel:{PHONE_TEL}" class="btn btn-primary">{ICONS['phone'].format(s=16)} Call now</a>
           <a href="contact.html" class="btn btn-ghost">Request a quote</a>
@@ -874,7 +874,7 @@ def build_service(slug):
           <div class="tag-row">{tags}</div>
         </div>
         <div class="split-media reveal">
-          <img src="{IMG[d['img']]}" alt="{name} — L&amp;V Civil Contracting machine working on a Logan site" loading="lazy" width="1200" height="800">
+          <img src="{IMG[d['img']]}" alt="{name}: L&amp;V Civil Contracting machine working on a Logan site" loading="lazy" width="1200" height="800">
           <div class="badge-float">{ICONS['shield'].format(s=26)} Operator included</div>
         </div>
       </div>
@@ -896,11 +896,11 @@ def build_service(slug):
 {rel}
             <a href="services.html">All services →</a>
           </div>
-          <p style="margin-top:1.75rem; color: var(--steel-400); font-size: 0.95rem;">Most projects combine two or more services — ask about a <a href="combo-hire.html" style="color: var(--amber-500); font-weight: 600;">combo package</a> and save on the bundle.</p>
+          <p style="margin-top:1.75rem; color: var(--steel-400); font-size: 0.95rem;">Most projects combine two or more services, so ask about a <a href="combo-hire.html" style="color: var(--amber-500); font-weight: 600;">combo package</a> and save on the bundle.</p>
         </div>
       </div>
     </section>
-{cta_band(f"Need {name.lower()} this week?", "Call now or send the details — quotes back within 24 hours.")}  </main>
+{cta_band(f"Need {name.lower()} this week?", "Call now or send the details, quotes back within 24 hours.")}  </main>
 {footer()}'''
     title = f"{d['h1']} | L&amp;V Civil Contracting"
     return head(title, d["desc"], f"{SITE}/{slug}.html", ld) + body
@@ -911,10 +911,10 @@ CIVIL_PAGES = {
     "renewable-energy-subdivisions": {
         "img": "pano",
         "h1": "Renewable Energy Subdivision Works",
-        "desc": "Civil works for renewable energy subdivisions across Logan and South East Queensland — earthworks, trenching, access roads and service installation. Free quotes on 0476 676 639.",
+        "desc": "Civil works for renewable energy subdivisions across Logan and South East Queensland: earthworks, trenching, access roads and service installation. Free quotes on 0476 676 639.",
         "intro": [
             "Efficient infrastructure supports every renewable build. We deliver earthworks, trenching, access roads and service installation for reliable, future-ready energy subdivisions of any size.",
-            "From the first cut to the last service trench, our crew works to program alongside your engineers and project managers — with documented SWMS, maintained plant and a Zero Harm safety focus on every stage.",
+            "From the first cut to the last service trench, our crew works to program alongside your engineers and project managers, with documented SWMS, maintained plant and a Zero Harm safety focus on every stage.",
         ],
         "includes": [
             ("Bulk & detailed earthworks", "Cut, fill and shaping to design levels across the subdivision."),
@@ -927,10 +927,10 @@ CIVIL_PAGES = {
     "site-preparation": {
         "img": "site1",
         "h1": "Site Preparation in Logan",
-        "desc": "Site preparation across Logan QLD — clearing, levelling, grading and stabilising for safe, accessible and compliant construction sites. Free quotes on 0476 676 639.",
+        "desc": "Site preparation across Logan QLD: clearing, levelling, grading and stabilising for safe, accessible and compliant construction sites. Free quotes on 0476 676 639.",
         "intro": [
             "Getting ready to build? We clear, level, grade and stabilise land to create safe, accessible and compliant sites for all types of construction work.",
-            "Whether it's a single house pad or a staged commercial development, foundations done right start with ground done right — and our operators know Logan's soils, falls and council requirements inside out.",
+            "Whether it's a single house pad or a staged commercial development, foundations done right start with ground done right, and our operators know Logan's soils, falls and council requirements inside out.",
         ],
         "includes": [
             ("Clearing & grubbing", "Vegetation, stumps and rubbish removed and carted away."),
@@ -943,10 +943,10 @@ CIVIL_PAGES = {
     "wind-farms": {
         "img": "machine",
         "h1": "Wind Farm Civil Works",
-        "desc": "Wind farm civil works — crane pads, internal roads and trench networks supporting smooth turbine transport and installation. L&V Civil Contracting: 0476 676 639.",
+        "desc": "Wind farm civil works: crane pads, internal roads and trench networks supporting smooth turbine transport and installation. L&V Civil Contracting: 0476 676 639.",
         "intro": [
             "Strong access and stable foundations are key. We construct crane pads, internal roads and trench networks to support smooth wind turbine transport and installation.",
-            "Turbine components don't wait for bad ground — our crews build the all-weather access and lay-down areas that keep oversize transport, cranage and cabling works moving to program.",
+            "Turbine components don't wait for bad ground, so our crews build the all-weather access and lay-down areas that keep oversize transport, cranage and cabling works moving to program.",
         ],
         "includes": [
             ("Crane pads & hardstands", "Engineered pads built and compacted for heavy-lift cranage."),
@@ -959,7 +959,7 @@ CIVIL_PAGES = {
     "solar-farms": {
         "img": "site2",
         "h1": "Solar Farm Civil Works",
-        "desc": "Solar farm civil works — we shape, stabilise and trench land to support arrays, inverters and access routes that last. L&V Civil Contracting: 0476 676 639.",
+        "desc": "Solar farm civil works: we shape, stabilise and trench land to support arrays, inverters and access routes that last. L&V Civil Contracting: 0476 676 639.",
         "intro": [
             "Power your solar project with precision groundwork. We shape, stabilise, and trench land to support arrays, inverters, and access routes that last.",
             "Solar sites live or die on drainage, levels and access. We grade array areas to tolerance, trench cable runs cleanly and build the roads that keep construction and maintenance traffic moving in any weather.",
@@ -975,15 +975,15 @@ CIVIL_PAGES = {
     "pipe-and-gas-lines": {
         "img": "work",
         "h1": "Pipe &amp; Gas Line Works",
-        "desc": "Pipeline and gas line civil works — safe trenching, backfilling and reinstatement that keeps your infrastructure protected and compliant. Call 0476 676 639.",
+        "desc": "Pipeline and gas line civil works: safe trenching, backfilling and reinstatement that keeps your infrastructure protected and compliant. Call 0476 676 639.",
         "intro": [
             "Installing pipelines or gas lines? We offer safe trenching, backfilling and reinstatement services to keep your infrastructure protected and compliant.",
-            "Linear works demand consistency: trench to depth, bed properly, backfill and compact in lifts, reinstate the surface. Our operators run that cycle day in, day out — safely, and to your inspection and test plan.",
+            "Linear works demand consistency: trench to depth, bed properly, backfill and compact in lifts, reinstate the surface. Our operators run that cycle day in, day out, safely, and to your inspection and test plan.",
         ],
         "includes": [
             ("Trenching to spec", "Depth, width and bedding to your alignment drawings."),
             ("Backfill & compaction", "Select fill placed and compacted in lifts, tested as required."),
-            ("Reinstatement", "Surfaces returned to condition — pavements, topsoil and turf."),
+            ("Reinstatement", "Surfaces returned to condition: pavements, topsoil and turf."),
         ],
         "tags": ["Trenching", "Backfilling", "Reinstatement", "Compliance"],
         "related": ["gas-gathering", "excavator-hire", "water-truck-hire"],
@@ -991,7 +991,7 @@ CIVIL_PAGES = {
     "gas-gathering": {
         "img": "hero",
         "h1": "Gas Gathering Works",
-        "desc": "Gas gathering civil works — trenching, grading and access routes supporting efficient, safe transport of extracted gas to processing. Call 0476 676 639.",
+        "desc": "Gas gathering civil works: trenching, grading and access routes supporting efficient, safe transport of extracted gas to processing. Call 0476 676 639.",
         "intro": [
             "Connect sites with expert gas gathering works. We trench, grade, and form access routes to support efficient, safe transport of extracted gas to processing.",
             "From site clearing for gathering networks to trench and access programs across multiple wellsites, we bring the plant, operators and safety systems that field work demands.",
@@ -1050,7 +1050,7 @@ def build_civil(slug):
         <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> <a href="services.html">What We Offer</a> <span aria-hidden="true">/</span> <span aria-current="page">{name}</span></nav>
         <p class="eyebrow-line">L&amp;V Civil Contracting</p>
         <h1>{d['h1']}</h1>
-        <p>Backed by a quality guarantee, price match promise and Zero Harm safety focus — our family owned crew delivers reliable results every time.</p>
+        <p>Backed by a quality guarantee, price match promise and Zero Harm safety focus, our family owned crew delivers reliable results every time.</p>
         <div class="hero-actions">
           <a href="tel:{PHONE_TEL}" class="btn btn-primary">{ICONS['phone'].format(s=16)} Call now</a>
           <a href="contact.html" class="btn btn-ghost">Request a quote</a>
@@ -1067,7 +1067,7 @@ def build_civil(slug):
           <div class="tag-row">{tags}</div>
         </div>
         <div class="split-media reveal">
-          <img src="{IMG[d['img']]}" alt="{name} — L&amp;V Civil Contracting working on site" loading="lazy" width="1200" height="800">
+          <img src="{IMG[d['img']]}" alt="{name}: L&amp;V Civil Contracting working on site" loading="lazy" width="1200" height="800">
           <div class="badge-float">{ICONS['shield'].format(s=26)} Licensed &amp; insured</div>
         </div>
       </div>
@@ -1089,11 +1089,11 @@ def build_civil(slug):
 {rel}
             <a href="services.html">All services →</a>
           </div>
-          <p style="margin-top:1.75rem; color: var(--steel-400); font-size: 0.95rem;">Every machine on our civil projects is wet hire — skilled, ticketed operators included. Ask about a <a href="combo-hire.html" style="color: var(--amber-500); font-weight: 600;">combo package</a> for multi-machine programs.</p>
+          <p style="margin-top:1.75rem; color: var(--steel-400); font-size: 0.95rem;">Every machine on our civil projects is wet hire, with skilled, ticketed operators included. Ask about a <a href="combo-hire.html" style="color: var(--amber-500); font-weight: 600;">combo package</a> for multi-machine programs.</p>
         </div>
       </div>
     </section>
-{cta_band("Ready to scope your project?", "Send the drawings or describe the job — quotes back within 24 hours.")}  </main>
+{cta_band("Ready to scope your project?", "Send the drawings or describe the job, quotes back within 24 hours.")}  </main>
 {footer()}'''
     title = f"{d['h1']} | L&amp;V Civil Contracting"
     return head(title, d["desc"], f"{SITE}/{slug}.html", ld) + body
@@ -1142,7 +1142,7 @@ def build_suburb(slug):
         <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> <a href="index.html#areas">Service Areas</a> <span aria-hidden="true">/</span> <span aria-current="page">{name}</span></nav>
         <p class="eyebrow-line">L&amp;V Civil Contracting</p>
         <h1>Excavator Hire &amp; Earthmoving in {name}</h1>
-        <p>Wet hire machines with skilled operators, servicing {name} from our Park Ridge base — backed by a quality guarantee, price match promise and Zero Harm safety focus.</p>
+        <p>Wet hire machines with skilled operators, servicing {name} from our Park Ridge base, backed by a quality guarantee, price match promise and Zero Harm safety focus.</p>
         <div class="hero-actions">
           <a href="tel:{PHONE_TEL}" class="btn btn-primary">{ICONS['phone'].format(s=16)} Call now</a>
           <a href="contact.html" class="btn btn-ghost">Request a quote</a>
@@ -1186,7 +1186,7 @@ def build_suburb(slug):
 {cta_band(f"Working on a {name} project?", "Free quotes within 24 hours. Machines with operators included.")}  </main>
 {footer()}'''
     title = f"Excavator Hire &amp; Earthmoving {name} | L&amp;V Civil Contracting"
-    desc = f"Local wet hire earthmoving in {name} QLD — excavators, bobcats, tippers, posi tracks and water trucks with skilled operators, servicing {name} from Park Ridge. Free quotes: {PHONE_DISPLAY}."
+    desc = f"Local wet hire earthmoving in {name} QLD: excavators, bobcats, tippers, posi tracks and water trucks with skilled operators, servicing {name} from Park Ridge. Free quotes: {PHONE_DISPLAY}."
     return head(title, desc, f"{SITE}/{page}", ld) + body
 
 
@@ -1203,7 +1203,7 @@ def build_about():
         <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> <span aria-current="page">Who We Are</span></nav>
         <p class="eyebrow-line">L&amp;V Civil Contracting</p>
         <h1>The family crew behind Logan's ground works.</h1>
-        <p>Built job by job, referral by referral. Family owned and operated since 2022 — and still answering every call ourselves.</p>
+        <p>Built job by job, referral by referral. Family owned and operated since 2022, and still answering every call ourselves.</p>
       </div>
     </section>
 
@@ -1217,7 +1217,7 @@ def build_about():
           <ul class="check-list">
             <li><span class="tick">{ICONS['tick']}</span><div><strong>Same operators, same standards</strong><span>The people who built the reputation are still on the machines.</span></div></li>
             <li><span class="tick">{ICONS['tick']}</span><div><strong>Growing fleet, broader reach</strong><span>From residential digs to energy projects across South East Queensland.</span></div></li>
-            <li><span class="tick">{ICONS['tick']}</span><div><strong>Modern systems</strong><span>Digital quoting, scheduling and safety management — no paperwork black holes.</span></div></li>
+            <li><span class="tick">{ICONS['tick']}</span><div><strong>Modern systems</strong><span>Digital quoting, scheduling and safety management, no paperwork black holes.</span></div></li>
           </ul>
         </div>
         <div class="split-media reveal">
@@ -1242,12 +1242,12 @@ def build_about():
           <div class="value-card reveal" style="--delay:.07s">
             <div class="service-icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
             <h3>Do it once, do it right</h3>
-            <p>Rework costs everyone. We dig to depth, compact to spec and reinstate properly the first time — guaranteed.</p>
+            <p>Rework costs everyone. We dig to depth, compact to spec and reinstate properly the first time, guaranteed.</p>
           </div>
           <div class="value-card reveal" style="--delay:.14s">
             <div class="service-icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
             <h3>Local, and proud of it</h3>
-            <p>We live where we work. Logan builders, plumbers and homeowners aren't just clients — they're neighbours.</p>
+            <p>We live where we work. Logan builders, plumbers and homeowners aren't just clients; they're neighbours.</p>
           </div>
           <div class="value-card reveal" style="--delay:.21s">
             <div class="service-icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
@@ -1259,7 +1259,7 @@ def build_about():
     </section>
 {cta_band("Let's talk about your next project.", "Free quotes, straight answers and a crew that shows up.")}  </main>
 {footer()}'''
-    title = "Who We Are | L&amp;V Civil Contracting — Family Owned Civil Crew, Logan QLD"
+    title = "Who We Are | L&amp;V Civil Contracting: Family Owned Civil Crew, Logan QLD"
     desc = "L&V Civil Contracting is a family owned wet hire and civil works crew based in Park Ridge QLD, servicing Logan and South East Queensland since 2022. Quality guarantee, price match promise, Zero Harm safety."
     return head(title, desc, f"{SITE}/about.html", ld) + body
 
@@ -1278,7 +1278,7 @@ def build_contact():
         <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> <span aria-current="page">Contact</span></nav>
         <p class="eyebrow-line">L&amp;V Civil Contracting</p>
         <h1>Tell us about the job. We'll quote it in 24 hours.</h1>
-        <p>Call, email or drop your project details below — the more you can tell us about the site and scope, the sharper the quote.</p>
+        <p>Call, email or drop your project details below. The more you can tell us about the site and scope, the sharper the quote.</p>
       </div>
     </section>
 
@@ -1298,7 +1298,7 @@ def build_contact():
             </div>
             <div class="info-tile">
               <div class="service-icon" aria-hidden="true">{ICONS['pin'].format(s=22)}</div>
-              <div><strong>Base of operations</strong><span>Park Ridge QLD, 4125 — servicing all of Logan &amp; SE QLD</span></div>
+              <div><strong>Base of operations</strong><span>Park Ridge QLD, 4125, servicing all of Logan &amp; SE QLD</span></div>
             </div>
             <div class="info-tile">
               <div class="service-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
@@ -1333,14 +1333,14 @@ def build_contact():
           </div>
           <div class="field"><label for="f-message">Project details</label><textarea id="f-message" name="message" placeholder="Tell us about the site, scope and timeframe…"></textarea></div>
           <button type="submit" class="btn btn-primary" style="width:100%;">Send quote request <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
-          <p class="form-note">Submitting opens your email app with the details pre-filled — or just call us on {PHONE_DISPLAY}.</p>
+          <p class="form-note">Submitting opens your email app with the details pre-filled, or just call us on {PHONE_DISPLAY}.</p>
         </form>
       </div>
     </section>
   </main>
 {footer()}'''
-    title = "Contact &amp; Free Quotes | L&amp;V Civil Contracting — Logan QLD"
-    desc = "Get a free quote for excavation, trenching, wet hire and civil works in Logan QLD. Call L&V Civil Contracting on 0476 676 639 — quotes within 24 hours."
+    title = "Contact &amp; Free Quotes | L&amp;V Civil Contracting: Logan QLD"
+    desc = "Get a free quote for excavation, trenching, wet hire and civil works in Logan QLD. Call L&V Civil Contracting on 0476 676 639, quotes within 24 hours."
     return head(title, desc, f"{SITE}/contact.html", ld) + body
 
 
@@ -1392,7 +1392,7 @@ import hashlib
 
 
 def _asset_version():
-    """Short content hash of the css/js bundle — appended as ?v= so browsers
+    """Short content hash of the css/js bundle, appended as ?v= so browsers
     always fetch fresh assets after a deploy instead of serving stale cache."""
     h = hashlib.md5()
     for p in ("css/style.css", "js/main.js"):

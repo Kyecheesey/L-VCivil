@@ -1,5 +1,5 @@
 /* ==========================================================================
-   L&V Civil Contracting — website by KW | Innovations
+   L&V Civil Contracting: website by KW | Innovations
    Design system v3 · deep graphite, brand-blue light, photo-led, film grain
    ========================================================================== */
 
@@ -59,7 +59,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-/* film grain over everything — the quiet premium layer */
+/* film grain over everything: the quiet premium layer */
 body::after {
   content: "";
   position: fixed;
@@ -1100,7 +1100,7 @@ h1, h2, h3, h4 {
   .nav-cta .btn-ghost { display: none; }
   .nav-cta { gap: 0.45rem; }
   /* backdrop-filter creates a containing block that would trap the fixed
-     full-screen menu inside the pill — use a solid background on mobile */
+     full-screen menu inside the pill, so use a solid background on mobile */
   .nav-bar {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
@@ -1167,7 +1167,7 @@ h1, h2, h3, h4 {
 
 /* ---------- Page-to-page transitions ---------- */
 /* Cross-document view transitions: same-origin navigations crossfade instead
-   of flashing white. Progressive enhancement — unsupported browsers navigate
+   of flashing white. Progressive enhancement: unsupported browsers navigate
    normally. */
 @view-transition { navigation: auto; }
 @media (prefers-reduced-motion: no-preference) {
@@ -1197,7 +1197,7 @@ details::details-content {
 }
 details[open]::details-content { block-size: auto; }
 
-/* Sticky mobile action bar — call & quote always in thumb reach */
+/* Sticky mobile action bar: call & quote always in thumb reach */
 .mobile-cta {
   display: none;
   position: fixed;
