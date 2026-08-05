@@ -25,11 +25,8 @@ IMG["water"] = IMG["site2"]
 SITE = "https://www.lvcivilcontracting.com.au"
 PHONE_DISPLAY = "0455 441 981"
 PHONE_TEL = "+61455441981"
-EMAIL = "info@lvcivilcontracting.com.au"
-# Recipient for the homepage "Reach Out" form (per client request). NB: this is
-# a different domain to the site (lvcivilconstruction vs lvcivilcontracting).
-# Confirm the mailbox exists before go-live.
-HOME_FORM_EMAIL = "admin@lvcivilconstruction.com.au"
+EMAIL = "admin@lvcivilcontracting.com"
+HOME_FORM_EMAIL = EMAIL
 ABN = "63 661 732 869"
 
 SERVICES = [
