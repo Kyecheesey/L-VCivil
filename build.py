@@ -172,27 +172,29 @@ def header(active=""):
     <div class="logo-band">
       <div class="container logo-band-inner">
         {brand_lockup()}
-        <div class="nav-cta">
-          <a href="tel:{PHONE_TEL}" class="nav-phone">{ICONS['phone'].format(s=14)} <span class="ph-num">{PHONE_DISPLAY}</span></a>
-          <a href="contact.html" class="btn btn-primary btn-sm nav-quote">Get a Quote</a>
+        <div class="nav-right">
+          <nav class="nav-links" id="nav-links" aria-label="Main navigation">
+            <a href="index.html"{cls('home')}>Home</a>
+            <a href="about.html"{cls('about')}>Who We Are</a>
+            <div class="nav-drop">
+              <button type="button" aria-haspopup="true">What We Offer
+                <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="drop-menu">
+{drop_links}
+              <a class="drop-all" href="services.html">All Services →</a>
+              </div>
+            </div>
+            <a href="projects.html"{cls('projects')}>Projects</a>
+            <a href="contact.html"{cls('contact')}>Contact</a>
+            <a href="tel:{PHONE_TEL}" class="nav-phone">{ICONS['phone'].format(s=14)} <span class="ph-num">{PHONE_DISPLAY}</span></a>
+            <a href="contact.html" class="btn btn-primary btn-sm">Get a Quote</a>
+          </nav>
           <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
             <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
             <span class="nt-label">Menu</span>
           </button>
         </div>
-        <nav class="nav-links" id="nav-links" aria-label="Main navigation">
-          <a href="index.html"{cls('home')}>Home</a>
-          <a href="about.html"{cls('about')}>Who We Are</a>
-          <div class="nav-drop">
-            <div class="drop-menu">
-{drop_links}
-            <a class="drop-all" href="services.html">All Services →</a>
-            </div>
-          </div>
-          <a href="projects.html"{cls('projects')}>Projects</a>
-          <a href="contact.html"{cls('contact')}>Contact</a>
-          <a href="contact.html" class="btn btn-primary btn-sm">Get a Quote</a>
-        </nav>
       </div>
     </div>
   </header>
