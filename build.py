@@ -1465,64 +1465,88 @@ def build_contact():
 
 
 # ------------------------------------------------------------- projects ----
-# Representative project work across the service area. Placeholder entries
-# built from the services and suburbs the site already claims — swap in real
-# project names, photos and details from the client when supplied.
-PROJECT_FILTERS = [
-    ("all",          "All projects"),
-    ("siteprep",     "Site preparation"),
-    ("subdivisions", "Subdivisions"),
-    ("renewables",   "Renewable energy"),
-    ("pipelines",    "Pipe & gas"),
-    ("wethire",      "Wet hire"),
-]
-
-# (id, title, suburb, cat_key, cat_label, img_key, desc, tags, (map_x, map_y))
-PROJECTS = [
-    ("p1", "Residential subdivision earthworks", "Yarrabilba", "subdivisions", "Subdivisions", "site1",
-     "Bulk cut and fill, road box-outs and allotment benching across a fast-growing estate, delivered stage by stage with compaction to spec.",
-     ["Bulk earthworks", "Road boxing", "Allotment benching"], (340, 298)),
-    ("p2", "Renewable energy groundworks", "Greenbank", "renewables", "Renewable energy", "site2",
-     "Shaping, stabilising and trenching to support arrays, inverters and access routes, with water carts keeping dust down and compaction on spec.",
-     ["Trenching", "Access roads", "Dust suppression"], (283, 252)),
-    ("p3", "Pipe &amp; gas line trenching", "Jimboomba", "pipelines", "Pipe &amp; gas", "work",
-     "Safe trenching, bedding, backfill and reinstatement around live services, keeping infrastructure protected and fully compliant.",
-     ["Trenching", "Backfill &amp; bedding", "Reinstatement"], (291, 297)),
-    ("p4", "Commercial site preparation", "Browns Plains", "siteprep", "Site preparation", "hero",
-     "Clearing, levelling and proof-rolled pad preparation for commercial construction, handed over ready for footings.",
-     ["Clearing", "Levelling", "Pad preparation"], (319, 235)),
-    ("p5", "Estate roads &amp; fleet support", "Flagstone", "wethire", "Wet hire", "pano",
-     "Combo wet hire package: excavator, posi track, tippers and a water truck with operators, one booking covering the whole earthworks program.",
-     ["Combo hire", "Haulage", "Compaction watering"], (266, 310)),
-    ("p6", "House pads &amp; tight-access digs", "Park Ridge", "siteprep", "Site preparation", "excavator",
-     "Detailed excavation, house pads and footings on established blocks, with tight-access machines working clean next to finished homes.",
-     ["House pads", "Footings", "Tight access"], (306, 249)),
-]
+# The projects showcase itself is "coming soon" (waiting on real project
+# names, photos and details from the client). Until then the page teases it
+# and shows an ops-style map of the real suburbs the crew works, drawn from
+# the same SUBURBS data as the suburb SEO pages.
+SUBURB_PINS = {
+    "park-ridge":    (306, 249),
+    "browns-plains": (319, 235),
+    "greenbank":     (283, 252),
+    "logan-village": (322, 285),
+    "jimboomba":     (291, 297),
+    "yarrabilba":    (340, 298),
+    "flagstone":     (266, 310),
+}
 
 
 def projects_map_svg():
-    """Stylised outline map of South East Queensland with a pin per project."""
-    pins = "\n".join(
-        f'''        <g class="pmap-pin" data-id="{pid}" data-cat="{cat}" tabindex="0" role="button" aria-label="{title.replace('&amp;', 'and')}, {suburb}">
-          <circle class="pin-halo" cx="{x}" cy="{y}" r="14"/>
-          <circle class="pin-dot" cx="{x}" cy="{y}" r="7"/>
-          <text x="{x}" y="{y + 1}" text-anchor="middle" dominant-baseline="middle">{i + 1}</text>
-        </g>''' for i, (pid, title, suburb, cat, _, _, _, _, (x, y)) in enumerate(PROJECTS)
-    )
-    return f'''      <svg class="pmap" viewBox="0 0 420 470" role="img" aria-label="Outline map of South East Queensland showing L&amp;V Civil project locations">
-        <rect class="pmap-water" x="0" y="0" width="420" height="470" rx="14"/>
-        <path class="pmap-land" d="M28 62 Q60 40 110 36 Q200 28 292 34 Q322 30 330 30
-          Q322 52 345 80 Q352 96 350 112 Q336 130 341 148 Q328 160 334 175
-          Q346 182 346 192 Q352 204 350 216 Q360 250 362 280 Q368 310 364 332
-          Q360 366 355 396 Q300 402 220 400 Q120 402 30 398 Q24 300 25 200 Q24 120 28 62 Z"/>
-        <ellipse class="pmap-island" cx="384" cy="148" rx="10" ry="26"/>
-        <ellipse class="pmap-island" cx="390" cy="242" rx="9" ry="22"/>
+    """Dark ops-style map of South East Queensland: glowing coastline,
+    blueprint grid, animated routes from the Brisbane base to every service
+    area, and pulsing markers."""
+    bx, by = 328, 186  # Brisbane HQ
+    routes, pins = [], []
+    for i, (slug, (x, y)) in enumerate(SUBURB_PINS.items()):
+        name = SUBURBS[slug][0]
+        mx, my = (bx + x) / 2, (by + y) / 2
+        dx, dy = x - bx, y - by
+        dist = (dx * dx + dy * dy) ** 0.5 or 1
+        k = 20 if i % 2 else -20
+        cx, cy = mx + (-dy / dist) * k, my + (dx / dist) * k
+        routes.append(f'        <path class="pmap-route" data-id="{slug}" d="M{bx} {by} Q{cx:.0f} {cy:.0f} {x} {y}"/>')
+        pins.append(f'''        <g class="pmap-pin" data-id="{slug}" tabindex="0" role="button" aria-label="{name}">
+          <title>{name}</title>
+          <circle class="pin-glow" cx="{x}" cy="{y}" r="13"/>
+          <circle class="pin-ring r1" cx="{x}" cy="{y}" r="8"/>
+          <circle class="pin-ring r2" cx="{x}" cy="{y}" r="8"/>
+          <circle class="pin-dot" cx="{x}" cy="{y}" r="7.5"/>
+          <text class="pin-num" x="{x}" y="{y + 1}" text-anchor="middle" dominant-baseline="middle">{i + 1}</text>
+          <text class="pin-label" x="{x}" y="{y - 15}" text-anchor="middle">{name}</text>
+        </g>''')
+    routes_svg = "\n".join(routes)
+    pins_svg = "\n".join(pins)
+    return f'''      <svg class="pmap" viewBox="0 0 440 480" role="img" aria-label="Map of South East Queensland showing the areas L&amp;V Civil services from its Brisbane base">
+        <defs>
+          <linearGradient id="pmap-landg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#152232"/><stop offset="1" stop-color="#0e1722"/>
+          </linearGradient>
+          <radialGradient id="pmap-waterg" cx="0.78" cy="0.38" r="1.1">
+            <stop offset="0" stop-color="#0d1826"/><stop offset="1" stop-color="#060b13"/>
+          </radialGradient>
+          <pattern id="pmap-grid" width="26" height="26" patternUnits="userSpaceOnUse">
+            <path d="M26 0H0V26" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          </pattern>
+          <filter id="pmap-blur" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="4"/>
+          </filter>
+          <path id="pmap-seq" d="M32 70 Q72 44 132 40 Q212 32 300 38 Q330 30 342 34
+            Q336 62 352 92 Q357 104 348 116 L344 150 Q333 162 344 170
+            Q329 179 334 194 Q342 204 350 214 Q346 238 352 258
+            Q369 290 366 318 Q362 356 350 394 Q290 402 210 400 Q120 404 34 398
+            Q26 300 27 200 Q26 130 32 70 Z"/>
+        </defs>
+        <rect class="pmap-water" x="0" y="0" width="440" height="480"/>
+        <rect class="pmap-gridfill" x="0" y="0" width="440" height="480" fill="url(#pmap-grid)"/>
+        <use href="#pmap-seq" class="pmap-coast-glow" filter="url(#pmap-blur)"/>
+        <use href="#pmap-seq" class="pmap-land"/>
+        <path class="pmap-island" d="M352 112 Q357 130 351 148 Q346 132 348 116 Z"/>
+        <path class="pmap-island" d="M376 142 Q385 158 380 190 Q371 176 374 152 Z"/>
+        <path class="pmap-island" d="M370 210 Q393 224 386 252 Q369 244 368 222 Z"/>
+        <path class="pmap-island" d="M366 262 Q372 276 368 292 Q361 278 364 266 Z"/>
+        <text class="pmap-city" x="318" y="78">Sunshine Coast</text>
+        <text class="pmap-city" x="350" y="350">Gold Coast</text>
+        <text class="pmap-city pmap-city-mid" x="180" y="240">Ipswich</text>
+        <text class="pmap-city pmap-city-mid" x="200" y="362">Scenic Rim</text>
+        <text class="pmap-city pmap-city-mid" x="95" y="150">Somerset</text>
+        <text class="pmap-sea-label" x="416" y="330" transform="rotate(90 416 330)">Coral Sea</text>
+{routes_svg}
         <g class="pmap-base" aria-label="Base of operations, Brisbane">
-          <circle cx="325" cy="180" r="5"/>
-          <text x="313" y="168">Brisbane</text>
+          <circle class="base-pulse" cx="{bx}" cy="{by}" r="7"/>
+          <circle class="base-ring" cx="{bx}" cy="{by}" r="7"/>
+          <circle class="base-dot" cx="{bx}" cy="{by}" r="4"/>
+          <text x="{bx + 11}" y="{by - 8}">Brisbane · HQ</text>
         </g>
-        <text class="pmap-sea-label" x="392" y="330" transform="rotate(90 392 330)">Coral Sea</text>
-{pins}
+{pins_svg}
       </svg>'''
 
 
@@ -1531,25 +1555,10 @@ def build_projects():
   {{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Projects | L&V Civil Contracting", "url": "{SITE}/projects.html", "about": {{"@id": "{SITE}/#business"}}}}
   </script>
 '''
-    filters = "\n".join(
-        f'''          <button type="button" class="filter-pill{' is-active' if i == 0 else ''}" data-filter="{key}">{label}</button>'''
-        for i, (key, label) in enumerate(PROJECT_FILTERS)
-    )
-    cards = "\n".join(
-        f'''          <article class="project-card reveal" data-id="{pid}" data-cat="{cat}"{f' style="--delay:.{(i % 3) * 6:02d}s"' if i % 3 else ''}>
-            <figure class="pc-media"><img src="{IMG[img]}" alt="{title.replace('&amp;', 'and')} in {suburb}" loading="lazy" width="900" height="563"></figure>
-            <div class="pc-body">
-              <span class="pc-meta"><em>{i + 1:02d}</em> {label} · {suburb}</span>
-              <h3>{title}</h3>
-              <p>{desc}</p>
-              <ul class="pc-tags">{''.join(f'<li>{t}</li>' for t in tags)}</ul>
-            </div>
-          </article>''' for i, (pid, title, suburb, cat, label, img, desc, tags, _) in enumerate(PROJECTS)
-    )
     legend = "\n".join(
-        f'''          <li><button type="button" class="pmap-item" data-id="{pid}" data-cat="{cat}">
-            <i>{i + 1}</i><span><strong>{title}</strong><small>{label} · {suburb}</small></span>
-          </button></li>''' for i, (pid, title, suburb, cat, label, _, _, _, _) in enumerate(PROJECTS)
+        f'''          <li><button type="button" class="pmap-item" data-id="{slug}">
+            <i>{i + 1}</i><span><strong>{SUBURBS[slug][0]}</strong><small>{SUBURBS[slug][2][0]}</small></span>
+          </button></li>''' for i, slug in enumerate(SUBURB_PINS)
     )
     body = f'''{header('projects')}
   <main id="main">
@@ -1557,36 +1566,34 @@ def build_projects():
       <div class="container">
         <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> <span aria-current="page">Projects</span></nav>
         <p class="eyebrow-line">Our projects</p>
-        <h1>Projects across South East Queensland.</h1>
-        <p>From house pads to renewable energy subdivisions, here's a look at the ground works we deliver across Brisbane and South East Queensland, and where we deliver them.</p>
+        <h1>The showcase is on its way.</h1>
+        <p>We're out delivering the work right now. Project write-ups, photos and results from across South East Queensland are being compiled and will land here soon.</p>
       </div>
     </section>
 
-    <section class="section" id="project-list">
+    <section class="section" id="coming-soon">
       <div class="container">
-        <div class="section-head reveal">
-          <span class="eyebrow">What we deliver</span>
-          <h2>The work, project by project.</h2>
-          <p>Filter by the type of work you need. Every project runs with the same quality guarantee, price match promise and Zero Harm safety focus.</p>
-        </div>
-        <div class="filter-row proj-filters reveal" role="group" aria-label="Filter projects by work type">
-{filters}
-        </div>
-        <div class="project-grid" data-projects>
-{cards}
+        <div class="soon-panel reveal">
+          <span class="soon-badge"><span class="dot" aria-hidden="true"></span> Coming soon</span>
+          <h2>Real projects. Real results.<br>Currently under construction.</h2>
+          <p>From house pads and tight-access digs to subdivision earthworks and renewable energy groundworks, we're pulling together the best of our recent jobs. Want to know if we've done work like yours? Just ask.</p>
+          <div class="hero-actions" style="justify-content:center; margin:1.8rem 0 0;">
+            <a href="contact.html" class="btn btn-primary">Talk to us about your project {ICONS['arrow']}</a>
+            <a href="tel:{PHONE_TEL}" class="btn btn-ghost">{ICONS['phone'].format(s=16)} {PHONE_DISPLAY}</a>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section section-light" id="project-map">
+    <section class="section section-tint" id="project-map">
       <div class="container">
         <div class="section-head reveal">
-          <span class="eyebrow">Project map</span>
-          <h2>Where we've put machines to work.</h2>
-          <p>Based in Brisbane and working across South East Queensland. Tap a pin or a project to see the pair light up.</p>
+          <span class="eyebrow">Where we work</span>
+          <h2>Machines on the ground across SEQ.</h2>
+          <p>Every job runs out of our Brisbane base. Watch the routes trace out to the areas we service across South East Queensland, or tap a pin to explore.</p>
         </div>
         <div class="pmap-wrap reveal">
-          <ul class="pmap-list" role="list" aria-label="Project locations">
+          <ul class="pmap-list" role="list" aria-label="Service areas">
 {legend}
           </ul>
           <div class="pmap-frame">
@@ -1595,10 +1602,10 @@ def build_projects():
         </div>
       </div>
     </section>
-{cta_band("Got a project that belongs on this map?", "Free quotes, straight answers and a crew that shows up.")}  </main>
+{cta_band("Your project could headline this page.", "Free quotes, straight answers and a crew that shows up.")}  </main>
 {footer()}'''
-    title = "Projects &amp; Project Map | L&amp;V Civil Contracting: Brisbane &amp; SEQ"
-    desc = f"Civil and earthmoving projects delivered by L&V Civil Contracting across Brisbane and South East Queensland: subdivisions, renewable energy groundworks, pipelines, site preparation and wet hire. Free quotes: {PHONE_DISPLAY}."
+    title = "Projects: Coming Soon | L&amp;V Civil Contracting: Brisbane &amp; SEQ"
+    desc = f"L&V Civil Contracting's project showcase is coming soon. See where we work across Brisbane and South East Queensland, and talk to us about your civil or earthmoving project. Free quotes: {PHONE_DISPLAY}."
     return head(title, desc, f"{SITE}/projects.html", ld) + body
 
 

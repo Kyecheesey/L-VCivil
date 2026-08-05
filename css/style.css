@@ -1479,77 +1479,151 @@ html { scrollbar-color: var(--ink-600) var(--ink-950); }
   color: var(--accent-500);
 }
 
-/* ---------- Project map (stylised SEQ outline + pins) ---------- */
+/* ---------- Coming-soon panel ---------- */
+.soon-panel {
+  max-width: 760px;
+  margin-inline: auto;
+  text-align: center;
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 4vw, 3rem);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(70% 100% at 50% 0%, rgba(69, 177, 240, 0.08), transparent 60%),
+    linear-gradient(165deg, var(--ink-800), var(--ink-900) 85%);
+  border: var(--hairline);
+  box-shadow: var(--el-2), var(--ring);
+}
+.soon-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1.15rem;
+  border-radius: 999px;
+  border: 1px solid rgba(69, 177, 240, 0.35);
+  color: var(--accent-500);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 1.4rem;
+}
+.soon-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-500); animation: pulse 2.4s infinite; }
+.soon-panel h2 { font-size: clamp(1.7rem, 3.6vw, 2.6rem); font-weight: 800; margin-bottom: 1rem; }
+.soon-panel p { max-width: 54ch; margin-inline: auto; }
+
+/* ---------- Ops-style project map ---------- */
 .pmap-wrap {
   display: grid;
   grid-template-columns: minmax(280px, 0.9fr) 1.2fr;
   gap: clamp(1.2rem, 3vw, 2rem);
   align-items: stretch;
 }
-.pmap-list { display: grid; gap: 0.65rem; align-content: start; }
+.pmap-list { display: grid; gap: 0.6rem; align-content: start; }
 .pmap-item {
   display: flex;
   align-items: center;
   gap: 0.9rem;
   width: 100%;
   text-align: left;
-  padding: 0.85rem 1rem;
+  padding: 0.8rem 1rem;
   border-radius: var(--radius-md);
-  background: var(--white);
-  border: 1px solid #e2e8ee;
+  background: linear-gradient(165deg, var(--ink-800), var(--ink-900) 85%);
+  border: var(--hairline);
+  box-shadow: var(--ring);
   cursor: pointer;
   font: inherit;
-  transition: transform 0.25s var(--ease-out), border-color 0.25s, box-shadow 0.25s, opacity 0.25s;
+  transition: transform 0.25s var(--ease-out), border-color 0.25s, box-shadow 0.25s;
 }
-.pmap-item:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(36, 146, 219, 0.14); }
-.pmap-item.is-active { border-color: var(--accent-600); box-shadow: 0 6px 18px rgba(36, 146, 219, 0.2); }
-.pmap-item.is-dim { opacity: 0.35; }
+.pmap-item:hover { transform: translateY(-2px); border-color: rgba(69, 177, 240, 0.35); }
+.pmap-item.is-active { border-color: rgba(69, 177, 240, 0.65); box-shadow: 0 8px 26px rgba(36, 146, 219, 0.22), var(--ring); }
 .pmap-item i {
   display: grid;
   place-items: center;
   width: 28px; height: 28px;
   border-radius: 50%;
-  background: var(--accent-600);
-  color: var(--white);
+  background: rgba(69, 177, 240, 0.14);
+  border: 1px solid rgba(69, 177, 240, 0.4);
+  color: var(--accent-500);
   font-style: normal;
   font-weight: 700;
   font-size: 0.8rem;
   flex-shrink: 0;
+  transition: background 0.25s, color 0.25s;
 }
-.pmap-item strong { display: block; color: #0e1721; font-size: 0.93rem; line-height: 1.3; }
-.pmap-item small { color: #5c6b78; font-size: 0.76rem; }
+.pmap-item.is-active i { background: var(--accent-500); color: var(--ink-950); }
+.pmap-item strong { display: block; color: var(--white); font-size: 0.95rem; line-height: 1.3; }
+.pmap-item small { color: var(--steel-400); font-size: 0.76rem; }
 .pmap-frame {
+  position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 1px solid #e2e8ee;
-  box-shadow: var(--el-2);
-  background: #cfe3f2;
-  min-height: 380px;
+  border: var(--hairline);
+  box-shadow: var(--el-3), var(--ring);
+  background: #070d16;
+  min-height: 420px;
 }
 .pmap { width: 100%; height: 100%; display: block; }
-.pmap-water { fill: #cfe3f2; }
-.pmap-land { fill: #f2f5f7; stroke: #b9c9d6; stroke-width: 1.5; }
-.pmap-island { fill: #e7edf2; stroke: #b9c9d6; stroke-width: 1; }
-.pmap-base circle { fill: #0e1721; }
-.pmap-base text { font: 700 12px var(--font-body); fill: #0e1721; letter-spacing: 0.04em; }
-.pmap-sea-label { font: 600 11px var(--font-body); fill: #8fb2cc; letter-spacing: 0.3em; text-transform: uppercase; }
-.pmap-pin { cursor: pointer; transition: opacity 0.25s; }
-.pmap-pin:focus-visible { outline: 2px solid var(--accent-600); outline-offset: 2px; border-radius: 50%; }
-.pmap-pin .pin-halo { fill: rgba(36, 146, 219, 0.22); opacity: 0; transition: opacity 0.3s; }
-.pmap-pin .pin-dot { fill: var(--accent-600); stroke: #fff; stroke-width: 2; transition: fill 0.25s; }
-.pmap-pin text { font: 700 9px var(--font-body); fill: #fff; pointer-events: none; }
-.pmap-pin:hover .pin-dot, .pmap-pin.is-active .pin-dot { fill: #0e1721; }
-.pmap-pin.is-active .pin-halo { opacity: 1; animation: pinPulse 1.9s infinite; }
-.pmap-pin.is-dim { opacity: 0.3; }
-@keyframes pinPulse {
-  0% { r: 9; opacity: 0.9; }
-  70% { r: 17; opacity: 0; }
-  100% { r: 17; opacity: 0; }
+.pmap-water { fill: url(#pmap-waterg); }
+.pmap-gridfill { opacity: 0.7; }
+.pmap-coast-glow { fill: none; stroke: rgba(69, 177, 240, 0.5); stroke-width: 5; }
+.pmap-land { fill: url(#pmap-landg); stroke: rgba(69, 177, 240, 0.55); stroke-width: 1.4; }
+.pmap-island { fill: #131e2b; stroke: rgba(69, 177, 240, 0.4); stroke-width: 1; }
+.pmap-city { font: 600 10px var(--font-body); fill: var(--steel-400); letter-spacing: 0.12em; text-transform: uppercase; text-anchor: end; }
+.pmap-sea-label { font: 600 10px var(--font-body); fill: rgba(130, 153, 172, 0.5); letter-spacing: 0.34em; text-transform: uppercase; }
+
+/* Animated supply routes out of HQ */
+.pmap-route {
+  fill: none;
+  stroke: rgba(69, 177, 240, 0.28);
+  stroke-width: 1.4;
+  stroke-dasharray: 3 7;
+  stroke-linecap: round;
+  animation: dashFlow 1.4s linear infinite;
+  transition: stroke 0.3s, stroke-width 0.3s;
+}
+.pmap-route.is-active { stroke: rgba(69, 177, 240, 0.95); stroke-width: 2; }
+@keyframes dashFlow { to { stroke-dashoffset: -20; } }
+
+/* HQ marker */
+.pmap-base .base-dot { fill: var(--white); }
+.pmap-base .base-ring { fill: none; stroke: rgba(255, 255, 255, 0.55); stroke-width: 1.5; }
+.pmap-base .base-pulse { fill: none; stroke: rgba(69, 177, 240, 0.7); stroke-width: 1.5; animation: ringPulse 2.6s var(--ease-soft) infinite; }
+.pmap-base text { font: 700 11px var(--font-body); fill: var(--white); letter-spacing: 0.06em; }
+
+/* Project pins */
+.pmap-pin { cursor: pointer; }
+.pmap-pin:focus-visible { outline: 2px solid var(--accent-500); outline-offset: 2px; border-radius: 50%; }
+.pmap-pin .pin-glow { fill: rgba(69, 177, 240, 0.35); filter: url(#pmap-blur); opacity: 0; transition: opacity 0.3s; }
+.pmap-pin .pin-dot { fill: var(--accent-600); stroke: #0a1420; stroke-width: 2; transition: fill 0.25s; }
+.pmap-pin .pin-num { font: 700 9px var(--font-body); fill: #fff; pointer-events: none; }
+.pmap-pin .pin-ring { fill: none; stroke: var(--accent-500); stroke-width: 1.4; opacity: 0; }
+.pmap-pin .pin-label {
+  font: 700 10px var(--font-body);
+  fill: var(--white);
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: rgba(6, 11, 19, 0.85);
+  stroke-width: 3;
+}
+.pmap-pin:hover .pin-dot, .pmap-pin.is-active .pin-dot { fill: var(--accent-500); }
+.pmap-pin:hover .pin-glow, .pmap-pin.is-active .pin-glow { opacity: 1; }
+.pmap-pin:hover .pin-label, .pmap-pin.is-active .pin-label { opacity: 1; }
+.pmap-pin.is-active .pin-ring { animation: ringPulse 2s var(--ease-soft) infinite; }
+.pmap-pin.is-active .pin-ring.r2 { animation-delay: 1s; }
+@keyframes ringPulse {
+  0% { r: 8; opacity: 0.9; }
+  80% { r: 22; opacity: 0; }
+  100% { r: 22; opacity: 0; }
 }
 @media (max-width: 860px) {
   .pmap-wrap { grid-template-columns: 1fr; }
-  .pmap-frame { order: -1; min-height: 320px; }
+  .pmap-frame { order: -1; min-height: 340px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .pmap-pin.is-active .pin-halo { animation: none; opacity: 0.9; }
+  .pmap-route { animation: none; }
+  .pmap-base .base-pulse { animation: none; opacity: 0.6; }
+  .pmap-pin.is-active .pin-ring { animation: none; opacity: 0.7; }
 }
+.pmap-city-mid { text-anchor: middle; opacity: 0.55; }

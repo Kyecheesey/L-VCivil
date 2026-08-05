@@ -172,43 +172,37 @@
     });
   }
 
-  // Projects page: sector filter pills + map pin / legend / card sync
-  const projGrid = document.querySelector("[data-projects]");
-  if (projGrid) {
-    const cards = Array.from(projGrid.querySelectorAll(".project-card"));
-    const pins = Array.from(document.querySelectorAll(".pmap-pin"));
-    const legend = Array.from(document.querySelectorAll(".pmap-item"));
-    const row = document.querySelector(".proj-filters");
+  // Ops-style map: pin / legend / route sync, hover highlights, and an
+  // auto-cycling spotlight that hands over control on first interaction.
+  const pmapWrap = document.querySelector(".pmap-wrap");
+  if (pmapWrap) {
+    const pins = Array.from(pmapWrap.querySelectorAll(".pmap-pin"));
+    const legend = Array.from(pmapWrap.querySelectorAll(".pmap-item"));
+    const routes = Array.from(pmapWrap.querySelectorAll(".pmap-route"));
+    const ids = legend.map((l) => l.dataset.id);
+    let idx = 0;
+    let auto = null;
 
-    if (row) {
-      row.addEventListener("click", (e) => {
-        const btn = e.target.closest(".filter-pill");
-        if (!btn) return;
-        row.querySelectorAll(".filter-pill").forEach((p) => p.classList.remove("is-active"));
-        btn.classList.add("is-active");
-        const f = btn.dataset.filter;
-        cards.forEach((c) => {
-          const show = f === "all" || c.dataset.cat === f;
-          c.classList.toggle("is-hidden", !show);
-          if (show) {
-            c.classList.remove("is-filtering");
-            void c.offsetWidth;
-            c.classList.add("is-filtering");
-          }
-        });
-        pins.concat(legend).forEach((el) =>
-          el.classList.toggle("is-dim", f !== "all" && el.dataset.cat !== f)
-        );
-      });
-    }
-
-    const activate = (id) => {
+    const paint = (id) => {
       pins.forEach((p) => p.classList.toggle("is-active", p.dataset.id === id));
       legend.forEach((l) => l.classList.toggle("is-active", l.dataset.id === id));
-      cards.forEach((c) => c.classList.toggle("is-active", c.dataset.id === id));
+      routes.forEach((r) => r.classList.toggle("is-active", r.dataset.id === id));
     };
+    const stopAuto = () => {
+      if (auto) {
+        clearInterval(auto);
+        auto = null;
+      }
+    };
+    const activate = (id) => {
+      stopAuto();
+      idx = Math.max(0, ids.indexOf(id));
+      paint(id);
+    };
+
     pins.forEach((p) => {
       p.addEventListener("click", () => activate(p.dataset.id));
+      p.addEventListener("pointerenter", () => activate(p.dataset.id));
       p.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
@@ -216,8 +210,20 @@
         }
       });
     });
-    legend.forEach((l) => l.addEventListener("click", () => activate(l.dataset.id)));
-    if (legend.length) activate(legend[0].dataset.id);
+    legend.forEach((l) => {
+      l.addEventListener("click", () => activate(l.dataset.id));
+      l.addEventListener("pointerenter", () => activate(l.dataset.id));
+    });
+
+    if (ids.length) {
+      paint(ids[0]);
+      if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+        auto = setInterval(() => {
+          idx = (idx + 1) % ids.length;
+          paint(ids[idx]);
+        }, 3200);
+      }
+    }
   }
 
   // Interactive service-area map: click a suburb to expand its details and
