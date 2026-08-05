@@ -1,6 +1,6 @@
 # L&V Civil Contracting: Website
 
-Redesigned website for **L&V Civil Contracting** (Park Ridge QLD 4125, servicing Logan &
+Redesigned website for **L&V Civil Contracting** (Brisbane QLD, servicing
 South East Queensland), a client project by **KW | Innovations**.
 
 ## Stack

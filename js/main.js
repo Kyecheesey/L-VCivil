@@ -172,6 +172,54 @@
     });
   }
 
+  // Projects page: sector filter pills + map pin / legend / card sync
+  const projGrid = document.querySelector("[data-projects]");
+  if (projGrid) {
+    const cards = Array.from(projGrid.querySelectorAll(".project-card"));
+    const pins = Array.from(document.querySelectorAll(".pmap-pin"));
+    const legend = Array.from(document.querySelectorAll(".pmap-item"));
+    const row = document.querySelector(".proj-filters");
+
+    if (row) {
+      row.addEventListener("click", (e) => {
+        const btn = e.target.closest(".filter-pill");
+        if (!btn) return;
+        row.querySelectorAll(".filter-pill").forEach((p) => p.classList.remove("is-active"));
+        btn.classList.add("is-active");
+        const f = btn.dataset.filter;
+        cards.forEach((c) => {
+          const show = f === "all" || c.dataset.cat === f;
+          c.classList.toggle("is-hidden", !show);
+          if (show) {
+            c.classList.remove("is-filtering");
+            void c.offsetWidth;
+            c.classList.add("is-filtering");
+          }
+        });
+        pins.concat(legend).forEach((el) =>
+          el.classList.toggle("is-dim", f !== "all" && el.dataset.cat !== f)
+        );
+      });
+    }
+
+    const activate = (id) => {
+      pins.forEach((p) => p.classList.toggle("is-active", p.dataset.id === id));
+      legend.forEach((l) => l.classList.toggle("is-active", l.dataset.id === id));
+      cards.forEach((c) => c.classList.toggle("is-active", c.dataset.id === id));
+    };
+    pins.forEach((p) => {
+      p.addEventListener("click", () => activate(p.dataset.id));
+      p.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activate(p.dataset.id);
+        }
+      });
+    });
+    legend.forEach((l) => l.addEventListener("click", () => activate(l.dataset.id)));
+    if (legend.length) activate(legend[0].dataset.id);
+  }
+
   // Interactive service-area map: click a suburb to expand its details and
   // re-centre the embedded map, without needing a paid Maps API key.
   const areaCards = document.querySelectorAll(".area-card");

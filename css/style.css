@@ -116,51 +116,76 @@ h1, h2, h3, h4 {
 }
 .topbar svg { display: inline-block; vertical-align: -2px; color: var(--accent-500); margin-right: 0.4rem; }
 
-/* ---------- Floating glass nav ---------- */
+/* ---------- Stacked header: big logo band over a slim nav strip ---------- */
 .site-header {
+  --band-h: 148px;
   position: sticky;
-  top: 0;
+  top: calc(-1 * var(--band-h));
   z-index: 100;
-  padding: 0.8rem 0;
 }
-.nav-bar {
+.logo-band {
+  height: var(--band-h);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.5rem 0.6rem 0.5rem 0.6rem;
-  border-radius: 999px;
-  background: linear-gradient(rgba(14, 20, 28, 0.68), rgba(10, 15, 21, 0.68));
-  backdrop-filter: blur(20px) saturate(1.4);
-  -webkit-backdrop-filter: blur(20px) saturate(1.4);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: var(--el-2), var(--ring);
-  transition: background 0.4s var(--ease-soft), box-shadow 0.4s var(--ease-soft);
+  background: linear-gradient(#070b10, #0a1017);
+  border-bottom: var(--hairline);
 }
-.site-header.is-scrolled .nav-bar {
-  background: linear-gradient(rgba(10, 15, 21, 0.92), rgba(7, 11, 16, 0.92));
-  box-shadow: var(--el-3), var(--ring);
+.logo-band-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.brand { display: flex; align-items: center; flex-shrink: 0; }
-.brand img {
-  height: 66px;
-  width: auto;
-  transition: transform 0.35s var(--ease-out);
+/* Vector brand lockup: SVG mark + live text, crisp at any size */
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.9rem, 2vw, 1.5rem);
+  transition: opacity 0.3s;
 }
-.brand:hover img {
-  transform: translateY(-1px);
+.brand-lockup:hover { opacity: 0.88; }
+.brand-mark { height: clamp(60px, 9vw, 94px); width: auto; flex-shrink: 0; }
+.brand-text { display: flex; flex-direction: column; align-items: center; }
+.brand-name {
+  font-family: "Cinzel", "Archivo", serif;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  color: var(--white);
+  text-transform: uppercase;
+  white-space: nowrap;
 }
-.site-footer .brand img { height: 84px; }
+.brand-sub {
+  font-family: "Cinzel", "Archivo", serif;
+  font-weight: 600;
+  font-size: clamp(0.6rem, 1.1vw, 0.9rem);
+  letter-spacing: 0.58em;
+  text-indent: 0.58em;
+  margin-top: 0.5rem;
+  color: var(--steel-400);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
 
-.nav-links { display: flex; align-items: center; gap: 0.15rem; }
+/* Slim nav strip below the logo band */
+.nav-strip {
+  background: linear-gradient(rgba(10, 15, 21, 0.97), rgba(7, 11, 16, 0.97));
+  border-bottom: var(--hairline);
+  transition: box-shadow 0.4s var(--ease-soft);
+}
+.site-header.is-scrolled .nav-strip { box-shadow: var(--el-2); }
+
+.nav-links { display: flex; align-items: center; justify-content: center; gap: 0.3rem; padding: 0.4rem 0; }
 .nav-links > a:not(.btn), .nav-drop > button {
   white-space: nowrap;
   font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
   color: var(--steel-300);
-  padding: 0.5rem 0.95rem;
+  padding: 0.55rem 1.05rem;
   border-radius: 999px;
   position: relative;
   transition: color 0.25s, background 0.25s;
@@ -182,7 +207,7 @@ h1, h2, h3, h4 {
 .nav-drop:hover > button .caret, .nav-drop:focus-within > button .caret { transform: rotate(180deg); }
 .drop-menu {
   position: absolute;
-  top: calc(100% + 1.1rem);
+  top: calc(100% + 0.55rem);
   left: 50%;
   transform: translateX(-50%) translateY(10px);
   min-width: 520px;
@@ -211,6 +236,7 @@ h1, h2, h3, h4 {
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0;
+  text-transform: none;
   color: var(--steel-300);
   transition: background 0.2s, color 0.2s, padding-left 0.25s var(--ease-out);
 }
@@ -228,7 +254,8 @@ h1, h2, h3, h4 {
   opacity: 0.85;
 }
 
-.nav-cta { display: flex; align-items: center; gap: 0.9rem; padding-right: 0.35rem; }
+/* Phone + menu toggle pinned to the right of the logo band */
+.nav-cta { position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 0.9rem; }
 .nav-phone {
   display: inline-flex;
   align-items: center;
@@ -241,7 +268,6 @@ h1, h2, h3, h4 {
 }
 .nav-phone svg { color: var(--accent-500); flex-shrink: 0; }
 .nav-phone:hover { color: var(--accent-500); }
-.nav-divider { width: 1px; height: 18px; background: rgba(255, 255, 255, 0.16); }
 
 .nav-toggle {
   display: none;
@@ -315,11 +341,10 @@ h1, h2, h3, h4 {
 /* ---------- Photo hero (home) ---------- */
 .hero {
   position: relative;
-  min-height: calc(100svh - 118px);
+  min-height: min(80svh, 760px);
   display: flex;
   align-items: center;
-  margin-top: calc(-1 * (76px + 38px));
-  padding: clamp(11rem, 24vh, 15rem) 0 clamp(6.5rem, 13vh, 9rem);
+  padding: clamp(5.5rem, 11vh, 8rem) 0 clamp(6.5rem, 13vh, 9rem);
   background-color: var(--ink-950);
   overflow: hidden;
 }
@@ -454,8 +479,7 @@ h1, h2, h3, h4 {
 /* ---------- Page hero (interior) ---------- */
 .page-hero {
   position: relative;
-  margin-top: calc(-1 * (76px + 38px));
-  padding: clamp(10.5rem, 23vh, 13.5rem) 0 clamp(4rem, 9vh, 5.5rem);
+  padding: clamp(4.5rem, 10vh, 6.5rem) 0 clamp(4rem, 9vh, 5.5rem);
   background-color: var(--ink-950);
   background-image:
     linear-gradient(to top, var(--ink-950) 4%, rgba(7, 11, 16, 0.12) 58%),
@@ -1141,15 +1165,12 @@ h1, h2, h3, h4 {
 
 @media (max-width: 900px) {
   .nav-toggle { display: flex; }
-  .nav-cta .btn-ghost { display: none; }
   .nav-cta { gap: 0.45rem; }
-  /* backdrop-filter creates a containing block that would trap the fixed
-     full-screen menu inside the pill, so use a solid background on mobile */
-  .nav-bar {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background: linear-gradient(rgba(12, 17, 24, 0.96), rgba(8, 12, 17, 0.96));
-  }
+  /* Whole band sticks on mobile; the smart-header JS tucks it away on
+     scroll down so it never hogs a small screen for long */
+  .site-header { top: 0; }
+  .logo-band { height: 96px; }
+  .nav-strip { background: none; border-bottom: 0; }
   .nav-links {
     position: fixed;
     inset: 0;
@@ -1163,7 +1184,7 @@ h1, h2, h3, h4 {
     transition: transform 0.5s var(--ease-out), visibility 0.5s;
     visibility: hidden;
     overflow-y: auto;
-    padding: 5.5rem 1.5rem 3rem;
+    padding: 7rem 1.5rem 3rem;
   }
   .nav-links.is-open { transform: none; visibility: visible; }
   .nav-links > a { font-size: 1.35rem; font-weight: 700; color: var(--white); text-transform: none; letter-spacing: -0.01em; }
@@ -1191,13 +1212,14 @@ h1, h2, h3, h4 {
   .drop-menu .drop-all { grid-column: 1 / -1; border-top: 0; margin-top: 0; padding-top: 0.5rem; }
   .drop-label { text-align: center; padding: 0.7rem 0.4rem 0.2rem; }
   body.nav-locked { overflow: hidden; }
-  .hero, .page-hero { margin-top: calc(-1 * (72px + 36px)); }
 }
 
 @media (max-width: 640px) {
   .nav-phone .ph-num { display: none; }
-  .nav-divider { display: none; }
-  .brand img { height: 56px; }
+  .brand-mark { height: 46px; }
+  .brand-name { font-size: 1.5rem; }
+  .brand-sub { font-size: 0.55rem; margin-top: 0.35rem; }
+  .nav-cta { right: 0.2rem; }
 }
 
 @media (max-width: 560px) {
@@ -1416,3 +1438,127 @@ html { scrollbar-color: var(--ink-600) var(--ink-950); }
   .card-grid .service-card { height: 100%; }
 }
 
+/* ---------- Footer lockup sizing ---------- */
+.site-footer .brand-mark { height: 46px; }
+.site-footer .brand-name { font-size: 1.45rem; }
+.site-footer .brand-sub { font-size: 0.55rem; margin-top: 0.35rem; }
+.footer-about .brand-lockup { gap: 0.8rem; }
+
+/* ---------- Projects grid ---------- */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+  gap: clamp(1.1rem, 2.5vw, 1.6rem);
+}
+.project-card {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(165deg, var(--ink-800), var(--ink-900) 85%);
+  border: var(--hairline);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--el-1), var(--ring);
+  transition: transform 0.45s var(--ease-out), border-color 0.45s, box-shadow 0.45s;
+}
+.project-card:hover, .project-card.is-active {
+  transform: translateY(-5px);
+  border-color: rgba(69, 177, 240, 0.4);
+  box-shadow: var(--el-3), var(--ring);
+}
+.project-card.is-hidden { display: none; }
+.project-card.is-filtering { animation: gitemIn 0.4s var(--ease-out); }
+.pc-media { position: relative; aspect-ratio: 16 / 9.5; overflow: hidden; margin: 0; }
+.pc-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease-out); }
+.project-card:hover .pc-media img { transform: scale(1.05); }
+.pc-body { display: flex; flex-direction: column; gap: 0.65rem; padding: 1.3rem 1.5rem 1.5rem; flex: 1; }
+.pc-meta { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent-500); }
+.pc-meta em { font-style: normal; opacity: 0.6; margin-right: 0.35rem; }
+.pc-body h3 { font-size: var(--fs-h3); letter-spacing: -0.02em; }
+.pc-body p { font-size: 0.92rem; line-height: 1.65; color: var(--steel-400); flex: 1; }
+.pc-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.pc-tags li {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.32rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(69, 177, 240, 0.09);
+  border: 1px solid rgba(69, 177, 240, 0.25);
+  color: var(--accent-500);
+}
+
+/* ---------- Project map (stylised SEQ outline + pins) ---------- */
+.pmap-wrap {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) 1.2fr;
+  gap: clamp(1.2rem, 3vw, 2rem);
+  align-items: stretch;
+}
+.pmap-list { display: grid; gap: 0.65rem; align-content: start; }
+.pmap-item {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  background: var(--white);
+  border: 1px solid #e2e8ee;
+  cursor: pointer;
+  font: inherit;
+  transition: transform 0.25s var(--ease-out), border-color 0.25s, box-shadow 0.25s, opacity 0.25s;
+}
+.pmap-item:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(36, 146, 219, 0.14); }
+.pmap-item.is-active { border-color: var(--accent-600); box-shadow: 0 6px 18px rgba(36, 146, 219, 0.2); }
+.pmap-item.is-dim { opacity: 0.35; }
+.pmap-item i {
+  display: grid;
+  place-items: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--accent-600);
+  color: var(--white);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+.pmap-item strong { display: block; color: #0e1721; font-size: 0.93rem; line-height: 1.3; }
+.pmap-item small { color: #5c6b78; font-size: 0.76rem; }
+.pmap-frame {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid #e2e8ee;
+  box-shadow: var(--el-2);
+  background: #cfe3f2;
+  min-height: 380px;
+}
+.pmap { width: 100%; height: 100%; display: block; }
+.pmap-water { fill: #cfe3f2; }
+.pmap-land { fill: #f2f5f7; stroke: #b9c9d6; stroke-width: 1.5; }
+.pmap-island { fill: #e7edf2; stroke: #b9c9d6; stroke-width: 1; }
+.pmap-base circle { fill: #0e1721; }
+.pmap-base text { font: 700 12px var(--font-body); fill: #0e1721; letter-spacing: 0.04em; }
+.pmap-sea-label { font: 600 11px var(--font-body); fill: #8fb2cc; letter-spacing: 0.3em; text-transform: uppercase; }
+.pmap-pin { cursor: pointer; transition: opacity 0.25s; }
+.pmap-pin:focus-visible { outline: 2px solid var(--accent-600); outline-offset: 2px; border-radius: 50%; }
+.pmap-pin .pin-halo { fill: rgba(36, 146, 219, 0.22); opacity: 0; transition: opacity 0.3s; }
+.pmap-pin .pin-dot { fill: var(--accent-600); stroke: #fff; stroke-width: 2; transition: fill 0.25s; }
+.pmap-pin text { font: 700 9px var(--font-body); fill: #fff; pointer-events: none; }
+.pmap-pin:hover .pin-dot, .pmap-pin.is-active .pin-dot { fill: #0e1721; }
+.pmap-pin.is-active .pin-halo { opacity: 1; animation: pinPulse 1.9s infinite; }
+.pmap-pin.is-dim { opacity: 0.3; }
+@keyframes pinPulse {
+  0% { r: 9; opacity: 0.9; }
+  70% { r: 17; opacity: 0; }
+  100% { r: 17; opacity: 0; }
+}
+@media (max-width: 860px) {
+  .pmap-wrap { grid-template-columns: 1fr; }
+  .pmap-frame { order: -1; min-height: 320px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pmap-pin.is-active .pin-halo { animation: none; opacity: 0.9; }
+}
