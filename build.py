@@ -133,6 +133,7 @@ def head(title, desc, canonical, extra=""):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Archivo:wght@600;700;800;900&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script defer src="/_vercel/insights/script.js"></script>
   <script type="speculationrules">
   {{"prerender": [{{"where": {{"href_matches": "/*"}}, "eagerness": "moderate"}}]}}
   </script>
