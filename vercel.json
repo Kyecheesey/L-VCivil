@@ -1,0 +1,14 @@
+{
+  "routes": [
+    {
+      "src": "/(?!assets/logo\\.png$|favicon\\.ico$).*",
+      "dest": "/maintenance.html",
+      "status": 503,
+      "headers": {
+        "Cache-Control": "no-store",
+        "Retry-After": "86400",
+        "X-Robots-Tag": "noindex"
+      }
+    }
+  ]
+}

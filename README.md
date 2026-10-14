@@ -72,3 +72,9 @@ cPanel, or GitHub Pages with a custom domain, not a /project subpath).
    client wants different figures.
 5. **Form backend (optional)**: the quote form opens a pre-filled email; swap in
    Formspree/Netlify Forms for server-side handling if preferred.
+
+## Maintenance mode (currently ON)
+
+The site is paused: `vercel.json` routes every URL to `maintenance.html`
+(HTTP 503, noindex), which asks the owner to contact admin@kwinnovations.com.au.
+To unlock the site, delete `vercel.json` and redeploy.
